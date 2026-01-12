@@ -949,7 +949,7 @@ ul {
     }
 
     .about-us__paragraph {
-        padding: 1rem 1rem;
+        padding: 1rem 0;
     }
 
     .about-us__CTA-button {
