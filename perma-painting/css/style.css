@@ -179,6 +179,7 @@ button:focus-visible {
     display: none;
     position: relative;
     top: -0.5rem;
+    transition: top 500ms ease;
 }
 
 .site-nav {
@@ -718,6 +719,10 @@ ul {
     }
 
     .site-header.is-scrolled .site-header__toggle {
+        top: 0;
+    }
+
+    body.is-nav-open .site-header__toggle {
         top: 0;
     }
 
