@@ -21,11 +21,18 @@
         <div class="site-header__inner">
 
             <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
-                <img src="assets/Isotipo/PERMA painting/Primario/Iso 1 - Negro.png" class="site-header__logo-img">
+                <img src="assets/Isotipo/PERMA painting/Primario/Iso 1 - Verde.png" alt="Perma Painting"
+                    class="site-header__logo-img-green">
+                <img src="assets/Isotipo/PERMA painting/Primario/Iso 1 - Negro.png" alt=""
+                    class="site-header__logo-img-black">
             </a>
 
             <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
                 aria-expanded="false">
+                <div class="site-header__toggle-icon-container">
+                    <img src="assets/iconos/hamburguer-close/icons8-menú-50.png" class="site-header__toggle-icon"
+                        alt="" aria-hidden="true">
+                </div>
 
                 <span class="site-header__toggle-line" aria-hidden="true"></span>
                 <span class="site-header__toggle-line" aria-hidden="true"></span>
@@ -33,18 +40,17 @@
             </button>
 
             <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-                <ul class="site-nav__list">
-                    <li class="site-nav__item">
-                        <a class="site-nav__link" href="#about">ABOUT US</a>
-                    </li>
-                    <li class="site-nav__item">
-                        <a class="site-nav__link" href="#services">OUR SERVICES</a>
-                    </li>
-                    <li class="site-nav__item">
-                        <a class="site-nav__link site-nav__link--cta" href="#contact">CONTACT</a>
-                    </li>
-                </ul>
+                <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item"><a class="site-nav__link" href="#about">ABOUT US</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="#services">OUR SERVICES</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
+                                href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
             </nav>
+
 
         </div>
 
@@ -78,7 +84,6 @@
 
                                     <h4 class="hero_location">Based in Byron Bay, Australia.</h4>
                                 </div>
-                                <img src="assets/Isotipo/P/P - Negro.png" alt="" class="hero__insight-photo">
                             </div>
                             <button class="hero__CTA-button">
                                 CALL NOW
@@ -100,18 +105,20 @@
                 </div>
 
                 <div class="hero__right">
-                    <img src="assets/photos/IMG_1522.JPG" alt="" class="hero__right--photo">
+                    <div class="hero__right--photo-container">
+                        <img src="assets/photos/IMG_1522.JPG" alt="" class="hero__right--photo">
+                    </div>
                 </div>
 
             </div>
 
         </section>
 
-        <section class="about-us">
+        <section class="about-us" id="about">
             <div class="about-us__grid">
 
-                <p class="about-us__paragraph">Painting is built on care for places, people and materials. <br>
-                    we work with low-toxicity, durable products and conscious methods, prioritizing longevity over quick
+                <p class="about-us__paragraph">Perma Painting is built on care for places, people and materials. <br>
+                    We work with low-toxicity, durable products and conscious methods, prioritizing longevity over quick
                     fixes.
                 </p>
 
@@ -122,7 +129,7 @@
             </div>
         </section>
 
-        <section class="our-services" aria-labelledby="our-services-title">
+        <section class="our-services" id="services" aria-labelledby="our-services-title">
 
             <div class="our-services__main-grid">
 
@@ -208,7 +215,7 @@
                 <div class="why-perma__reasons-grid">
                     <div class="why-perma__reason-item">
                         <div class="why-perma__reason-icon-container">
-                            <img src="assets/iconos/High-Strength_2025-02-19-163615_xbjh.png" alt=""
+                            <img src="assets/iconos/about-us-icons/High-Strength_2025-02-19-163615_xbjh.png" alt=""
                                 class="why-perma__reason-icon">
                         </div>
                         <h3 class="why-perma__reason-title">LONG-TERM THINKING</h3>
@@ -217,7 +224,7 @@
 
                     <div class="why-perma__reason-item">
                         <div class="why-perma__reason-icon-container">
-                            <img src="assets/iconos/Corrosion-Proof_2025-02-19-163611_snsm.png"
+                            <img src="assets/iconos/about-us-icons/Corrosion-Proof_2025-02-19-163611_snsm.png"
                                 class="why-perma__reason-icon">
                         </div>
                         <h3 class="why-perma__reason-title">LOW-TOX MATERIALS</h3>
@@ -226,7 +233,7 @@
 
                     <div class="why-perma__reason-item">
                         <div class="why-perma__reason-icon-container">
-                            <img src="assets/iconos/Rust-resistant_2025-02-19-163611_kbwm.png" alt=""
+                            <img src="assets/iconos/about-us-icons/Rust-resistant_2025-02-19-163611_kbwm.png" alt=""
                                 class="why-perma__reason-icon">
                         </div>
                         <h3 class="why-perma__reason-title">CAREFUL SURFACE PREPARATION</h3>
@@ -235,7 +242,7 @@
 
                     <div class="why-perma__reason-item">
                         <div class="why-perma__reason-icon-container">
-                            <img src="assets/iconos/Fire-rated_2025-02-19-163614_tobq.png" alt=""
+                            <img src="assets/iconos/about-us-icons/Fire-rated_2025-02-19-163614_tobq.png" alt=""
                                 class="why-perma__reason-icon">
                         </div>
                         <h3 class="why-perma__reason-title">REDUCED WASTE</h3>
@@ -244,7 +251,7 @@
 
                     <div class="why-perma__reason-item">
                         <div class="why-perma__reason-icon-container">
-                            <img src="assets/iconos/Sustainable_2025-02-19-163619_xcxw.png" alt=""
+                            <img src="assets/iconos/about-us-icons/Sustainable_2025-02-19-163619_xcxw.png" alt=""
                                 class="why-perma__reason-icon">
                         </div>
                         <h3 class="why-perma__reason-title">RESPECT FOR NATURE</h3>
@@ -254,15 +261,8 @@
 
                 </div>
 
-                <div class="why-perma__values-list--container">
-                    <p class="why-perma__values-list">Full list of work values: <br>
-                        Long-term thinking, low-tox materials, careful surface preparation, reduced waste, respect for
-                        existing spaces, reliable timelines, minimal disruption.</p>
-                </div>
-
                 <button class="why-perma__CTA-button">GET IN TOUCH
-                    <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
-                        class="why-perma__CTA-button--img"></button>
+                    <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="why-perma__CTA-button--img">
 
                 </button>
             </div>
@@ -275,14 +275,14 @@
 
 
 
-    <footer class="site-footer" aria-label="Footer">
+    <footer class="site-footer" id="contact" aria-label="Footer">
 
         <div class="site-footer__inner">
 
             <div class="site-footer__top">
                 <div class="site-footer__col site-footer__col--left">
                     <p class="site-footer__line">+61 433 526 530</p>
-                    <a class="site-footer__link" href="mailto:maildeperma@gmail.com">skere@vosbiem?mmm?.com</a>
+                    <a class="site-footer__link" href="mailto:maildeperma@gmail.com">contact@perma.com</a>
                     <p class="site-footer__line">Byron Bay, NSW.</p>
                 </div>
                 <div class="site-footer__col site-footer__col--right">
