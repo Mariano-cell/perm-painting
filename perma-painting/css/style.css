@@ -21,8 +21,8 @@ body {
     min-height: 100vh;
 
 
-    background: white;
-    /* background: rgb(230, 229, 224); */
+    /* background: white; */
+    background: rgb(230, 229, 224);
 
     line-height: 1.2;
 }
@@ -650,10 +650,10 @@ ul {
 
 
 
-/* 
+
 .img-section {
     display: none;
-} */
+}
 
 
 
