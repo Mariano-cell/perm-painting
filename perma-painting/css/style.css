@@ -552,8 +552,10 @@ body.is-nav-open .nav-backdrop {
 
 .hero__motto {
     margin-left: auto;
-    font-size: clamp(1rem, 1.75vw, 2rem);
-    text-align: right;
+    margin-right: clamp(1rem, 7vw, 6rem);
+    font-size: clamp(0.9rem, 1.3vw, 1.5rem);
+
+    text-align: left;
     flex: 1;
     padding-top: 3rem;
     white-space: nowrap;
@@ -570,6 +572,7 @@ body.is-nav-open .nav-backdrop {
 
 .hero__CTA-button {
     margin-top: auto;
+    margin-bottom: 1rem;
     font-size: 1.25rem;
     display: inline-flex;
     align-items: center;
@@ -590,15 +593,15 @@ body.is-nav-open .nav-backdrop {
 .hero__insight--container {
     display: flex;
     flex-direction: row;
-    padding-bottom: 4.5rem;
+    padding-bottom: 6.5rem;
 }
 
 .hero__insight {
-    font-size: clamp(1rem, 1.35vw, 2rem);
+    font-size: clamp(0.7rem, 1.1vw, 1.5rem);
     font-family: "Inconsolata", monospace;
     font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 300;
+    /* font-style: italic; */
     margin: 0;
 }
 
@@ -608,9 +611,10 @@ body.is-nav-open .nav-backdrop {
 }
 
 .hero_location {
-    font-size: clamp(1rem, 1.1vw, 2rem);
+    font-size: clamp(1rem, 0.95vw, 2rem);
     align-self: baseline;
     margin: 1rem 0 0 0;
+    font-weight: 300;
 }
 
 
@@ -758,12 +762,12 @@ body.is-nav-open .nav-backdrop {
 
 .about-us__paragraph {
     padding: 0 6rem 1rem 6rem;
-    font-size: clamp(1rem, 1.8vw, 1.6rem);
+    font-size: clamp(0.9rem, 1.5vw, 1.4rem);
     text-align: center;
 
     font-family: "Inconsolata", monospace;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 300;
     font-style: normal;
 
 }
@@ -1085,6 +1089,12 @@ body.is-nav-open .nav-backdrop {
         height: 52px;
         opacity: 1;
         display: block;
+    }
+
+
+    .site-nav{
+        top: -0.5rem;
+        transition: top 1s ease;
     }
 
 
@@ -1623,6 +1633,11 @@ body.is-nav-open .nav-backdrop {
     margin: 0;
     font-size: clamp(2.6rem, 4.8vw, 5.2rem);
     line-height: 1.02;
+
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .contact-hero__whatsapp {
@@ -1693,6 +1708,11 @@ body.is-nav-open .nav-backdrop {
     font-size: clamp(1.7rem, 2.6vw, 2.4rem);
     line-height: 1.05;
     animation-delay: 200ms;
+
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .contact-form__form {
@@ -1909,5 +1929,92 @@ body.is-nav-open .nav-backdrop {
         gap: 1.6rem;
         max-width: none;
         margin-inline: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   THANKS PAGE
+========================= */
+
+.thanks {
+    min-height: 100vh;
+
+    /* respeta header fijo aunque no esté presente */
+    padding: calc(110px + 3.6rem) 1.8rem 3rem;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.thanks__inner {
+    width: 100%;
+    max-width: 720px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.6rem;
+
+    padding-top: 1.8rem;
+}
+
+.thanks__title {
+    margin: 0;
+
+    font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+    line-height: 1.02;
+}
+
+.thanks__text {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.4;
+
+    max-width: 46ch;
+}
+
+.thanks__back {
+    margin-top: auto;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    white-space: nowrap;
+
+    min-height: 3rem;
+    padding: 1rem 2rem;
+}
+
+.thanks__back-icon {
+    height: 1em;
+    width: auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .thanks {
+        padding: 93px 1rem 2.5rem;
+    }
+
+    .thanks__inner {
+        padding-top: 1rem;
+    }
+
+    .thanks__back {
+        font-size: 0.9rem;
     }
 }
