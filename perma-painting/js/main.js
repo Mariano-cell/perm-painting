@@ -108,3 +108,13 @@ if (header) {
     { passive: true }
   );
 })();
+
+const body = document.body;
+const backdrop = document.querySelector(".nav-backdrop");
+
+function closeNav() {
+  body.classList.remove("is-nav-open");
+}
+
+backdrop.addEventListener("click", closeNav);
+

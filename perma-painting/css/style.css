@@ -202,7 +202,7 @@ button:focus-visible {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 60;
 
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(0px);
@@ -211,6 +211,7 @@ button:focus-visible {
         background-color 0.3s ease,
         backdrop-filter 0.3s ease,
         -webkit-backdrop-filter 0.3s ease;
+
 
 }
 
@@ -293,6 +294,11 @@ button:focus-visible {
 
 
 
+
+
+
+
+
 .site-header__toggle {
     display: none;
     position: relative;
@@ -320,7 +326,11 @@ button:focus-visible {
     top: -0.75rem;
 
     transition: top 1.1s ease;
+
+    z-index: 70;
 }
+
+
 
 .site-nav__close {
     display: none;
@@ -405,6 +415,32 @@ ul {
 
 
 
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+
+    opacity: 0;
+    pointer-events: none;
+
+    /* importante: arriba del contenido del body, pero abajo del header/panel */
+    z-index: 40;
+    background: transparent;
+    border-radius: 0;
+}
+
+/* cuando el menú está abierto */
+body.is-nav-open .nav-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -418,7 +454,7 @@ ul {
 
 .hero__grid {
     width: 100%;
-    max-width: var(--container-max);
+    /* max-width: var(--container-max); */
 
     margin-inline: auto;
 
@@ -432,6 +468,13 @@ ul {
 
     align-items: stretch;
 }
+/* 
+@media (min-width: 1561px) {
+    .hero__grid {
+        max-width: none;
+    }
+} */
+
 
 .hero__left {
     /* columnas 1 a 6 (ocupa 6 columnas) */
@@ -445,8 +488,6 @@ ul {
     justify-content: space-between;
 
     height: auto;
-
-
 
 }
 
