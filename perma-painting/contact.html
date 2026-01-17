@@ -71,11 +71,15 @@
                 <div class="contact-hero__header">
                     <h1 class="contact-hero__title text-animate-in">Contact us</h1>
 
-                    <a href="#" class="contact-hero__whatsapp btn text-animate-in">
+                    <a href="https://wa.me/61433526530?text=Hi%20Perma%20Painting,%20I%20would%20like%20to%20request%20a%20quote."
+                        class="contact-hero__whatsapp btn text-animate-in" target="_blank" rel="noopener noreferrer"
+                        aria-label="Chat with Perma Painting on WhatsApp">
+
                         CHAT VIA WHATSAPP
                         <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
                             class="contact-hero__whatsapp-icon">
                     </a>
+
                 </div>
 
             </div>
@@ -90,13 +94,19 @@
                     <h2 class="contact-form__title text-animate-in">Tell us about<br>your project</h2>
                 </div>
 
-                <form class="contact-form__form text-animate-in" action="#" method="post">
+                <form class="contact-form__form text-animate-in" name="contact" method="post" action="#thanks.html"
+                    data-netlify="true" netlify-honeypot="bot-field">
+
+                    <input type="hidden" name="form-name" value="contact">
+
+                    <p style="display:none;">
+                        <label>Don’t fill this out: <input name="bot-field"></label>
+                    </p>
 
                     <div class="contact-form__grid">
-
                         <div class="contact-form__field">
                             <label for="name" class="contact-form__label-text">Name</label>
-                            <input type="text" id="name" name="name" class="contact-form__input">
+                            <input type="text" id="name" name="name" class="contact-form__input" required>
                         </div>
 
                         <div class="contact-form__field">
@@ -106,7 +116,7 @@
 
                         <div class="contact-form__field">
                             <label for="email" class="contact-form__label-text">Email address</label>
-                            <input type="email" id="email" name="email" class="contact-form__input">
+                            <input type="email" id="email" name="email" class="contact-form__input" required>
                         </div>
 
                         <div class="contact-form__field">
@@ -116,16 +126,13 @@
 
                         <div class="contact-form__field contact-form__field--full">
                             <label for="message" class="contact-form__label-text">Write your message here</label>
-                            <textarea id="message" name="message"
-                                class="contact-form__textarea"></textarea>
+                            <textarea id="message" name="message" class="contact-form__textarea" required></textarea>
                         </div>
-
                     </div>
 
                     <button type="submit" class="contact-form__submit btn">
                         SEND MESSAGE
-                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
-                            class="contact-form__submit-icon">
+                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="contact-form__submit-icon">
                     </button>
 
                 </form>
