@@ -118,3 +118,145 @@ function closeNav() {
 
 backdrop.addEventListener("click", closeNav);
 
+const track = document.querySelector(".why-perma__reasons-track");
+
+if (track) {
+  // Duplicamos el contenido 1 vez: ahora el track tiene 14 items (7 + 7).
+  // La animación va hasta -50% para “caer” justo al inicio del segundo bloque.
+  track.innerHTML += track.innerHTML;
+}
+
+
+
+
+
+
+
+
+
+
+(() => {
+  const filters = document.querySelectorAll(".services-projects__filter-link[data-category]");
+  const grid = document.querySelector("#services-grid");
+
+  if (!filters.length || !grid) return;
+
+  const galleries = {
+    interior: [
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+      { src: "assets/photos/our services/interior.JPG", alt: "Interior project" },
+    ],
+    exterior: [
+      { src: "assets/photos/our services/exterior.JPG", alt: "Exterior project" },
+      { src: "assets/photos/IMG_1522.JPG", alt: "Exterior project detail" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Exterior project (prep)" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Exterior project (deck)" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Exterior project (limewash)" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Exterior project (commercial)" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Exterior project (residential)" },
+    ],
+    residential: [
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+      { src: "assets/photos/our services/residential.JPG", alt: "Residential project" },
+    ],
+    commercial: [
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+      { src: "assets/photos/our services/commercial.JPG", alt: "Commercial project" },
+    ],
+    restoration: [
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+      { src: "assets/photos/our services/restoration.JPG", alt: "Restoration project" },
+    ],
+    limewash: [
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+      { src: "assets/photos/our services/limewash-01.JPG", alt: "Limewash project" },
+    ],
+    decks: [
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+      { src: "assets/photos/our services/deck.JPG", alt: "Decks project" },
+    ],
+    cabinetry: [
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+      { src: "assets/photos/our services/cabinetry.JPG", alt: "Cabinetry project" },
+    ],
+  };
+
+  const renderGallery = (category) => {
+    const items = galleries[category] || [];
+    grid.innerHTML = "";
+
+    items.forEach((item) => {
+      const figure = document.createElement("figure");
+      figure.className = "services-projects__card";
+
+      const img = document.createElement("img");
+      img.className = "services-projects__img";
+      img.src = item.src;
+      img.alt = item.alt || "";
+
+      figure.appendChild(img);
+      grid.appendChild(figure);
+    });
+
+    // caption, si lo querés fijo como en el mock:
+    const caption = document.createElement("p");
+    caption.className = "services-projects__caption";
+    caption.textContent = "Exterior - Byron Bay, NSW.";
+    grid.appendChild(caption);
+  };
+
+  const setActive = (btn) => {
+    filters.forEach((b) => {
+      b.classList.toggle("is-active", b === btn);
+      b.setAttribute("aria-selected", b === btn ? "true" : "false");
+    });
+  };
+
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const category = btn.dataset.category;
+      setActive(btn);
+      renderGallery(category);
+    });
+  });
+
+  // init (usa el que venga activo en el HTML)
+  const initiallyActive = document.querySelector(".services-projects__filter-link.is-active") || filters[0];
+  setActive(initiallyActive);
+  renderGallery(initiallyActive.dataset.category);
+})();

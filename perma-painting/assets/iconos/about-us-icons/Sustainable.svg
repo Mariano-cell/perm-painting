@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <path d="M8 32.8925V56C20.69 56 30.9725 45.6575 30.9725 32.8925H8Z" fill="black"></path>
+  <path d="M56 31.1075V8C43.31 8 33.0275 18.3425 33.0275 31.1075H56Z" fill="black"></path>
+  <path d="M30.9725 8H8C8 20.7575 18.2825 31.1075 30.9725 31.1075V8Z" fill="black"></path>
+  <path d="M33.0275 56H56C56 43.2425 45.7175 32.8925 33.0275 32.8925V56Z" fill="black"></path>
+</svg>
