@@ -559,6 +559,7 @@ body.is-nav-open .nav-backdrop {
     flex: 1;
     padding-top: 3rem;
     white-space: nowrap;
+    font-weight: 400;
 }
 
 .hero__presentation {
@@ -593,14 +594,14 @@ body.is-nav-open .nav-backdrop {
 .hero__insight--container {
     display: flex;
     flex-direction: row;
-    padding-bottom: 6.5rem;
+    padding-bottom: clamp(5rem, 6vw, 8rem);
 }
 
 .hero__insight {
-    font-size: clamp(0.7rem, 1.1vw, 1.5rem);
+    font-size: clamp(0.9rem, 1.2vw, 1.5rem);
     font-family: "Inconsolata", monospace;
     font-optical-sizing: auto;
-    font-weight: 300;
+    font-weight: 350;
     /* font-style: italic; */
     margin: 0;
 }
@@ -611,7 +612,7 @@ body.is-nav-open .nav-backdrop {
 }
 
 .hero_location {
-    font-size: clamp(1rem, 0.95vw, 2rem);
+    font-size: clamp(0.8rem, 1vw, 2rem);
     align-self: baseline;
     margin: 1rem 0 0 0;
     font-weight: 300;
@@ -1209,6 +1210,16 @@ body.is-nav-open .nav-backdrop {
     .hero__right {
         justify-content: flex-start;
     }
+
+    .hero__insight {
+        font-size: clamp(0.9rem, 1.5vw, 1.5rem);
+    }
+
+    .hero_location{
+        font-size: clamp(0.7rem, 1.25vw, 1.5rem);
+    }
+
+
 
     .hero__insight--container {
         padding-bottom: 0;
