@@ -260,3 +260,25 @@ if (track) {
   setActive(initiallyActive);
   renderGallery(initiallyActive.dataset.category);
 })();
+
+
+
+async function loadReviews() {
+  const container = document.getElementById('reviews-container');
+  try {
+    const response = await fetch('/.netlify/functions/get-reviews');
+    const reviews = await response.json();
+
+    container.innerHTML = reviews.map(rev => `
+          <div class="review-card">
+              <strong>${rev.author_name}</strong>
+              <p>${"★".repeat(rev.rating)}</p>
+              <p>${rev.text}</p>
+          </div>
+      `).join('');
+  } catch (error) {
+    container.innerHTML = '<p>No se pudieron cargar las reseñas.</p>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadReviews);
