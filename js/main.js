@@ -269,15 +269,20 @@ async function loadReviews() {
     const response = await fetch('/.netlify/functions/get-reviews');
     const reviews = await response.json();
 
+    if (!reviews || reviews.length === 0) {
+      container.innerHTML = '<p class="hero__insight">No reviews available at the moment.</p>';
+      return;
+    }
+
     container.innerHTML = reviews.map(rev => `
           <div class="review-card">
-              <strong>${rev.author_name}</strong>
-              <p>${"★".repeat(rev.rating)}</p>
-              <p>${rev.text}</p>
+              <span class="review-card__author">${rev.author_name}</span>
+              <div class="review-card__rating">${"★".repeat(rev.rating)}</div>
+              <p class="review-card__text">"${rev.text}"</p>
           </div>
       `).join('');
   } catch (error) {
-    container.innerHTML = '<p>No se pudieron cargar las reseñas.</p>';
+    container.innerHTML = '<p>Something went wrong loading reviews.</p>';
   }
 }
 
