@@ -1,13 +1,11 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function (event, context) {
-    // Reemplaza esto con tu Place ID real
     const PLACE_ID = 'ChIJvRmc7caPkGsRkzqug2m9w58';
     const API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
     const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews,rating&key=${API_KEY}`;
 
     try {
+        // Usamos el fetch que ya viene incorporado en Node.js
         const response = await fetch(url);
         const data = await response.json();
 
@@ -20,7 +18,10 @@ exports.handler = async function (event, context) {
 
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*" // Ayuda a evitar problemas de permisos
+            },
             body: JSON.stringify(data.result.reviews || [])
         };
     } catch (error) {
