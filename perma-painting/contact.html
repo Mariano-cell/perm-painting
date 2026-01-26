@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>Contact | Perma Painting</title>
+
+    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header" aria-label="Header">
+        <div class="site-header__inner">
+
+            <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
+                <img src="assets/Isotipo/PERMA painting/Primario/Iso 1 - Verde.png" alt="Perma Painting"
+                    class="site-header__logo-img-green">
+                <img src="assets/Isotipo/PERMA painting/Primario/Iso 1 - Negro.png" alt=""
+                    class="site-header__logo-img-black">
+            </a>
+
+            <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
+                aria-expanded="false">
+                <div class="site-header__toggle-icon-container">
+                    <img src="assets/iconos/hamburguer-close/menu-50.png" class="site-header__toggle-icon" alt=""
+                        aria-hidden="true">
+                </div>
+
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+                <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item">
+                            <a class="site-nav__link" href="index.html#about">ABOUT US</a>
+                        </li>
+                        <li class="site-nav__item">
+                            <a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+                        </li>
+                        <li class="site-nav__item">
+                            <a class="site-nav__link site-nav__link--cta" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main>
+
+        <!-- CONTACT HERO -->
+        <section class="contact-hero">
+            <div class="contact-hero__inner">
+
+                <div class="contact-hero__header">
+                    <h1 class="contact-hero__title text-animate-in">Contact us</h1>
+
+                    <a href="https://wa.me/61433526530?text=Hi%20Perma%20Painting,%20I%20would%20like%20to%20request%20a%20quote."
+                        class="contact-hero__whatsapp btn text-animate-in" target="_blank" rel="noopener noreferrer"
+                        aria-label="Chat with Perma Painting on WhatsApp">
+
+                        CHAT VIA WHATSAPP
+                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                            class="contact-hero__whatsapp-icon">
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT FORM -->
+        <section class="contact-form">
+            <div class="contact-form__inner">
+
+                <div class="contact-form__intro">
+                    <span class="contact-form__label">CONTACT FORM</span>
+                    <h2 class="contact-form__title text-animate-in">Tell us about<br>your project</h2>
+                </div>
+
+                <form class="contact-form__form text-animate-in" name="contact" method="post" action="/thanks.html"
+                    data-netlify="true" netlify-honeypot="bot-field">
+
+                    <input type="hidden" name="form-name" value="contact">
+
+                    <p style="display:none;">
+                        <label>Don’t fill this out: <input name="bot-field"></label>
+                    </p>
+
+                    <div class="contact-form__grid">
+                        <div class="contact-form__field">
+                            <label for="name" class="contact-form__label-text">Name</label>
+                            <input type="text" id="name" name="name" class="contact-form__input" required>
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label for="phone" class="contact-form__label-text">Phone number</label>
+                            <input type="tel" id="phone" name="phone" class="contact-form__input">
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label for="email" class="contact-form__label-text">Email address</label>
+                            <input type="email" id="email" name="email" class="contact-form__input" required>
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label for="address" class="contact-form__label-text">Address</label>
+                            <input type="text" id="address" name="address" class="contact-form__input">
+                        </div>
+
+                        <div class="contact-form__field contact-form__field--full">
+                            <label for="message" class="contact-form__label-text">Write your message here</label>
+                            <textarea id="message" name="message" class="contact-form__textarea" required></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="contact-form__submit btn">
+                        SEND MESSAGE
+                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="contact-form__submit-icon">
+                    </button>
+
+                </form>
+
+            </div>
+        </section>
+
+        <!-- LOCATIONS -->
+        <section class="locations">
+            <div class="locations__inner">
+
+                <span class="locations__label">LOCATIONS</span>
+
+                <h2 class="locations__title">
+                    We’re proudly based in Byron Bay.<br>
+                    We also work across The Northern Rivers region, including:
+                </h2>
+
+                <div class="locations__lists">
+
+                    <ul class="locations__list">
+                        <li class="locations__item">Suffolk Park</li>
+                        <li class="locations__item">Byron Bay</li>
+                        <li class="locations__item">Ewingsdale</li>
+                        <li class="locations__item">Sunrise, Byron Bay</li>
+                        <li class="locations__item">Broken Head</li>
+                        <li class="locations__item">Lennox Head</li>
+                        <li class="locations__item">Ballina</li>
+                        <li class="locations__item">East Ballina</li>
+                        <li class="locations__item">Brunswick Heads</li>
+                        <li class="locations__item">Ocean Shores</li>
+                        <li class="locations__item">South Golden Beach</li>
+                        <li class="locations__item">New Brighton</li>
+                        <li class="locations__item">Pottsville</li>
+                        <li class="locations__item">Alstonville</li>
+                        <li class="locations__item">Billinudgel</li>
+                    </ul>
+
+                    <ul class="locations__list">
+                        <li class="locations__item">Myocum</li>
+                        <li class="locations__item">Tyagarah</li>
+                        <li class="locations__item">Bangalow</li>
+                        <li class="locations__item">Mullumbimby</li>
+                        <li class="locations__item">Newrybar</li>
+                        <li class="locations__item">Federal</li>
+                        <li class="locations__item">Lismore</li>
+                        <li class="locations__item">Tintenbar</li>
+                        <li class="locations__item">Wardell</li>
+                        <li class="locations__item">Coorabell</li>
+                        <li class="locations__item">The Pocket</li>
+                        <li class="locations__item">Cumbalum</li>
+                        <li class="locations__item">Skinners Head</li>
+                        <li class="locations__item">Belongil</li>
+                        <li class="locations__item">Skinners Shoot</li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" aria-label="Footer">
+        <div class="site-footer__inner">
+
+            <div class="site-footer__top">
+                <div class="site-footer__col site-footer__col--left">
+                    <p class="site-footer__line">+61 433 526 530</p>
+                    <a class="site-footer__link" href="mailto:maildeperma@gmail.com">contact@perma.com</a>
+                    <p class="site-footer__line">Byron Bay, NSW.</p>
+                </div>
+
+                <div class="site-footer__col site-footer__col--right">
+                    <p class="site-footer__line">PERMA Painting</p>
+                    <p class="site-footer__line">License Number: 123456789A / 12345789A</p>
+                    <p class="site-footer__line">ABN: 12 345 678 912</p>
+                </div>
+            </div>
+
+            <div class="site-footer__bottom">
+                <a class="site-footer__social" href="#" aria-label="Instagram">
+                    <img src="assets/iconos/icons8-instagram-ios-17-outlined/icons8-instagram-100.png" alt=""
+                        class="site-footer__social-img">
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
