@@ -1075,60 +1075,114 @@ body.is-nav-open .nav-backdrop {
 
 .site-footer {
     background-color: var(--color-secondary);
-
     position: relative;
     isolation: isolate;
-
-    font-weight: 500;
-
+    padding-block: 1.8rem;
 }
-
-.site-footer>* {
-    position: relative;
-    z-index: 1;
-}
-
 
 .site-footer__inner {
-    margin-inline: auto;
-    gap: 2rem;
-    padding: 1rem 7.8rem 1rem;
+    height: 14rem;
+    padding-inline: var(--container-pad);
+    padding-block: 0;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: stretch;
+}
+
+
+/* ===== Left mark ===== */
+.site-footer__left {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.site-footer__paint-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    /* en el mock se lee “PAINTING” vertical de abajo hacia arriba */
+    transform: rotate(180deg);
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.22em;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.site-footer__mark-icon {
+    display: block;
+    height: clamp(74px, 12vw, 200px);
+    width: auto;
+    align-self: flex-end;
+}
+
+/* ===== Center row ===== */
+.site-footer__row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 0;
+    min-width: 0;
+    padding-inline: 1.8rem;
+}
+
+.site-footer__block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: clamp(0.5rem, 1vw, 0.95rem);
+    line-height: 1.25;
+    color: rgba(0, 0, 0, 0.9);
+
+    width: clamp(100px, 15vw, 220px);
+
+    /* evita que bloques “bailen” */
+    min-width: 0;
+}
+
+.site-footer__line {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.site-footer__label {
+    margin: 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.75);
 }
 
 .site-footer__link {
     color: inherit;
     text-decoration: none;
+    width: fit-content;
 }
 
-.site-footer__top {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
+.site-footer__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
-.site-footer__col--right {
-    text-align: right;
-}
-
-
-.site-footer__bottom {
-    margin-top: 1rem;
-    margin-left: 1rem;
+/* ===== Right logos ===== */
+.site-footer__logos {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-self: end;
+    width: clamp(100px, 15vw, 220px);
+    align-self: flex-end;
 }
 
-.site-footer__social {
-    /* height: 2rem; */
-}
-
-.site-footer__social-img {
-    height: 2rem;
-}
-
-.site-footer__line,
-.site-footer__link {
-    font-weight: 500;
+.license-logo {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 
@@ -1226,6 +1280,22 @@ body.is-nav-open .nav-backdrop {
     }
 
 
+}
+
+@media (max-width: 1024px) {
+    .site-footer__inner {
+        padding: 1.4rem 1.2rem;
+        column-gap: 2rem;
+    }
+
+    .site-footer__row {
+        gap: 2.4rem;
+        justify-content: flex-start;
+    }
+
+    .license-logo {
+        height: 36px;
+    }
 }
 
 
@@ -1645,20 +1715,32 @@ body.is-nav-open .nav-backdrop {
 
     /* SITE FOOTER   ///   SITE FOOTER   ///   SITE FOOTER   ///   SITE FOOTER   ///   */
 
-    .site-footer {
-        font-size: clamp(0.75rem, 3.2vw, 0.9rem);
-        line-height: 1.35;
-    }
-
     .site-footer__inner {
-        margin-inline: 1rem;
-        padding: 1rem 0;
+        grid-template-columns: 1fr;
+        row-gap: 1.4rem;
+        align-items: start;
+        padding: 1.2rem 1rem;
+        min-height: clamp(140px, 18vw, 220px)
     }
 
-    .site-footer__top {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+    .site-footer__left {
+        justify-content: flex-start;
+    }
+
+    /* en mobile, la “fila” pasa a stacked para no romper */
+    .site-footer__row {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    .site-footer__logos {
+        justify-self: start;
+    }
+
+    .license-logo {
+        height: 34px;
     }
 
 
