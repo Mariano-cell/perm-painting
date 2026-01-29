@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>About Us | Perma Painting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+</head>
+
+<body>
+
+    <header class="site-header" aria-label="Header">
+        <div class="site-header__inner">
+
+            <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
+                <img src="assets/isotipo/perma-grande/primario/iso1-verde.png" alt="Perma Painting"
+                    class="site-header__logo-img-green">
+                <img src="assets/isotipo/perma-grande/primario/iso1-negro.png" alt=""
+                    class="site-header__logo-img-black">
+            </a>
+
+            <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
+                aria-expanded="false">
+                <div class="site-header__toggle-icon-container">
+                    <img src="assets/iconos/hamburguer-close/menu-50.png" class="site-header__toggle-icon" alt=""
+                        aria-hidden="true">
+                </div>
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+                <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item"><a class="site-nav__link" href="about-us.html">ABOUT US</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+                        </li>
+                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
+                                href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <!-- ✅ AHORA TODO EL MAIN USA LAS CLASES QUE TU CSS DEFINE -->
+    <main class="about-page">
+
+        <div class="about-page__inner">
+
+            <section class="about-page__header" aria-label="About us header">
+                <h1 class="about-page__title">About us</h1>
+            </section>
+
+            <section class="about-page__overview" aria-label="Overview">
+                <p class="about-page__kicker">OVERVIEW</p>
+                <p class="about-page__text">
+                    The way we work is shaped by a simple mindset:
+                    being thoughtful with materials, less waste and
+                    treating every space with care.
+                </p>
+            </section>
+
+            <section class="about-page__gallery" aria-label="Project photos">
+                <div class="about-page__gallery-viewport" data-gallery="taca">
+                    <div class="about-page__gallery-track">
+                        <figure class="about-page__slide">
+                            <img class="about-page__img" src="assets/photos/IMG_0815.png"
+                                alt="Painting project photo 1">
+                        </figure>
+
+                        <figure class="about-page__slide">
+                            <img class="about-page__img" src="assets/photos/IMG_1045.png"
+                                alt="Painting project photo 2">
+                        </figure>
+
+                        <figure class="about-page__slide">
+                            <img class="about-page__img" src="assets/photos/IMG_9949.png"
+                                alt="Painting project photo 3">
+                        </figure>
+                        
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="locations">
+                <div class="locations__inner">
+                    <span class="locations__label">LOCATIONS</span>
+
+                    <h2 class="locations__title">
+                        We’re proudly based in Byron Bay.<br />
+                        We also work across The Northern Rivers region, including:
+                        <span class="locations__dropdown locations__dropdown--inline" data-locations>
+                            <button type="button" class="locations__trigger" aria-haspopup="listbox"
+                                aria-expanded="false">
+                                <span class="locations__trigger-text">-- Select a location --</span>
+                                <span class="locations__trigger-icon" aria-hidden="true">▾</span>
+                            </button>
+
+
+
+                            <!-- Panel desplegable -->
+                            <div class="locations__panel" hidden>
+                                <label class="locations__search">
+                                    <input class="locations__search-input" type="search" placeholder="Type to search…"
+                                        autocomplete="off" />
+                                </label>
+
+                                <ul class="locations__menu" role="listbox" aria-label="Locations">
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="Suffolk Park">
+                                            Suffolk Park
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Byron Bay">
+                                            Byron Bay
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Ewingsdale">
+                                            Ewingsdale
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="Sunrise, Byron Bay">
+                                            Sunrise, Byron Bay
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Broken Head">
+                                            Broken Head
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Lennox Head">
+                                            Lennox Head
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Ballina">
+                                            Ballina
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="East Ballina">
+                                            East Ballina
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="Brunswick Heads">
+                                            Brunswick Heads
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="Ocean Shores">
+                                            Ocean Shores
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="South Golden Beach">
+                                            South Golden Beach
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="New Brighton">
+                                            New Brighton
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Pottsville">
+                                            Pottsville
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Alstonville">
+                                            Alstonville
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Billinudgel">
+                                            Billinudgel
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Myocum">
+                                            Myocum
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Tyagarah">
+                                            Tyagarah
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Bangalow">
+                                            Bangalow
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Mullumbimby">
+                                            Mullumbimby
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Newrybar">
+                                            Newrybar
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Federal">
+                                            Federal
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Lismore">
+                                            Lismore
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Tintenbar">
+                                            Tintenbar
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Wardell">
+                                            Wardell
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Coorabell">
+                                            Coorabell
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="The Pocket">
+                                            The Pocket
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Cumbalum">
+                                            Cumbalum
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="Skinners Head">
+                                            Skinners Head
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn" data-location="Belongil">
+                                            Belongil
+                                        </button>
+                                    </li>
+
+                                    <li class="locations__option" role="option">
+                                        <button type="button" class="locations__option-btn"
+                                            data-location="Skinners Shoot">
+                                            Skinners Shoot
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </span>
+                    </h2>
+
+                    <!-- Dropdown searchable -->
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer" id="contact" aria-label="Footer">
+        <div class="site-footer__inner">
+
+            <div class="site-footer__left" aria-hidden="true">
+                <img class="site-footer__mark-icon" src="assets/isotipo/p-painting/ppainting-verde-cropped.png" alt=""
+                    loading="lazy" />
+            </div>
+
+            <div class="site-footer__row" aria-label="Company information">
+                <!-- tus bloques comentados, ok -->
+            </div>
+
+            <div class="site-footer__logos" aria-label="Accreditations">
+                <img class="license-logo" src="assets/logos-empresas/nsw-government.svg" alt="NSW Government"
+                    loading="lazy" />
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/about-us-gallery.js"></script>
+</body>
+
+</html>

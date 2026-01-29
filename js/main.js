@@ -216,6 +216,20 @@ if (track) {
     ],
   };
 
+  const CATEGORY_LABELS = {
+    interior: "Interior",
+    exterior: "Exterior",
+    residential: "Residential",
+    commercial: "Commercial",
+    restoration: "Restoration",
+    limewash: "Limewash",
+    decks: "Decks",
+    cabinetry: "Cabinetry",
+  };
+
+  const CAPTION_SUFFIX = "Byron Bay, NSW.";
+
+
   const renderGallery = (category) => {
     const items = galleries[category] || [];
     grid.innerHTML = "";
@@ -233,11 +247,35 @@ if (track) {
       grid.appendChild(figure);
     });
 
-    // caption, si lo querés fijo como en el mock:
+    // caption dinámico (mismo estilo, solo cambia la categoría)
     const caption = document.createElement("p");
     caption.className = "services-projects__caption";
-    caption.textContent = "Exterior - Byron Bay, NSW.";
+
+    const label = CATEGORY_LABELS[category] || category;
+    caption.textContent = `${label} - ${CAPTION_SUFFIX}`;
+
     grid.appendChild(caption);
+
+    // Disparar animación de entrada (stagger)
+    const cards = Array.from(grid.querySelectorAll(".services-projects__card"));
+
+    // si el usuario prefiere reducir motion, no animamos
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      cards.forEach((c) => c.classList.add("is-in"));
+      return;
+    }
+
+    // Importante: 2 RAF para asegurar que el "estado inicial" (opacity 0) se aplique
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add("is-in"), i * 60); // 60ms stagger
+        });
+      });
+    });
+
+
   };
 
   const setActive = (btn) => {
@@ -252,13 +290,30 @@ if (track) {
       const category = btn.dataset.category;
       setActive(btn);
       renderGallery(category);
+
+      history.replaceState(null, "", `#${encodeURIComponent(category)}`);
     });
   });
 
-  // init (usa el que venga activo en el HTML)
-  const initiallyActive = document.querySelector(".services-projects__filter-link.is-active") || filters[0];
+
+  // init: si viene hash (ej: our-services.html#decks), lo usamos
+  const hash = (window.location.hash || "")
+    .replace("#", "")
+    .trim()
+    .toLowerCase();
+
+  const fromHash =
+    hash &&
+    Array.from(filters).find((b) => (b.dataset.category || "").toLowerCase() === hash);
+
+  const initiallyActive =
+    fromHash ||
+    document.querySelector(".services-projects__filter-link.is-active") ||
+    filters[0];
+
   setActive(initiallyActive);
   renderGallery(initiallyActive.dataset.category);
+
 })();
 
 
@@ -287,3 +342,118 @@ async function loadReviews() {
 }
 
 document.addEventListener('DOMContentLoaded', loadReviews);
+
+// =======================================
+// LOCATIONS dropdown (search + select)
+// =======================================
+(() => {
+  const root = document.querySelector("[data-locations]");
+  if (!root) return;
+
+  const trigger = root.querySelector(".locations__trigger");
+  const triggerText = root.querySelector(".locations__trigger-text");
+  const panel = root.querySelector(".locations__panel");
+  const searchInput = root.querySelector(".locations__search-input");
+  const optionBtns = Array.from(root.querySelectorAll(".locations__option-btn"));
+
+  if (!trigger || !triggerText || !panel || !searchInput || optionBtns.length === 0) return;
+
+  const isOpen = () => !panel.hasAttribute("hidden");
+
+  const open = () => {
+    panel.removeAttribute("hidden");
+    trigger.setAttribute("aria-expanded", "true");
+
+    // foco al search para que el usuario tipeé directo
+    requestAnimationFrame(() => searchInput.focus());
+  };
+
+  const close = () => {
+    panel.setAttribute("hidden", "");
+    trigger.setAttribute("aria-expanded", "false");
+
+    // limpiar filtro cuando cerrás (opcional; si no lo querés, borrá estas 2 líneas)
+    searchInput.value = "";
+    optionBtns.forEach((b) => (b.closest(".locations__option").style.display = ""));
+  };
+
+  const toggle = () => (isOpen() ? close() : open());
+
+  const filter = (query) => {
+    const q = query.trim().toLowerCase();
+    optionBtns.forEach((btn) => {
+      const label = (btn.dataset.location || btn.textContent).trim().toLowerCase();
+      const show = label.includes(q);
+      btn.closest(".locations__option").style.display = show ? "" : "none";
+    });
+  };
+
+  // 1) abrir/cerrar con el trigger
+  trigger.addEventListener("click", toggle);
+
+  // 2) filtrar mientras tipeás
+  searchInput.addEventListener("input", (e) => {
+    filter(e.target.value);
+  });
+
+  // 3) seleccionar opción
+  optionBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const value = btn.dataset.location || btn.textContent.trim();
+
+      // 1) set dropdown text
+      triggerText.textContent = value;
+      close();
+
+      // 2) update contact form title
+      const titleEl = document.querySelector(".contact-form__title");
+      if (titleEl) {
+        // mantenemos el <br> como en tu diseño
+        titleEl.innerHTML = `Tell us about<br>your project in ${value}!`;
+      }
+
+      // 3) scroll to form (con offset por header fijo)
+      const formSection = document.querySelector(".contact-form");
+      if (formSection) {
+        const headerEl = document.querySelector(".site-header");
+        const headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
+
+        const y =
+          window.scrollY + formSection.getBoundingClientRect().top - headerH - 16; // 16px “aire”
+
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      }
+
+      // 4) foco (mejor UX / a11y)
+      requestAnimationFrame(() => trigger.focus());
+    });
+  });
+
+
+  // 4) click afuera => cerrar
+  document.addEventListener("click", (e) => {
+    if (!isOpen()) return;
+    if (!root.contains(e.target)) close();
+  });
+
+  // 5) ESC => cerrar
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen()) {
+      e.preventDefault();
+      close();
+      requestAnimationFrame(() => trigger.focus());
+    }
+  });
+
+  // 6) si estás en mobile (panel position: static) igual funciona,
+  // pero evitamos que quede abierto al cambiar a desktop/tablet si querés:
+  window.addEventListener(
+    "resize",
+    () => {
+      if (!isOpen()) return;
+      // si querés cerrarlo siempre al resize:
+      close();
+    },
+    { passive: true }
+  );
+})();

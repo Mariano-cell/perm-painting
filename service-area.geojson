@@ -1,0 +1,57 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Byron Bay",
+                "description": "Approximate boundary of Byron Bay suburb",
+                "state": "New South Wales",
+                "postcode": "2481"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            153.5852,
+                            -28.6365
+                        ],
+                        [
+                            153.6065,
+                            -28.6321
+                        ],
+                        [
+                            153.6358,
+                            -28.6375
+                        ],
+                        [
+                            153.6465,
+                            -28.6438
+                        ],
+                        [
+                            153.6392,
+                            -28.6678
+                        ],
+                        [
+                            153.6085,
+                            -28.6825
+                        ],
+                        [
+                            153.5812,
+                            -28.6712
+                        ],
+                        [
+                            153.5785,
+                            -28.6521
+                        ],
+                        [
+                            153.5852,
+                            -28.6365
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}
