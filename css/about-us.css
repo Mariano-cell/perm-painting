@@ -446,6 +446,7 @@ body.is-nav-open .nav-backdrop {
 
 .about-page__gallery {
     margin-top: 2.2rem;
+    max-width: 100vw;
 }
 
 /* El scroller real */
