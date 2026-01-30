@@ -171,7 +171,7 @@ h3 {
     font-weight: 300;
 }
 
-h2{
+h2 {
     font-size: 0.85rem;
     letter-spacing: 0.02em
 }
@@ -579,7 +579,6 @@ body.is-nav-open .nav-backdrop {
 .hero__CTA-button {
     margin-top: auto;
     margin-bottom: 1rem;
-    font-size: 1.25rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2239,7 +2238,9 @@ body.is-nav-open .nav-backdrop {
 /* --- Selected projects label --- */
 .services-projects {
     padding-top: 3.6rem;
+    scroll-margin-top: 500px;
 }
+
 
 .services-projects__label {
     margin: 0;

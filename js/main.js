@@ -314,6 +314,40 @@ if (track) {
   setActive(initiallyActive);
   renderGallery(initiallyActive.dataset.category);
 
+  // ==============================
+  // Auto-scroll a la galería (solo si venís desde Home)
+  // our-services.html?view=projects#interior
+  // ==============================
+  const params = new URLSearchParams(window.location.search);
+  const shouldScrollToProjects = params.get("view") === "projects";
+
+  if (shouldScrollToProjects) {
+    const target = document.querySelector(".services-projects") || document.querySelector("#services-grid");
+    if (target) {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Esperamos a que el DOM tenga el contenido renderizado + layout listo
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const headerEl = document.querySelector(".site-header");
+          const headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
+
+          const y = window.scrollY + target.getBoundingClientRect().top - headerH + 60;
+
+          window.scrollTo({
+            top: Math.max(0, y),
+            behavior: reduced ? "auto" : "smooth",
+          });
+
+          // opcional: limpiar el param para que si el usuario recarga, no vuelva a scrollear
+          // (si querés esto, descomentá)
+          // history.replaceState(null, "", window.location.pathname + window.location.hash);
+        });
+      });
+    }
+  }
+
+
 })();
 
 

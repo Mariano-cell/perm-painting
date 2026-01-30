@@ -366,7 +366,7 @@ body.is-nav-open .nav-backdrop {
   ========================= */
 
 .about-page {
-    padding: calc(110px + 3.6rem) 1.8rem 4rem 1.8rem;
+    padding: calc(110px + 3.6rem) 1.8rem 1.8rem 1.8rem;
 }
 
 .about-page__inner {
@@ -398,6 +398,8 @@ body.is-nav-open .nav-backdrop {
 
 .about-page__overview {
     margin-top: 1.8rem;
+    padding-bottom: 1.8rem;
+
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: 2rem;
@@ -430,6 +432,7 @@ body.is-nav-open .nav-backdrop {
 .about-page__text {
     margin: 0;
     max-width: 60ch;
+    padding-top: 1rem;
 
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -437,7 +440,19 @@ body.is-nav-open .nav-backdrop {
     font-style: normal;
 
     font-size: clamp(2.5rem, 3vw, 3.5rem);
-    line-height: 1.25;
+    line-height: 1.1;
+    text-align: right;
+}
+
+@media (max-width: 768px){
+    .about-page__text{
+        font-size: clamp(1.4rem, 1.5vw, 2rem);
+    }
+
+    .about-page__inner{
+        max-width: 100vw;
+        overflow: hidden;
+    }
 }
 
 /* =========================
@@ -536,7 +551,10 @@ body.is-nav-open .nav-backdrop {
 ========================= */
 
 .brands {
-    padding: 8.2rem 0 3.2rem 0;
+    padding: 4.2rem 0 3.2rem 0;
+    border-top: 1px solid rgb(186, 186, 186);
+    ;
+
 }
 
 .brands__inner {
@@ -613,7 +631,7 @@ body.is-nav-open .nav-backdrop {
 
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2.4rem;
+    gap: 4rem;
 }
 
 .brands__title {
@@ -627,14 +645,18 @@ body.is-nav-open .nav-backdrop {
 
 .brands__cta {
     justify-self: center;
-
+    margin-top: auto;
+    margin-bottom: 1rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
-
-    padding: 0.9rem 1.4rem;
-    font-size: 1.05rem;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    min-height: 3rem;
+    padding: 1rem 2rem;
 }
+
+
 
 /* Tablet */
 @media (max-width: 1024px) {
@@ -665,6 +687,7 @@ body.is-nav-open .nav-backdrop {
 
     .brands__note {
         text-align: left;
+        font-size: 1.1rem;
     }
 
     .brands__logos {
@@ -675,8 +698,13 @@ body.is-nav-open .nav-backdrop {
         flex: 0 1 140px;
     }
 
-    .brands__cta {
-        justify-self: start;
+    .brands__title{
+        text-align: right;
+        font-size: clamp(0.9rem, 3vw, 1.8rem);
+    }
+
+    .brands__bottom{
+        margin-top: 1rem;
     }
 }
 
@@ -703,7 +731,6 @@ body.is-nav-open .nav-backdrop {
 
 .locations {
     padding: 3.2rem 0 4rem 0;
-    margin-top: 2.8rem;
 }
 
 .locations__inner {
@@ -777,105 +804,37 @@ body.is-nav-open .nav-backdrop {
     opacity: 0.75;
 }
 
-/* Panel */
-.locations__panel {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(100% + 0.6rem);
-
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgb(186, 186, 186);
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    padding: 0.9rem;
-    z-index: 20;
-}
-
-/* Search */
-.locations__search {
-    display: grid;
-    gap: 0.45rem;
-    margin-bottom: 0.8rem;
-}
-
-.locations__search-input {
-    width: 100%;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid rgb(186, 186, 186);
-    padding: 0.55rem 0;
-    outline: none;
-    font-size: 1rem;
-}
-
-.locations__search-input:focus {
-    border-bottom-color: rgba(0, 0, 0, 0.85);
-}
-
-/* Options list */
-.locations__menu {
-    max-height: 320px;
-    overflow: auto;
-    display: grid;
-    gap: 0.35rem;
+.locations__list {
+    margin: 2.4rem 0 0;
     padding: 0;
-    margin: 0;
-}
-
-.locations__option {
     list-style: none;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem 3.2rem;
+
+    justify-items: start;
+
 }
 
-.locations__option-btn {
+.locations__list li {
+    font-size: clamp(0.7rem, 1.2vw, 1rem);
+    line-height: 1.35;
     width: 100%;
-    text-align: left;
-
-    background: transparent;
-    border: 0;
-    border-radius: 8px;
-
-    padding: 0.7rem 0.75rem;
-    cursor: pointer;
-
-    font-size: 0.92rem;
-    color: rgba(0, 0, 0, 0.9);
+    text-align: right;
 }
 
-.locations__option-btn:hover,
-.locations__option-btn:focus-visible {
-    background: rgba(164, 192, 175, 0.35);
-    outline: none;
+@media (max-width: 768px){
+    .locations__list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .locations__list li {
+        font-size: clamp(0.5rem, 2.5vw, 2rem);
+    }
 }
 
-/* Inline variant (dentro del h2) */
-.locations__dropdown--inline {
-    display: inline-block;
-    position: relative;
-    vertical-align: baseline;
-}
 
-.locations__dropdown--inline .locations__trigger {
-    width: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-
-    padding: 0 1.2rem;
-    border-radius: 8px;
-
-    font-size: inherit;
-    font-family: inherit;
-    line-height: inherit;
-}
-
-.locations__dropdown--inline .locations__trigger-text {
-    white-space: nowrap;
-    font-size: 1.15rem;
-}
 
 /* =========================
      RESPONSIVE (Header + About + Locations)
@@ -1058,7 +1017,7 @@ body.is-nav-open .nav-backdrop {
 
     /* About mobile */
     .about-page {
-        padding: 93px 1rem 3rem;
+        padding: 93px 1rem 0;
     }
 
     .about-page__inner {
@@ -1083,5 +1042,78 @@ body.is-nav-open .nav-backdrop {
     .locations__panel {
         position: static;
         margin-top: 0.8rem;
+    }
+}
+
+
+
+
+
+
+
+/* =========================
+   ABOUT – ENTRY ANIMATIONS
+========================= */
+
+/* =========================
+   ABOUT-US: entry animations (igual a index)
+========================= */
+
+/* Si ya existe @keyframes fadeDropIn en tu CSS, NO lo dupliques.
+   Usá el que ya tenés. */
+
+/* Base: mismo comportamiento que .text-animate-in */
+
+[data-animate] {
+    opacity: 0;
+    animation: fadeDropIn 0.9s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-animate] {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeDropIn {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text-animate-in {
+    opacity: 0;
+    animation: fadeDropIn 0.9s ease-out forwards;
+}
+
+.about-page__kicker.text-animate-in {
+    animation-delay: 120ms;
+}
+
+.about-page__title.text-animate-in {
+    animation-delay: 260ms;
+}
+
+.about-page__text.text-animate-in {
+    animation-delay: 420ms;
+}
+
+.about-page__img.text-animate-in {
+    animation-delay: 620ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .text-animate-in {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
 }
