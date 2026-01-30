@@ -12,8 +12,8 @@
 
     // ✅ Poné acá tus rutas reales
     const images = [
-        { src: 'assets/photos/IMG_0815.png', alt: 'Painting project photo 1' },
-        { src: 'assets/photos/IMG_1045.png', alt: 'Painting project photo 2' },
+        { src: 'assets/photos/about-us-01.png', alt: 'Painting project photo 1' },
+        { src: 'assets/photos/IMG_0815.png', alt: 'Painting project photo 2' },
         { src: 'assets/photos/IMG_9949.png', alt: 'Painting project photo 3' },
         { src: 'assets/photos/IMG_1044.png', alt: 'Painting project photo 4' },
         // { src: 'assets/img/about/about-05.jpg', alt: 'Painting project photo 5' }
