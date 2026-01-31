@@ -559,17 +559,15 @@
 
 .review-card {
     background-color: rgba(255, 255, 255, 0.3);
-    /* Sutil transparencia */
-    padding: 2rem;
+    padding: 1rem;
     border: 1px solid rgb(186, 186, 186);
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .review-card:hover {
-    background-color: var(--color-secondary);
     transform: translateY(-5px);
 }
 
@@ -619,30 +617,27 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 3.2rem;
+
+    height: 1.1rem;
+    /* micro-fade */
     pointer-events: none;
 
-    /* Match del fondo de tu card (white 0.3). Si lo cambiás, ajustá esto. */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
     opacity: 1;
 }
+
 
 /* botón + */
 .review-card__toggle {
     position: absolute;
-    right: 0.8rem;
-    bottom: 0.8rem;
+    right: 0.2rem;
+    bottom: 0.2rem;
 
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 999px;
 
     border: 1px solid rgb(186, 186, 186);
-    background-color: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(0px);
 
     font: inherit;
-    line-height: 1;
     cursor: pointer;
 }
 
