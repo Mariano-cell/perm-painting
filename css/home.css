@@ -319,7 +319,7 @@
 
 .our-services__services-grid {
     margin: 3rem 0 1rem;
-    padding-bottom: 1.8rem;
+    padding-bottom: 3.6rem;
 
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
