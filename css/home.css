@@ -592,15 +592,20 @@
     font-size: 1rem;
     margin: 0;
 
-    /* clamp por líneas */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 12;
-    /* ajustá el número de líneas */
-    overflow: hidden;
+    --collapsed-h: 16.8rem;
+    /* ajustá: 12 líneas aprox */
+    max-height: var(--collapsed-h);
 
+    overflow: hidden;
     padding-right: 3rem;
+
+    /* transición */
+    transition: max-height 320ms ease, padding-right 320ms ease;
+    will-change: max-height;
+
+
 }
+
 
 
 /* ===== Review clamp + expand (Perma Painting) ===== */

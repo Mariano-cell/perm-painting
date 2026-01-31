@@ -397,55 +397,99 @@ async function loadReviews() {
       })
       .join("");
 
-    // Mostrar el botón solo si el texto realmente overflowea
+    // Mostrar el botón SOLO si el texto supera el line-clamp
     const cards = container.querySelectorAll(".review-card");
+
+    const needsExpandByClone = (textEl) => {
+      // altura clamped (como se ve en pantalla)
+      const clampedH = textEl.getBoundingClientRect().height;
+
+      // clon para medir el texto completo, mismo ancho
+      const clone = textEl.cloneNode(true);
+
+      // sacarlo del layout visual pero que mida bien
+      clone.style.position = "absolute";
+      clone.style.visibility = "hidden";
+      clone.style.pointerEvents = "none";
+      clone.style.height = "auto";
+      clone.style.maxHeight = "none";
+
+      // IMPORTANTÍSIMO: anular clamp en el clon
+      clone.style.display = "block";
+      clone.style.overflow = "visible";
+      clone.style.webkitLineClamp = "unset";
+      clone.style.webkitBoxOrient = "initial";
+
+      // mismo ancho que el original (para mismo wrap)
+      clone.style.width = `${textEl.getBoundingClientRect().width}px`;
+
+      document.body.appendChild(clone);
+      const fullH = clone.getBoundingClientRect().height;
+      clone.remove();
+
+      return fullH > clampedH + 1;
+    };
 
     cards.forEach((card) => {
       const text = card.querySelector(".review-card__text");
       const btn = card.querySelector(".review-card__toggle");
       if (!text || !btn) return;
 
-      // Aseguramos estado colapsado para medir
+      // estado inicial
       card.classList.remove("is-expanded");
       btn.setAttribute("aria-expanded", "false");
       btn.textContent = "+";
       btn.hidden = true;
 
-      // Guardamos estilos actuales
-      const prevDisplay = text.style.display;
-      const prevClamp = text.style.webkitLineClamp;
-      const prevOrient = text.style.webkitBoxOrient;
-      const prevOverflow = text.style.overflow;
-
-      // 1) Altura CLAMPED (con tus estilos CSS)
-      const clampedH = text.getBoundingClientRect().height;
-
-      // 2) Altura FULL (sin clamp)
-      text.style.display = "block";
-      text.style.webkitLineClamp = "unset";
-      text.style.webkitBoxOrient = "initial";
-      text.style.overflow = "visible";
-
-      const fullH = text.getBoundingClientRect().height;
-
-      // Restaurar estilos inline
-      text.style.display = prevDisplay;
-      text.style.webkitLineClamp = prevClamp;
-      text.style.webkitBoxOrient = prevOrient;
-      text.style.overflow = prevOverflow;
-
-      // Si full es mayor que clamped, hay recorte => mostramos +
-      const needsExpand = fullH > clampedH + 1; // +1 = tolerancia rounding
-
+      // medir (clon)
+      const needsExpand = needsExpandByClone(text);
       btn.hidden = !needsExpand;
 
+      // click toggle
       btn.addEventListener("click", () => {
-        const expanded = card.classList.toggle("is-expanded");
-        btn.setAttribute("aria-expanded", String(expanded));
-        btn.textContent = expanded ? "−" : "+";
-        btn.setAttribute("aria-label", expanded ? "Collapse review" : "Show full review");
+        const isExpanded = card.classList.toggle("is-expanded");
+        btn.setAttribute("aria-expanded", String(isExpanded));
+        btn.textContent = isExpanded ? "−" : "+";
+        btn.setAttribute("aria-label", isExpanded ? "Collapse review" : "Show full review");
+
+        // Animación suave usando max-height en px
+        if (isExpanded) {
+          // 1) arrancar desde el alto actual (colapsado)
+          const from = text.getBoundingClientRect().height;
+
+          // 2) medir alto completo
+          text.style.maxHeight = `${from}px`;
+          // forzar reflow
+          text.offsetHeight;
+
+          // 3) setear destino: alto completo (scrollHeight)
+          const to = text.scrollHeight;
+          text.style.maxHeight = `${to}px`;
+          text.addEventListener(
+            "transitionend",
+            () => {
+              // cuando terminó de abrir, liberamos el max-height
+              if (card.classList.contains("is-expanded")) {
+                text.style.maxHeight = "none";
+              }
+            },
+            { once: true }
+          );
+        } else {
+          // cierre: ir desde alto actual (expandido) a alto colapsado
+          const from = text.getBoundingClientRect().height;
+          text.style.maxHeight = `${from}px`;
+          text.offsetHeight;
+
+          // tu alto colapsado fijo (ajustalo a tu look)
+          const collapsed = getComputedStyle(text).getPropertyValue("--collapsed-h").trim();
+          text.style.maxHeight = collapsed;
+
+        }
       });
+
     });
+
 
   } catch (error) {
     container.innerHTML = "<p>Something went wrong loading reviews.</p>";
