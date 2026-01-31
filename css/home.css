@@ -558,7 +558,7 @@
 }
 
 .review-card {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0);
     padding: 1rem;
     border: 1px solid rgb(186, 186, 186);
     display: flex;
@@ -644,7 +644,7 @@
     justify-content: center;
 
 
-    border: 1px solid rgb(186, 186, 186);
+    border: none;
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(0px);
