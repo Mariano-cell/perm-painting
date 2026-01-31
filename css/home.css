@@ -646,13 +646,20 @@
     position: absolute;
     right: 0.2rem;
     bottom: 0.2rem;
+    margin: 0.4rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
 
-    border: 1px solid rgb(186, 186, 186);
+    border: none;
+    border-radius: 3px;
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(0px);
 
     font: inherit;
+    line-height: 1;
     cursor: pointer;
 }
 
