@@ -644,7 +644,7 @@
     justify-content: center;
 
 
-    border: none;
+    border: 1px solid rgb(186, 186, 186);
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(0px);
