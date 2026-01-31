@@ -595,7 +595,7 @@
     /* clamp por líneas */
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 12;
     /* ajustá el número de líneas */
     overflow: hidden;
 
