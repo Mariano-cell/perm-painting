@@ -622,8 +622,15 @@
     /* micro-fade */
     pointer-events: none;
 
+    /* más agresivo al final, para ocultar “media línea” */
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.22) 40%,
+            rgba(255, 255, 255, 0.3));
+
     opacity: 1;
 }
+
 
 
 /* botón + */
