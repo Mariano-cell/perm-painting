@@ -554,7 +554,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    align-items: stretch;
+    align-items: start;
 }
 
 .review-card {
@@ -593,6 +593,8 @@
     line-height: 1.4;
     font-size: 1rem;
     margin: 0;
+    max-height: 12rem;
+    overflow: hidden;
 }
 
 .testimonials__footer {
