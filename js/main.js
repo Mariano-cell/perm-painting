@@ -399,29 +399,54 @@ async function loadReviews() {
 
     // Mostrar el botón solo si el texto realmente overflowea
     const cards = container.querySelectorAll(".review-card");
+
     cards.forEach((card) => {
       const text = card.querySelector(".review-card__text");
       const btn = card.querySelector(".review-card__toggle");
       if (!text || !btn) return;
 
-      // forzamos medición en estado colapsado
+      // Aseguramos estado colapsado para medir
       card.classList.remove("is-expanded");
       btn.setAttribute("aria-expanded", "false");
       btn.textContent = "+";
+      btn.hidden = true;
 
-      const isOverflowing = text.scrollHeight > text.clientHeight + 1;
-      btn.hidden = !isOverflowing;
+      // Guardamos estilos actuales
+      const prevDisplay = text.style.display;
+      const prevClamp = text.style.webkitLineClamp;
+      const prevOrient = text.style.webkitBoxOrient;
+      const prevOverflow = text.style.overflow;
+
+      // 1) Altura CLAMPED (con tus estilos CSS)
+      const clampedH = text.getBoundingClientRect().height;
+
+      // 2) Altura FULL (sin clamp)
+      text.style.display = "block";
+      text.style.webkitLineClamp = "unset";
+      text.style.webkitBoxOrient = "initial";
+      text.style.overflow = "visible";
+
+      const fullH = text.getBoundingClientRect().height;
+
+      // Restaurar estilos inline
+      text.style.display = prevDisplay;
+      text.style.webkitLineClamp = prevClamp;
+      text.style.webkitBoxOrient = prevOrient;
+      text.style.overflow = prevOverflow;
+
+      // Si full es mayor que clamped, hay recorte => mostramos +
+      const needsExpand = fullH > clampedH + 1; // +1 = tolerancia rounding
+
+      btn.hidden = !needsExpand;
 
       btn.addEventListener("click", () => {
         const expanded = card.classList.toggle("is-expanded");
         btn.setAttribute("aria-expanded", String(expanded));
-        btn.textContent = expanded ? "–" : "+";
-        btn.setAttribute(
-          "aria-label",
-          expanded ? "Collapse review" : "Show full review"
-        );
+        btn.textContent = expanded ? "−" : "+";
+        btn.setAttribute("aria-label", expanded ? "Collapse review" : "Show full review");
       });
     });
+
   } catch (error) {
     container.innerHTML = "<p>Something went wrong loading reviews.</p>";
   }
