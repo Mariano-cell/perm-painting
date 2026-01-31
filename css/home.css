@@ -609,14 +609,6 @@
     position: relative;
 }
 
-/* reemplaza tu max-height: 40vw; por un límite controlado */
-.review-card__text {
-    max-height: 16rem;
-    /* ajustá: 10–14rem suele andar bien */
-    overflow: hidden;
-    padding-right: 3rem;
-    /* espacio para el botón */
-}
 
 /* fade al final cuando está clamped */
 .review-card__text-wrap::after {
@@ -646,7 +638,6 @@
     position: absolute;
     right: 0.2rem;
     bottom: 0.2rem;
-    margin: 0.4rem;
 
     display: inline-flex;
     align-items: center;
@@ -659,15 +650,9 @@
     backdrop-filter: blur(0px);
 
     font: inherit;
+    font-size: 1rem;
     line-height: 1;
     cursor: pointer;
-}
-
-/* estado expandido */
-.review-card.is-expanded .review-card__text {
-    max-height: none;
-    overflow: visible;
-    padding-right: 0;
 }
 
 .review-card.is-expanded .review-card__text-wrap::after {
@@ -677,10 +662,10 @@
 .review-card.is-expanded .review-card__text {
     -webkit-line-clamp: unset;
     display: block;
-    /* vuelve a layout normal */
     overflow: visible;
     padding-right: 0;
 }
+
 
 
 .testimonials__footer {
