@@ -1,0 +1,457 @@
+/* =========================
+   CONTACT PAGE
+========================= */
+
+/* =========================
+   CONTACT HERO
+========================= */
+
+.contact-hero {
+    padding: calc(110px + 3.6rem) 1.8rem 0 1.8rem;
+    /* respeta tu header fijo */
+}
+
+.contact-hero__inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-top: 1.8rem;
+}
+
+.contact-hero__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.8rem;
+
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid rgb(186, 186, 186);
+    /* misma lógica que about-us */
+}
+
+.contact-hero__title {
+    margin: 0;
+    font-size: clamp(2.6rem, 4.8vw, 5.2rem);
+    line-height: 1.02;
+
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.contact-hero__whatsapp {
+    margin-top: 0.75rem;
+    padding: 0.8rem 1.2rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.95rem;
+}
+
+.contact-hero__whatsapp-icon {
+    height: 1em;
+    width: auto;
+}
+
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-form {
+    padding: 0 1.8rem 3rem 1.8rem;
+    scroll-margin-top: calc(var(--header-h, 80px) + 16px);
+}
+
+.contact-form__inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+
+    padding-top: 3.6rem;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+}
+
+.contact-form__intro {
+    padding-top: 0.5rem;
+}
+
+.contact-form__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.contact-form__label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(1px);
+}
+
+.contact-form__title {
+    margin: 1.1rem 0 0 0;
+    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+    line-height: 1.05;
+    animation-delay: 200ms;
+
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.contact-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.7rem;
+    animation-delay: 500ms;
+}
+
+/* grid del form (2 columnas + textarea full) */
+.contact-form__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    row-gap: 1.4rem;
+    align-items: end;
+}
+
+.contact-form__field {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.contact-form__field--full {
+    grid-column: 1 / -1;
+}
+
+.contact-form__label-text {
+    font-size: 0.95rem;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+/* Inputs estilo “underline” */
+.contact-form__input,
+.contact-form__textarea {
+    width: 100%;
+    font: inherit;
+    color: inherit;
+
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgb(186, 186, 186);
+
+    padding: 0.55rem 0;
+    outline: none;
+}
+
+/* textarea más alta, como en el mock */
+.contact-form__textarea {
+    min-height: 100px;
+    resize: vertical;
+    padding-top: 0.8rem;
+}
+
+/* Focus */
+.contact-form__input:focus,
+.contact-form__textarea:focus {
+    border-bottom-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Botón send */
+.contact-form__submit {
+    align-self: flex-start;
+    padding: 0.85rem 1.2rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.contact-form__submit-icon {
+    height: 1em;
+    width: auto;
+}
+
+
+/* =========================
+   LOCATIONS
+========================= */
+
+.locations {
+    padding: 3.2rem 1.8rem 4rem 1.8rem;
+    margin-top: 2.8rem;
+}
+
+.locations__inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+
+    border-top: 1px solid rgb(186, 186, 186);
+    padding-top: 3.6rem;
+    padding-bottom: 1.8rem;
+}
+
+.locations__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.locations__label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(1px);
+}
+
+.locations__title {
+    margin: 1.1rem 0 0 0;
+    font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+    line-height: 1.4;
+    max-width: 44ch;
+}
+
+
+/* Dropdown wrapper */
+.locations__dropdown {
+    max-width: 820px;
+    margin-inline: auto;
+    position: relative;
+}
+
+/* Trigger button */
+.locations__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+
+    background: rgba(116, 167, 176, 0.08);
+    border: 1px solid rgb(186, 186, 186);
+    cursor: pointer;
+}
+
+.locations__trigger-text {
+    font-size: 0.95rem;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.locations__trigger-icon {
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+/* Panel */
+.locations__panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 0.6rem);
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgb(186, 186, 186);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    padding: 0.9rem;
+    z-index: 20;
+}
+
+/* Search */
+.locations__search {
+    display: grid;
+    gap: 0.45rem;
+    margin-bottom: 0.8rem;
+}
+
+.locations__search-input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgb(186, 186, 186);
+
+    padding: 0.55rem 0;
+    outline: none;
+    font-size: 1rem;
+}
+
+.locations__search-input:focus {
+    border-bottom-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Options list */
+.locations__menu {
+    max-height: 320px;
+    overflow: auto;
+
+    display: grid;
+    gap: 0.35rem;
+
+    padding: 0;
+    margin: 0;
+}
+
+.locations__option {
+    list-style: none;
+}
+
+.locations__option-btn {
+    width: 100%;
+    text-align: left;
+
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+
+    padding: 0.7rem 0.75rem;
+    cursor: pointer;
+
+    font-size: 0.92rem;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.locations__option-btn:hover,
+.locations__option-btn:focus-visible {
+    background: rgba(164, 192, 175, 0.35);
+    outline: none;
+}
+
+
+/* Inline dropdown variant */
+.locations__dropdown--inline {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.locations__dropdown--inline .locations__trigger {
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    padding: 0 1.2rem;
+    border-radius: 8px;
+
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+.locations__dropdown--inline .locations__trigger-text {
+    white-space: nowrap;
+    font-size: 1.15rem;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .contact-hero__header {
+        gap: 1.2rem;
+    }
+
+    .contact-form__inner {
+        grid-template-columns: 1fr;
+        gap: 2.2rem;
+    }
+
+    .locations__dropdown {
+        max-width: 900px;
+        margin-inline: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 93px 1rem 0 1rem;
+    }
+
+    .contact-hero__inner {
+        padding-top: 0.8rem;
+    }
+
+    .contact-hero__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .contact-hero__whatsapp {
+        margin-top: 0;
+    }
+
+    .contact-form {
+        padding: 0 1rem 2.5rem 1rem;
+    }
+
+    .contact-form__inner {
+        padding-top: 1.6rem;
+    }
+
+    .contact-form__grid {
+        grid-template-columns: 1fr;
+        row-gap: 1.2rem;
+    }
+
+    .contact-form__submit {
+        width: auto;
+    }
+
+    .locations {
+        padding: 2.6rem 1rem 3rem 1rem;
+    }
+
+    .locations__dropdown {
+        max-width: none;
+        margin-inline: 0;
+    }
+
+    .locations__panel {
+        position: static;
+        margin-top: 0.8rem;
+    }
+}

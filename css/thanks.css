@@ -1,0 +1,74 @@
+/* =========================
+   THANKS PAGE
+========================= */
+
+.thanks {
+    min-height: 100vh;
+
+    /* respeta header fijo aunque no esté presente */
+    padding: calc(110px + 3.6rem) 1.8rem 3rem;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.thanks__inner {
+    width: 100%;
+    max-width: 720px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.6rem;
+
+    padding-top: 1.8rem;
+}
+
+.thanks__title {
+    margin: 0;
+
+    font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+    line-height: 1.02;
+}
+
+.thanks__text {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.4;
+
+    max-width: 46ch;
+}
+
+.thanks__back {
+    margin-top: auto;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    white-space: nowrap;
+
+    min-height: 3rem;
+    padding: 1rem 2rem;
+}
+
+.thanks__back-icon {
+    height: 1em;
+    width: auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .thanks {
+        padding: 93px 1rem 2.5rem;
+    }
+
+    .thanks__inner {
+        padding-top: 1rem;
+    }
+
+    .thanks__back {
+        font-size: 0.9rem;
+    }
+}

@@ -27,7 +27,7 @@
 }
 
 .site-footer__inner {
-    max-width: var(--container-max, 1560px);
+    max-width: 100vw;
     padding: 0;
     margin: 0 auto;
 }

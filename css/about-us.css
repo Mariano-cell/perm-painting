@@ -1,177 +1,20 @@
+
 /* =========================
-   ABOUT-US.CSS
-   Global + Header/Nav + About Page + Gallery 2-up + Locations
+   TOKENS
 ========================= */
-
-/* TOKENS */
 :root {
-    --color-primary: #3c5b49;
-    --color-secondary: #a4c0af;
-    --color-third: #74a7b0;
-
-    --glass-bg: rgba(164, 192, 175, 0.636);
-    --glass-blur: 12px;
-    --glass-border: rgba(0, 0, 0, 0.35);
-
-    --container-max: 1560px;
-    --container-pad: 1.8rem;
-
     /* Gallery height (JS la setea desde ratio A) */
     --about-gallery-h: 520px;
+
+    /* (ya lo usás en responsive mobile del header) */
+    --header-h: 105px;
 }
 
-/* BASE */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: rgb(230, 229, 224);
-    line-height: 1.2;
-
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-p,
-button,
-a,
-span,
-label,
-input {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-h1,
-h2,
-h3,
-h4 {
-    font-family: "Inconsolata", monospace;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-h3 {
-    font-weight: 300;
-}
-
-h2 {
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
-}
-
-a,
-button {
-    -webkit-tap-highlight-color: transparent;
-    color: inherit;
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-input,
-textarea,
-select,
-button {
-    font: inherit;
-    color: inherit;
-}
-
-a:focus-visible,
-button:focus-visible {
-    outline: none;
-}
-
-/* body lock (mobile overlay nav) */
-body.is-nav-open {
-    overflow: hidden;
-}
-
-/* BOTONES */
-.btn {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-
-    border-radius: 50px;
-    background-color: var(--color-secondary);
-    border: 1px solid rgba(0, 0, 0, 0);
-
-    transition:
-        background-color 420ms ease,
-        backdrop-filter 420ms ease,
-        -webkit-backdrop-filter 420ms ease,
-        border-color 420ms ease,
-        transform 420ms ease,
-        box-shadow 420ms ease;
-}
-
-.btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-
-    background-image: url("../assets/photos/IMG_1522.JPG");
-    background-repeat: no-repeat;
-    background-size: auto;
-    background-position: 90% 90%;
-
-    opacity: 0;
-    transition: opacity 420ms ease;
-}
-
-.btn:hover,
-.btn:focus-visible {
-    background-color: var(--glass-bg);
-    border-color: black;
-
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 10px 24px rgba(0, 0, 0, 0.10),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-.btn:hover::before,
-.btn:focus-visible::before {
-    opacity: 0.2;
-}
-
-.btn:active {
-    transform: translateY(0);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);
-}
-
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-
-    .btn:hover,
-    .btn:focus-visible {
-        background-color: rgba(164, 192, 175, 0.6);
-    }
-}
 
 /* =========================
-     HEADER / NAV
-  ========================= */
-
+   HEADER / NAV
+========================= */
 .site-header {
     position: fixed;
     top: 0;
@@ -296,6 +139,7 @@ body.is-nav-open {
     gap: 2rem;
 }
 
+/* animación links nav */
 @keyframes fadeDropIn {
     from {
         opacity: 0;
@@ -344,6 +188,7 @@ body.is-nav-open {
     }
 }
 
+/* backdrop mobile */
 .nav-backdrop {
     position: fixed;
     inset: 0;
@@ -362,9 +207,8 @@ body.is-nav-open .nav-backdrop {
 }
 
 /* =========================
-     ABOUT PAGE
-  ========================= */
-
+   ABOUT PAGE
+========================= */
 .about-page {
     padding: calc(110px + 3.6rem) 1.8rem 1.8rem 1.8rem;
 }
@@ -439,26 +283,14 @@ body.is-nav-open .nav-backdrop {
     font-weight: 400;
     font-style: normal;
 
-    font-size: clamp(2.5rem, 3vw, 3.5rem);
+    font-size: clamp(1.7rem, 2vw, 2.8rem);
     line-height: 1.1;
     text-align: right;
 }
 
-@media (max-width: 768px){
-    .about-page__text{
-        font-size: clamp(1.4rem, 1.5vw, 2rem);
-    }
-
-    .about-page__inner{
-        max-width: 100vw;
-        overflow: hidden;
-    }
-}
-
 /* =========================
-     GALLERY 2-UP + SNAP + RATIOS
-  ========================= */
-
+   GALLERY 2-UP + SNAP + RATIOS
+========================= */
 .about-page__gallery {
     margin-top: 2.2rem;
     max-width: 100vw;
@@ -468,35 +300,32 @@ body.is-nav-open .nav-backdrop {
 .about-page__gallery-viewport {
     display: flex;
     flex-direction: row;
-    height: 520px;
+    height: var(--about-gallery-h);
+    scroll-snap-stop: always;
 }
 
 /* Cada slide: ocupa EXACTO la mitad del viewport visible */
-.about-page__slide-a {
+.about-page__slide-a,
+.about-page__slide-b {
     flex: 0 0 50%;
-    height: 520px;
+    height: var(--about-gallery-h);
     scroll-snap-align: start;
-
     margin: 0;
 
     display: flex;
+}
+
+.about-page__slide-a {
     justify-content: flex-start;
 }
 
 .about-page__slide-b {
-    flex: 0 0 50%;
-    height: 520px;
-    scroll-snap-align: start;
-
-    margin: 0;
-
-    display: flex;
     justify-content: center;
 }
 
 /* El contenedor toma todo el slot */
 .about-page__img-container {
-    height: 520px;
+    height: var(--about-gallery-h);
     width: auto;
     overflow: hidden;
 
@@ -506,33 +335,12 @@ body.is-nav-open .nav-backdrop {
 }
 
 /* default: que la img mida el slot */
-.about-page__img-a {
-
-    height: 520px;
-    width: auto;
-    display: block;
-}
-
+.about-page__img-a,
 .about-page__img-b {
-    height: 520px;
+    height: var(--about-gallery-h);
     width: auto;
     display: block;
 }
-
-
-
-
-
-.about-page__gallery-viewport {
-    scroll-snap-stop: always;
-}
-
-
-
-
-
-
-
 
 /* Reduced motion: igual funciona, solo sin smooth si querés */
 @media (prefers-reduced-motion: reduce) {
@@ -541,20 +349,12 @@ body.is-nav-open .nav-backdrop {
     }
 }
 
-
-
-
-
-
 /* =========================
    BRANDS (NEW SECTION)
 ========================= */
-
 .brands {
     padding: 4.2rem 0 3.2rem 0;
     border-top: 1px solid rgb(186, 186, 186);
-    ;
-
 }
 
 .brands__inner {
@@ -656,79 +456,9 @@ body.is-nav-open .nav-backdrop {
     padding: 1rem 2rem;
 }
 
-
-
-/* Tablet */
-@media (max-width: 1024px) {
-    .brands__logos {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-
-    .brands__logo {
-        flex: 0 1 160px;
-    }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .brands {
-        padding: 2.6rem 0 2.6rem 0;
-    }
-
-    .brands__inner {
-        padding-inline: 1rem;
-    }
-
-    .brands__top {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .brands__note {
-        text-align: left;
-        font-size: 1.1rem;
-    }
-
-    .brands__logos {
-        gap: 1.4rem;
-    }
-
-    .brands__logo {
-        flex: 0 1 140px;
-    }
-
-    .brands__title{
-        text-align: right;
-        font-size: clamp(0.9rem, 3vw, 1.8rem);
-    }
-
-    .brands__bottom{
-        margin-top: 1rem;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* =========================
-     LOCATIONS (porque esta página lo usa)
-  ========================= */
-
+   LOCATIONS (porque esta página lo usa)
+========================= */
 .locations {
     padding: 3.2rem 0 4rem 0;
 }
@@ -814,7 +544,6 @@ body.is-nav-open .nav-backdrop {
     gap: 0.4rem 3.2rem;
 
     justify-items: start;
-
 }
 
 .locations__list li {
@@ -824,21 +553,75 @@ body.is-nav-open .nav-backdrop {
     text-align: right;
 }
 
-@media (max-width: 768px){
-    .locations__list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+/* =========================
+   ABOUT – ENTRY ANIMATIONS
+========================= */
 
-    .locations__list li {
-        font-size: clamp(0.5rem, 2.5vw, 2rem);
+/* Base: mismo comportamiento que .text-animate-in */
+[data-animate] {
+    opacity: 0;
+    animation: fadeDropIn 0.9s ease-out forwards;
+}
+
+.text-animate-in {
+    opacity: 0;
+    animation: fadeDropIn 0.9s ease-out forwards;
+}
+
+.about-page__kicker.text-animate-in {
+    animation-delay: 120ms;
+}
+
+.about-page__title.text-animate-in {
+    animation-delay: 260ms;
+}
+
+.about-page__text.text-animate-in {
+    animation-delay: 420ms;
+}
+
+.about-page__img.text-animate-in {
+    animation-delay: 620ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    [data-animate],
+    .text-animate-in {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
 }
 
+/* (definición única, sin duplicados) */
+@keyframes fadeDropIn {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* =========================
-     RESPONSIVE (Header + About + Locations)
-  ========================= */
+   RESPONSIVE
+========================= */
+
+/* About: ajustes puntuales que ya estaban */
+@media (max-width: 768px) {
+    .about-page__text {
+        font-size: clamp(1.4rem, 1.5vw, 2rem);
+    }
+
+    .about-page__inner {
+        max-width: 100vw;
+        overflow: hidden;
+    }
+}
 
 /* Tablet */
 @media (max-width: 1024px) {
@@ -864,6 +647,15 @@ body.is-nav-open .nav-backdrop {
 
     .about-page__header {
         gap: 1.2rem;
+    }
+
+    .brands__logos {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .brands__logo {
+        flex: 0 1 160px;
     }
 }
 
@@ -1034,6 +826,51 @@ body.is-nav-open .nav-backdrop {
         gap: 1rem;
     }
 
+    /* Brands mobile */
+    .brands {
+        padding: 2.6rem 0 2.6rem 0;
+    }
+
+    .brands__inner {
+        padding-inline: 1rem;
+    }
+
+    .brands__top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .brands__note {
+        text-align: left;
+        font-size: 1.1rem;
+    }
+
+    .brands__logos {
+        gap: 1.4rem;
+    }
+
+    .brands__logo {
+        flex: 0 1 140px;
+    }
+
+    .brands__title {
+        text-align: right;
+        font-size: clamp(0.9rem, 3vw, 1.8rem);
+    }
+
+    .brands__bottom {
+        margin-top: 1rem;
+    }
+
+    /* Locations mobile */
+    .locations__list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .locations__list li {
+        font-size: clamp(0.5rem, 2.5vw, 2rem);
+    }
+
     /* Locations mobile: panel inline => mejor “static” debajo */
     .locations {
         padding: 2.6rem 0 3rem 0;
@@ -1042,78 +879,5 @@ body.is-nav-open .nav-backdrop {
     .locations__panel {
         position: static;
         margin-top: 0.8rem;
-    }
-}
-
-
-
-
-
-
-
-/* =========================
-   ABOUT – ENTRY ANIMATIONS
-========================= */
-
-/* =========================
-   ABOUT-US: entry animations (igual a index)
-========================= */
-
-/* Si ya existe @keyframes fadeDropIn en tu CSS, NO lo dupliques.
-   Usá el que ya tenés. */
-
-/* Base: mismo comportamiento que .text-animate-in */
-
-[data-animate] {
-    opacity: 0;
-    animation: fadeDropIn 0.9s ease-out forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    [data-animate] {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-}
-
-@keyframes fadeDropIn {
-    from {
-        opacity: 0;
-        transform: translateY(-16px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.text-animate-in {
-    opacity: 0;
-    animation: fadeDropIn 0.9s ease-out forwards;
-}
-
-.about-page__kicker.text-animate-in {
-    animation-delay: 120ms;
-}
-
-.about-page__title.text-animate-in {
-    animation-delay: 260ms;
-}
-
-.about-page__text.text-animate-in {
-    animation-delay: 420ms;
-}
-
-.about-page__img.text-animate-in {
-    animation-delay: 620ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .text-animate-in {
-        animation: none;
-        opacity: 1;
-        transform: none;
     }
 }
