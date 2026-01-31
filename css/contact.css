@@ -266,6 +266,7 @@
 
     background: rgba(116, 167, 176, 0.08);
     border: 1px solid rgb(186, 186, 186);
+    border-radius: 0;
     cursor: pointer;
 }
 
@@ -371,7 +372,8 @@
     gap: 0.6rem;
 
     padding: 0 1.2rem;
-    border-radius: 8px;
+    border-radius: 0px;
+    background-color: transparent;
 
     font-size: inherit;
     font-family: inherit;
@@ -381,6 +383,7 @@
 .locations__dropdown--inline .locations__trigger-text {
     white-space: nowrap;
     font-size: 1.15rem;
+    
 }
 
 
