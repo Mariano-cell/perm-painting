@@ -353,29 +353,82 @@ if (track) {
 
 
 async function loadReviews() {
-  const container = document.getElementById('reviews-container');
+  const container = document.getElementById("reviews-container");
+  if (!container) return;
+
   try {
-    const response = await fetch('/.netlify/functions/get-reviews');
+    const response = await fetch("/.netlify/functions/get-reviews");
     const reviews = await response.json();
 
     if (!reviews || reviews.length === 0) {
-      container.innerHTML = '<p class="hero__insight">No reviews available at the moment.</p>';
+      container.innerHTML =
+        '<p class="hero__insight">No reviews available at the moment.</p>';
       return;
     }
 
-    container.innerHTML = reviews.map(rev => `
+    container.innerHTML = reviews
+      .map((rev, i) => {
+        const safeText = (rev.text || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const safeAuthor = (rev.author_name || "")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+        const id = `review-text-${i}`;
+
+        return `
           <div class="review-card">
-              <span class="review-card__author">${rev.author_name}</span>
-              <div class="review-card__rating">${"★".repeat(rev.rating)}</div>
-              <p class="review-card__text">"${rev.text}"</p>
+              <span class="review-card__author">${safeAuthor}</span>
+              <div class="review-card__rating">${"★".repeat(rev.rating || 0)}</div>
+
+              <div class="review-card__text-wrap">
+                <p class="review-card__text" id="${id}">"${safeText}"</p>
+
+                <button
+                  class="review-card__toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="${id}"
+                  aria-label="Show full review"
+                  hidden
+                >+</button>
+              </div>
           </div>
-      `).join('');
+        `;
+      })
+      .join("");
+
+    // Mostrar el botón solo si el texto realmente overflowea
+    const cards = container.querySelectorAll(".review-card");
+    cards.forEach((card) => {
+      const text = card.querySelector(".review-card__text");
+      const btn = card.querySelector(".review-card__toggle");
+      if (!text || !btn) return;
+
+      // forzamos medición en estado colapsado
+      card.classList.remove("is-expanded");
+      btn.setAttribute("aria-expanded", "false");
+      btn.textContent = "+";
+
+      const isOverflowing = text.scrollHeight > text.clientHeight + 1;
+      btn.hidden = !isOverflowing;
+
+      btn.addEventListener("click", () => {
+        const expanded = card.classList.toggle("is-expanded");
+        btn.setAttribute("aria-expanded", String(expanded));
+        btn.textContent = expanded ? "–" : "+";
+        btn.setAttribute(
+          "aria-label",
+          expanded ? "Collapse review" : "Show full review"
+        );
+      });
+    });
   } catch (error) {
-    container.innerHTML = '<p>Something went wrong loading reviews.</p>';
+    container.innerHTML = "<p>Something went wrong loading reviews.</p>";
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadReviews);
+document.addEventListener("DOMContentLoaded", loadReviews);
+
 
 // =======================================
 // LOCATIONS dropdown (search + select)
