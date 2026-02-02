@@ -226,6 +226,11 @@
         gap: 1.5rem;
     }
 
+    .hero__motto{
+        padding-top: 1rem;
+        text-align: right;
+    }
+
     .hero__left--photo,
     .hero__left--photo-container {
         display: none;
@@ -248,6 +253,16 @@
         object-fit: cover;
         object-position: center top;
     }
+
+    .hero__CTA-button {
+        align-self: center;
+        /* anula el stretch solo para este item */
+        width: fit-content;
+        /* que mida lo que ocupa el contenido */
+        max-width: 100%;
+    }
+
+
 }
 
 /* =====================================================
