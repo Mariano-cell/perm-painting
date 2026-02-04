@@ -226,9 +226,25 @@
         gap: 1.5rem;
     }
 
-    .hero__motto{
+
+    .hero__texts-grid {
+
+        gap: 0.5rem;
+
+    }
+
+    .hero__motto {
         padding-top: 1rem;
-        text-align: right;
+        text-align: left;
+        margin-left: 0;
+        margin-right: auto;
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .hero_location {
+        margin-top: 0.5rem;
+        font-size: clamp(1rem, 1vw, 2rem);
+        font-weight: 300;
     }
 
     .hero__left--photo,
@@ -238,7 +254,7 @@
 
     .hero__presentation {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .hero__insight {

@@ -409,6 +409,27 @@ body.is-nav-open .nav-backdrop {
         transition: opacity 220ms ease, visibility 0s linear 220ms;
     }
 
+    .site-header__inner {
+        padding: 1rem;
+    }
+
+    .nav-backdrop {
+        border-radius: 0;
+        /* sin radios */
+        background: rgba(0, 0, 0, 0);
+        /* transparente */
+        backdrop-filter: blur(18px);
+        /* blur fuerte */
+        -webkit-backdrop-filter: blur(18px);
+
+        transition: opacity 220ms ease;
+    }
+
+    body.is-nav-open .nav-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     body.is-nav-open .site-nav {
         opacity: 1;
         visibility: visible;
