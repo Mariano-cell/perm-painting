@@ -295,14 +295,6 @@ body.is-nav-open .nav-backdrop {
     max-width: 100vw;
 }
 
-/* =========================
-   ABOUT – GALLERY 4-UP (FIXED)
-========================= */
-
-.about-page__gallery {
-    margin-top: 2.2rem;
-}
-
 .about-page__gallery-viewport {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -314,45 +306,25 @@ body.is-nav-open .nav-backdrop {
     margin: 0;
 }
 
-/* CONTENEDOR:
-     - mismo ancho
-     - altura libre (cada uno puede ser distinto)
-  */
+
 .about-page__img-container {
     width: 100%;
-    height: 420px;
-    /* podés variar por imagen si querés */
-    overflow: hidden;
+    height: auto;
+    /* clave */
+    overflow: visible;
+    /* no recorta */
 }
 
-/* IMAGEN:
-     - se ajusta al contenedor
-     - corta abajo
-     - centrada horizontalmente
-  */
+
 .about-page__img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    height: auto;
+    /* clave */
     display: block;
+    object-fit: contain;
+    /* opcional: no hace falta si height:auto, pero no molesta */
 }
 
-.about-page__slide-a .about-page__img-container {
-    height: 380px;
-}
-
-.about-page__slide-b .about-page__img-container {
-    height: 460px;
-}
-
-.about-page__slide-c .about-page__img-container {
-    height: 410px;
-}
-
-.about-page__slide-d .about-page__img-container {
-    height: 500px;
-}
 
 @media (max-width: 768px) {
     .about-page__gallery-viewport {
