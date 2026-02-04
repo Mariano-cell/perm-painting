@@ -830,7 +830,7 @@ body.is-nav-open .nav-backdrop {
     }
 
     .brands__inner {
-        padding-inline: 1rem;
+        padding-inline: 0;
     }
 
     .brands__top {
