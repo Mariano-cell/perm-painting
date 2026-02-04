@@ -271,11 +271,12 @@
     }
 
     .hero__CTA-button {
-        align-self: center;
+
         /* anula el stretch solo para este item */
         width: fit-content;
         /* que mida lo que ocupa el contenido */
         max-width: 100%;
+        margin-left: auto;
     }
 
 
