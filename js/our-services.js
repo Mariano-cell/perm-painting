@@ -7,7 +7,7 @@
     const galleries = {
         interior: [
             { src: "assets/photos/interior/interior_001.jpg", alt: "Interior project" },
-            { src: "assets/photos/interior/interior_002.jpg", alt: "Interior project" },
+            { src: "assets/photos/interior/interior_009.jpg", alt: "Interior project" },
             { src: "assets/photos/interior/interior_003.jpg", alt: "Interior project" },
             { src: "assets/photos/interior/interior_004.jpg", alt: "Interior project" },
             { src: "assets/photos/interior/interior_005.jpg", alt: "Interior project" },
