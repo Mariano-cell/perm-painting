@@ -39,7 +39,7 @@
 .hero__texts-grid {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
     flex: 1;
 }
 
