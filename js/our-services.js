@@ -7,7 +7,7 @@
     const galleries = {
         interior: [
             { src: "assets/photos/interior/interior_001.jpg", alt: "Interior project" },
-            { src: "assets/photos/interior/interior_009.jpg", alt: "Interior project" },
+            { src: "assets/photos/interior/interior_002.jpg", alt: "Interior project" },
             { src: "assets/photos/interior/interior_003.jpg", alt: "Interior project" },
             { src: "assets/photos/interior/interior_004.jpg", alt: "Interior project" },
             { src: "assets/photos/interior/interior_005.jpg", alt: "Interior project" },
@@ -22,7 +22,7 @@
             { src: "assets/photos/exterior/exterior_003.jpg", alt: "Exterior project" },
             { src: "assets/photos/exterior/exterior_004.jpg", alt: "Exterior project" },
             { src: "assets/photos/exterior/exterior_005.jpg", alt: "Exterior project" },
-            { src: "assets/photos/exterior/exterior_009.jpg", alt: "Exterior project" },
+            { src: "assets/photos/exterior/exterior_006.jpg", alt: "Exterior project" },
             { src: "assets/photos/exterior/exterior_007.jpg", alt: "Exterior project" },
             { src: "assets/photos/exterior/exterior_008.jpg", alt: "Exterior project" },
 
@@ -53,6 +53,7 @@
             { src: "assets/photos/roof/roof_003.jpg", alt: "Restoration project" },
             { src: "assets/photos/roof/roof_004.jpg", alt: "Restoration project" },
             { src: "assets/photos/roof/roof_005.jpg", alt: "Restoration project" },
+            { src: "assets/photos/roof/roof_006.jpg", alt: "Restoration project" },
 
         ],
         limewash: [
