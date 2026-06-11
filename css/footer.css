@@ -23,7 +23,15 @@
 
 .site-footer {
     font-family: "Inconsolata", monospace;
-    padding-top: 3rem;
+    margin-top: 3rem;
+    border-top: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.site-footer:hover {
+    /* mismo fondo que .site-header.is-scrolled */
+    background-color: rgba(164, 192, 175, 0.409);
+    border-top-color: black;
 }
 
 .site-footer__inner {

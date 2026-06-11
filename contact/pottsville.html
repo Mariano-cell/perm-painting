@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <title>House Painters in Pottsville | Perma P.</title>
+    <meta name="description"
+        content="Perma Painting services Pottsville and the Northern Rivers region, NSW. Quality workmanship, free quotes, Byron Bay based.">
+    <link rel="canonical" href="https://www.permapainting.com.au/contact/pottsville">
+
+    <link rel="icon" type="image/png" href="/assets/isotipo/p/p-verde.png">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+</head>
+
+<body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <!-- HEADER -->
+    <header class="site-header" aria-label="Header">
+        <div class="site-header__inner">
+
+            <a class="site-header__logo" href="/index.html" aria-label="Go to homepage">
+                <img src="/assets/isotipo/perma-grande/primario/iso1-verde.png" alt="Perma Painting"
+                    class="site-header__logo-img-green">
+                <img src="/assets/isotipo/perma-grande/primario/iso1-negro.png" alt=""
+                    class="site-header__logo-img-black">
+            </a>
+
+            <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
+                aria-expanded="false">
+                <div class="site-header__toggle-icon-container">
+                    <img src="/assets/iconos/hamburguer-close/menu-50.png" class="site-header__toggle-icon" alt=""
+                        aria-hidden="true">
+                </div>
+
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+                <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item"><a class="site-nav__link" href="/about-us.html">ABOUT US</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="/our-services.html">OUR SERVICES</a>
+                        </li>
+                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
+                                href="/contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main>
+
+        <!-- CONTACT HERO -->
+        <section class="contact-hero">
+            <div class="contact-hero__inner">
+
+                <div class="contact-hero__header">
+                    <h1 class="contact-hero__title text-animate-in">Contact us</h1>
+
+                    <a href="https://wa.me/61433526530?text=Hi%20Perma%20Painting,%20I%20would%20like%20to%20request%20a%20quote."
+                        class="contact-hero__whatsapp btn text-animate-in" target="_blank" rel="noopener noreferrer"
+                        aria-label="Chat with Perma Painting on WhatsApp">
+
+                        CHAT VIA WHATSAPP
+                        <img src="/assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                            class="contact-hero__whatsapp-icon">
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT FORM -->
+        <section class="contact-form" id="contact-form">
+            <div class="contact-form__inner">
+
+                <div class="contact-form__intro">
+                    <span class="contact-form__label">CONTACT FORM</span>
+                    <h2 class="contact-form__title text-animate-in">Tell us about<br>your project in Pottsville!</h2>
+                </div>
+
+                <form class="contact-form__form text-animate-in" name="contact" method="post" action="/thanks.html"
+                    data-netlify="true" netlify-honeypot="bot-field">
+
+                    <input type="hidden" name="form-name" value="contact">
+
+                    <p style="display:none;">
+                        <label>Don’t fill this out: <input name="bot-field"></label>
+                    </p>
+
+                    <div class="contact-form__grid">
+                        <div class="contact-form__field">
+                            <label for="name" class="contact-form__label-text">Name</label>
+                            <input type="text" id="name" name="name" class="contact-form__input" required>
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label for="phone" class="contact-form__label-text">Phone number</label>
+                            <input type="tel" id="phone" name="phone" class="contact-form__input">
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label for="email" class="contact-form__label-text">Email address</label>
+                            <input type="email" id="email" name="email" class="contact-form__input" required>
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label for="address" class="contact-form__label-text">Address</label>
+                            <input type="text" id="address" name="address" class="contact-form__input">
+                        </div>
+
+                        <div class="contact-form__field contact-form__field--full">
+                            <label for="message" class="contact-form__label-text">Tell us a bit about the job</label>
+                            <textarea id="message" name="message" class="contact-form__textarea" required></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="contact-form__submit btn">
+                        SEND MESSAGE
+                        <img src="/assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="contact-form__submit-icon">
+                    </button>
+
+                </form>
+
+            </div>
+        </section>
+
+        <!-- LOCATIONS -->
+        <!-- LOCATIONS -->
+        <section class="locations">
+            <div class="locations__inner">
+                <span class="locations__label">LOCATIONS</span>
+
+                <h2 class="locations__title">
+                    We&rsquo;re proudly based in Byron Bay.<br />
+                    We also work across The Northern Rivers region, including:
+                    <span class="locations__dropdown locations__dropdown--inline" data-locations>
+                        <button type="button" class="locations__trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="locations__trigger-text">Select a location</span>
+                            <span class="locations__trigger-icon" aria-hidden="true">▾</span>
+                        </button>
+
+
+
+                        <!-- Panel desplegable -->
+                        <div class="locations__panel" hidden>
+                            <label class="locations__search">
+                                <input class="locations__search-input" type="search" placeholder="Type to search…"
+                                    autocomplete="off" />
+                            </label>
+
+                            <ul class="locations__menu" role="listbox" aria-label="Locations">
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/suffolk-park" data-location="Suffolk Park">
+                                        Suffolk Park
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/byron-bay" data-location="Byron Bay">
+                                        Byron Bay
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/ewingsdale" data-location="Ewingsdale">
+                                        Ewingsdale
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/sunrise-byron-bay" data-location="Sunrise, Byron Bay">
+                                        Sunrise, Byron Bay
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/broken-head" data-location="Broken Head">
+                                        Broken Head
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/lennox-head" data-location="Lennox Head">
+                                        Lennox Head
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/ballina" data-location="Ballina">
+                                        Ballina
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/east-ballina" data-location="East Ballina">
+                                        East Ballina
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/brunswick-heads" data-location="Brunswick Heads">
+                                        Brunswick Heads
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/ocean-shores" data-location="Ocean Shores">
+                                        Ocean Shores
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/south-golden-beach" data-location="South Golden Beach">
+                                        South Golden Beach
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/new-brighton" data-location="New Brighton">
+                                        New Brighton
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/pottsville" data-location="Pottsville">
+                                        Pottsville
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/alstonville" data-location="Alstonville">
+                                        Alstonville
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/billinudgel" data-location="Billinudgel">
+                                        Billinudgel
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/myocum" data-location="Myocum">
+                                        Myocum
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/tyagarah" data-location="Tyagarah">
+                                        Tyagarah
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/bangalow" data-location="Bangalow">
+                                        Bangalow
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/mullumbimby" data-location="Mullumbimby">
+                                        Mullumbimby
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/newrybar" data-location="Newrybar">
+                                        Newrybar
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/federal" data-location="Federal">
+                                        Federal
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/lismore" data-location="Lismore">
+                                        Lismore
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/tintenbar" data-location="Tintenbar">
+                                        Tintenbar
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/wardell" data-location="Wardell">
+                                        Wardell
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/coorabell" data-location="Coorabell">
+                                        Coorabell
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/the-pocket" data-location="The Pocket">
+                                        The Pocket
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/cumbalum" data-location="Cumbalum">
+                                        Cumbalum
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/skinners-head" data-location="Skinners Head">
+                                        Skinners Head
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/belongil" data-location="Belongil">
+                                        Belongil
+                                    </a>
+                                </li>
+
+                                <li class="locations__option" role="option">
+                                    <a class="locations__option-btn" href="/contact/skinners-shoot" data-location="Skinners Shoot">
+                                        Skinners Shoot
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
+                </h2>
+
+                <!-- Dropdown searchable -->
+
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+
+        <!-- MOBILE FOOTER (new) -->
+        <div class="site-footer__mobile" aria-label="Footer mobile layout">
+
+            <!-- TOP INFO (centered) -->
+            <div class="site-footer__mobile-info">
+                <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
+                <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
+                <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
+
+                <a class="site-footer__item"
+                    href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
+                <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                <a class="site-footer__item" href="#" target="_blank" rel="noopener">Instagram</a>
+            </div>
+
+            <!-- MAIN ROW (logo left + nav right) -->
+            <div class="site-footer__mobile-main">
+                <a class="site-footer__logo" href="/index.html" aria-label="Go to homepage">
+                    <img class="site-footer__logo-img site-footer__logo-img--mobile"
+                        src="/assets/isotipo/p-painting/ppainting-verde-cropped.png" alt="Perma Painting logo"
+                        width="240" height="240" loading="lazy" />
+                </a>
+
+                <nav class="site-footer__mobile-links" aria-label="Footer navigation mobile">
+                    <a class="site-footer__item" href="/about.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="/contact.html">CONTACT</a>
+                </nav>
+            </div>
+
+        </div>
+
+
+        <div class="site-footer__inner">
+
+            <!-- <div class="site-footer__row--first">
+                <div class="site-footer__badge" aria-label="NSW Fair Trading">
+                    <img class="site-footer__badge-img" src="/assets/logos-empresas/nsw-government.svg"
+                        alt="NSW Fair Trading" loading="lazy" />
+                </div>
+            </div> -->
+
+            <!-- ROW 1 -->
+            <div class="site-footer__row site-footer__row--top">
+
+                <!-- 1) LOGO -->
+                <div class="site-footer__col site-footer__col--logo">
+                    <a class="site-footer__logo" href="/index.html" aria-label="Go to homepage">
+                        <img class="site-footer__logo-img" src="/assets/isotipo/p-painting/ppainting-verde-cropped.png"
+                            alt="Perma Painting logo" width="120" height="120" loading="lazy" />
+                    </a>
+                </div>
+
+                <!-- 2) LINKS -->
+                <nav class="site-footer__col site-footer__col--links" aria-label="Footer navigation">
+                    <a class="site-footer__item" href="/about-us.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="/contact.html">CONTACT</a>
+                </nav>
+
+                <!-- 3) CONTACT -->
+                <div class="site-footer__col site-footer__col--contact" aria-label="Contact information">
+                    <a class="site-footer__item"
+                        href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
+                    <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                    <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+                </div>
+
+                <!-- 4) LICENSES -->
+                <div class="site-footer__col site-footer__col--licenses" aria-label="Business details">
+                    <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
+                    <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
+                    <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="site-footer__row site-footer__row--bottom">
+                <p class="site-footer__meta">PERMA Painting &copy; 2026</p>
+
+                <div class="site-footer__badge" aria-label="NSW Fair Trading">
+                    <img class="site-footer__badge-img" src="/assets/logos-empresas/nsw-government.svg"
+                        alt="NSW Fair Trading" loading="lazy" />
+                </div>
+
+                <p class="site-footer__credit">SITE BY <br>MARIANO RICHARDS</p>
+            </div>
+
+        </div>
+
+
+    </footer>
+
+    <script src="/js/main.js"></script>
+
+
+</body>
+
+</html>

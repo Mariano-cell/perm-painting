@@ -282,6 +282,44 @@ document.addEventListener("DOMContentLoaded", loadReviews);
 
 
 // =======================================
+// PAGE TRANSITIONS (salida con blur)
+// =======================================
+(() => {
+  const LEAVE_MS = 300; // debe coincidir con la transition de .page-leave en style.css
+
+  document.addEventListener("click", (e) => {
+    // Respetar accesibilidad: sin animación si el user pidió reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const link = e.target.closest("a[href]");
+    if (!link) return;
+
+    // Si otro handler ya canceló la navegación (ej: dropdown de locations), no tocar
+    if (e.defaultPrevented) return;
+
+    // Solo click izquierdo simple, misma pestaña, mismo dominio, sin download
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    if (link.target && link.target !== "_self") return;
+    if (link.origin !== location.origin) return;
+    if (link.hasAttribute("download")) return;
+
+    // Anchors dentro de la misma página (#seccion): scroll normal, sin animación
+    if (link.pathname === location.pathname && link.hash) return;
+
+    e.preventDefault();
+    document.body.classList.add("page-leave");
+    setTimeout(() => {
+      location.href = link.href;
+    }, LEAVE_MS);
+  });
+
+  // Si la página vuelve desde el bfcache (botón atrás), limpiar el estado de salida
+  window.addEventListener("pageshow", (e) => {
+    if (e.persisted) document.body.classList.remove("page-leave");
+  });
+})();
+
+// =======================================
 // LOCATIONS dropdown (search + select)
 // =======================================
 (() => {
@@ -295,6 +333,50 @@ document.addEventListener("DOMContentLoaded", loadReviews);
   const optionBtns = Array.from(root.querySelectorAll(".locations__option-btn"));
 
   if (!trigger || !triggerText || !panel || !searchInput || optionBtns.length === 0) return;
+
+  // --- SEO local: helpers ---
+  const slugify = (name) =>
+    name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+  // Actualiza h2, <title>, meta description y canonical para una localidad
+  const applyLocation = (value) => {
+    triggerText.textContent = value;
+
+    const titleEl = document.querySelector(".contact-form__title");
+    if (titleEl) {
+      titleEl.innerHTML = `Tell us about<br>your project in ${value}!`;
+    }
+
+    document.title = `Painters in ${value} | Perma P.`;
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        "content",
+        `Professional painting services in ${value}, NSW. Get a free quote from Perma Painting, your local Northern Rivers painters.`
+      );
+    }
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute(
+        "href",
+        `${location.origin}/contact/${slugify(value)}`
+      );
+    }
+  };
+
+  // Al cargar /contact/<slug> (página estática generada): el h2, <title>,
+  // meta y canonical ya vienen en el HTML — solo reflejamos la localidad
+  // en el trigger del dropdown. NO usar applyLocation acá: pisaría los
+  // textos únicos de cada página generada.
+  const slugMatch = location.pathname.match(/^\/contact\/([a-z0-9-]+)\/?$/);
+  if (slugMatch) {
+    const btn = optionBtns.find(
+      (b) => slugify(b.dataset.location || b.textContent.trim()) === slugMatch[1]
+    );
+    if (btn) triggerText.textContent = btn.dataset.location || btn.textContent.trim();
+  }
 
   const isOpen = () => !panel.hasAttribute("hidden");
 
@@ -336,31 +418,23 @@ document.addEventListener("DOMContentLoaded", loadReviews);
 
   // 3) seleccionar opción
   optionBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      // El href existe para que Google indexe /contact/<slug>;
+      // acá interceptamos para no recargar y no perder datos del form.
+      e.preventDefault();
+
       const value = btn.dataset.location || btn.textContent.trim();
 
-      // 1) set dropdown text
-      triggerText.textContent = value;
+      // 1) actualizar URL sin recargar
+      const href = btn.getAttribute("href") || `/contact/${slugify(value)}`;
+      history.pushState({ location: value }, "", href);
+
+      // 2) h2 + <title> + meta + canonical
+      applyLocation(value);
       close();
 
-      // 2) update contact form title
-      const titleEl = document.querySelector(".contact-form__title");
-      if (titleEl) {
-        // mantenemos el <br> como en tu diseño
-        titleEl.innerHTML = `Tell us about<br>your project in ${value}!`;
-      }
-
-      // 3) scroll to form (con offset por header fijo)
-      const formSection = document.querySelector(".contact-form");
-      if (formSection) {
-        const headerEl = document.querySelector(".site-header");
-        const headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
-
-        const y =
-          window.scrollY + formSection.getBoundingClientRect().top - headerH - 16; // 16px “aire”
-
-        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-      }
+      // 3) scroll al principio de la página
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       // 4) foco (mejor UX / a11y)
       requestAnimationFrame(() => trigger.focus());
