@@ -298,7 +298,7 @@ body.is-nav-open .nav-backdrop {
 .about-page__gallery-viewport {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.8rem;
+    gap: 0.9rem;
 }
 
 /* Cada columna */
@@ -310,9 +310,8 @@ body.is-nav-open .nav-backdrop {
 .about-page__img-container {
     width: 100%;
     height: auto;
-    /* clave */
-    overflow: visible;
-    /* no recorta */
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 
@@ -578,17 +577,27 @@ body.is-nav-open .nav-backdrop {
     animation-delay: 420ms;
 }
 
-.about-page__img.text-animate-in {
-    animation-delay: 620ms;
+.about-page__img {
+    opacity: 0;
+    clip-path: inset(0 0 50% 0 round 8px);
+    animation: aboutImgReveal 1.8s ease-out 0.3s forwards;
+}
+
+@keyframes aboutImgReveal {
+    0%   { opacity: 0; clip-path: inset(0 0 50% 0 round 8px); }
+    30%  { opacity: 1; }
+    100% { opacity: 1; clip-path: inset(0 0 0%  0 round 8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
     [data-animate],
-    .text-animate-in {
+    .text-animate-in,
+    .about-page__img {
         animation: none;
         opacity: 1;
         transform: none;
+        clip-path: none;
     }
 }
 

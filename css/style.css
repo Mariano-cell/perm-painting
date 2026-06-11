@@ -165,6 +165,43 @@ button {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);
 }
 
+.btn-icon-rotate {
+    transform: rotate(0deg);
+    transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn:hover .btn-icon-rotate,
+.btn:focus-visible .btn-icon-rotate {
+    transform: rotate(45deg);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn:hover .btn-slot-track,
+.btn:focus-visible .btn-slot-track {
+    transform: translateY(-50%);
+}
+
+.btn-slot-mask {
+    display: block;
+    overflow: hidden;
+    height: 1.2em;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 6px, black calc(100% - 6px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0px, black 6px, black calc(100% - 6px), transparent 100%);
+}
+
+.btn-slot-track {
+    display: flex;
+    flex-direction: column;
+    transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-slot-row {
+    display: flex;
+    align-items: center;
+    height: 1.2em;
+    flex-shrink: 0;
+}
+
 ul {
     list-style: none;
     margin: 0;
@@ -193,6 +230,52 @@ ul {
         --header-h: 105px;
         --hero-min-h: 600px;
         --hero-pb: 24px;
+    }
+}
+
+/* =========================================================
+   PAGE TRANSITIONS
+========================================================= */
+
+/* Entrada: la página nueva aparece con fade-in */
+body {
+    animation: pageEnter 450ms ease both;
+}
+
+/* Salida: blur + fade del contenido antes de navegar.
+   El filter va en main/footer (no en body) para no romper
+   el position: fixed del header — a ese lo apagamos con opacity. */
+body.page-leave main,
+body.page-leave footer {
+    filter: blur(12px);
+    opacity: 0;
+    transition: filter 300ms ease, opacity 300ms ease;
+}
+
+body.page-leave .site-header {
+    opacity: 0;
+    transition: opacity 300ms ease;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body {
+        animation: none;
+    }
+
+    body.page-leave main,
+    body.page-leave footer,
+    body.page-leave .site-header {
+        transition: none;
     }
 }
 

@@ -25,12 +25,15 @@
         href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <title>Contact | Perma P.</title>
+    <meta name="description"
+        content="Get a free painting quote from Perma Painting. Based in Byron Bay, servicing the Northern Rivers region, NSW.">
+    <link rel="canonical" href="https://www.permapainting.com.au/contact.html">
 
-    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+    <link rel="icon" type="image/png" href="/assets/isotipo/p/p-verde.png">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -47,17 +50,17 @@
     <header class="site-header" aria-label="Header">
         <div class="site-header__inner">
 
-            <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
-                <img src="assets/isotipo/perma-grande/primario/iso1-verde.png" alt="Perma Painting"
+            <a class="site-header__logo" href="/index.html" aria-label="Go to homepage">
+                <img src="/assets/isotipo/perma-grande/primario/iso1-verde.png" alt="Perma Painting"
                     class="site-header__logo-img-green">
-                <img src="assets/isotipo/perma-grande/primario/iso1-negro.png" alt=""
+                <img src="/assets/isotipo/perma-grande/primario/iso1-negro.png" alt=""
                     class="site-header__logo-img-black">
             </a>
 
             <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
                 aria-expanded="false">
                 <div class="site-header__toggle-icon-container">
-                    <img src="assets/iconos/hamburguer-close/menu-50.png" class="site-header__toggle-icon" alt=""
+                    <img src="/assets/iconos/hamburguer-close/menu-50.png" class="site-header__toggle-icon" alt=""
                         aria-hidden="true">
                 </div>
 
@@ -68,11 +71,11 @@
             <nav class="site-nav" id="site-nav" aria-label="Main navigation">
                 <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
                     <ul class="site-nav__list">
-                        <li class="site-nav__item"><a class="site-nav__link" href="about-us.html">ABOUT US</a></li>
-                        <li class="site-nav__item"><a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+                        <li class="site-nav__item"><a class="site-nav__link" href="/about-us.html">ABOUT US</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="/our-services.html">OUR SERVICES</a>
                         </li>
                         <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
-                                href="contact.html">CONTACT</a></li>
+                                href="/contact.html">CONTACT</a></li>
                     </ul>
                 </div>
             </nav>
@@ -94,10 +97,8 @@
                     <a href="https://wa.me/61433526530?text=Hi%20Perma%20Painting,%20I%20would%20like%20to%20request%20a%20quote."
                         class="contact-hero__whatsapp btn text-animate-in" target="_blank" rel="noopener noreferrer"
                         aria-label="Chat with Perma Painting on WhatsApp">
-
-                        CHAT VIA WHATSAPP
-                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
-                            class="contact-hero__whatsapp-icon">
+                        <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">CHAT VIA WHATSAPP</span><span class="btn-slot-row">CHAT VIA WHATSAPP</span></span></span>
+                        <img src="/assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="contact-hero__whatsapp-icon btn-icon-rotate">
                     </a>
 
                 </div>
@@ -151,8 +152,8 @@
                     </div>
 
                     <button type="submit" class="contact-form__submit btn">
-                        SEND MESSAGE
-                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="contact-form__submit-icon">
+                        <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">SEND MESSAGE</span><span class="btn-slot-row">SEND MESSAGE</span></span></span>
+                        <img src="/assets/iconos/icons8-flecha-diagonal-24.png" alt="" class="contact-form__submit-icon btn-icon-rotate">
                     </button>
 
                 </form>
@@ -186,185 +187,183 @@
 
                             <ul class="locations__menu" role="listbox" aria-label="Locations">
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Suffolk Park">
+                                    <a class="locations__option-btn" href="/contact/suffolk-park" data-location="Suffolk Park">
                                         Suffolk Park
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Byron Bay">
+                                    <a class="locations__option-btn" href="/contact/byron-bay" data-location="Byron Bay">
                                         Byron Bay
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Ewingsdale">
+                                    <a class="locations__option-btn" href="/contact/ewingsdale" data-location="Ewingsdale">
                                         Ewingsdale
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn"
-                                        data-location="Sunrise, Byron Bay">
+                                    <a class="locations__option-btn" href="/contact/sunrise-byron-bay" data-location="Sunrise, Byron Bay">
                                         Sunrise, Byron Bay
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Broken Head">
+                                    <a class="locations__option-btn" href="/contact/broken-head" data-location="Broken Head">
                                         Broken Head
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Lennox Head">
+                                    <a class="locations__option-btn" href="/contact/lennox-head" data-location="Lennox Head">
                                         Lennox Head
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Ballina">
+                                    <a class="locations__option-btn" href="/contact/ballina" data-location="Ballina">
                                         Ballina
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="East Ballina">
+                                    <a class="locations__option-btn" href="/contact/east-ballina" data-location="East Ballina">
                                         East Ballina
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Brunswick Heads">
+                                    <a class="locations__option-btn" href="/contact/brunswick-heads" data-location="Brunswick Heads">
                                         Brunswick Heads
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Ocean Shores">
+                                    <a class="locations__option-btn" href="/contact/ocean-shores" data-location="Ocean Shores">
                                         Ocean Shores
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn"
-                                        data-location="South Golden Beach">
+                                    <a class="locations__option-btn" href="/contact/south-golden-beach" data-location="South Golden Beach">
                                         South Golden Beach
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="New Brighton">
+                                    <a class="locations__option-btn" href="/contact/new-brighton" data-location="New Brighton">
                                         New Brighton
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Pottsville">
+                                    <a class="locations__option-btn" href="/contact/pottsville" data-location="Pottsville">
                                         Pottsville
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Alstonville">
+                                    <a class="locations__option-btn" href="/contact/alstonville" data-location="Alstonville">
                                         Alstonville
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Billinudgel">
+                                    <a class="locations__option-btn" href="/contact/billinudgel" data-location="Billinudgel">
                                         Billinudgel
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Myocum">
+                                    <a class="locations__option-btn" href="/contact/myocum" data-location="Myocum">
                                         Myocum
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Tyagarah">
+                                    <a class="locations__option-btn" href="/contact/tyagarah" data-location="Tyagarah">
                                         Tyagarah
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Bangalow">
+                                    <a class="locations__option-btn" href="/contact/bangalow" data-location="Bangalow">
                                         Bangalow
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Mullumbimby">
+                                    <a class="locations__option-btn" href="/contact/mullumbimby" data-location="Mullumbimby">
                                         Mullumbimby
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Newrybar">
+                                    <a class="locations__option-btn" href="/contact/newrybar" data-location="Newrybar">
                                         Newrybar
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Federal">
+                                    <a class="locations__option-btn" href="/contact/federal" data-location="Federal">
                                         Federal
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Lismore">
+                                    <a class="locations__option-btn" href="/contact/lismore" data-location="Lismore">
                                         Lismore
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Tintenbar">
+                                    <a class="locations__option-btn" href="/contact/tintenbar" data-location="Tintenbar">
                                         Tintenbar
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Wardell">
+                                    <a class="locations__option-btn" href="/contact/wardell" data-location="Wardell">
                                         Wardell
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Coorabell">
+                                    <a class="locations__option-btn" href="/contact/coorabell" data-location="Coorabell">
                                         Coorabell
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="The Pocket">
+                                    <a class="locations__option-btn" href="/contact/the-pocket" data-location="The Pocket">
                                         The Pocket
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Cumbalum">
+                                    <a class="locations__option-btn" href="/contact/cumbalum" data-location="Cumbalum">
                                         Cumbalum
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Skinners Head">
+                                    <a class="locations__option-btn" href="/contact/skinners-head" data-location="Skinners Head">
                                         Skinners Head
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Belongil">
+                                    <a class="locations__option-btn" href="/contact/belongil" data-location="Belongil">
                                         Belongil
-                                    </button>
+                                    </a>
                                 </li>
 
                                 <li class="locations__option" role="option">
-                                    <button type="button" class="locations__option-btn" data-location="Skinners Shoot">
+                                    <a class="locations__option-btn" href="/contact/skinners-shoot" data-location="Skinners Shoot">
                                         Skinners Shoot
-                                    </button>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -399,16 +398,16 @@
 
             <!-- MAIN ROW (logo left + nav right) -->
             <div class="site-footer__mobile-main">
-                <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
+                <a class="site-footer__logo" href="/index.html" aria-label="Go to homepage">
                     <img class="site-footer__logo-img site-footer__logo-img--mobile"
-                        src="assets/isotipo/p-painting/ppainting-verde-cropped.png" alt="Perma Painting logo"
+                        src="/assets/isotipo/p-painting/ppainting-verde-cropped.png" alt="Perma Painting logo"
                         width="240" height="240" loading="lazy" />
                 </a>
 
                 <nav class="site-footer__mobile-links" aria-label="Footer navigation mobile">
-                    <a class="site-footer__item" href="about.html">ABOUT&nbsp;&nbsp;US</a>
-                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
-                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                    <a class="site-footer__item" href="/about.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="/contact.html">CONTACT</a>
                 </nav>
             </div>
 
@@ -419,7 +418,7 @@
 
             <!-- <div class="site-footer__row--first">
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
-                    <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
+                    <img class="site-footer__badge-img" src="/assets/logos-empresas/nsw-government.svg"
                         alt="NSW Fair Trading" loading="lazy" />
                 </div>
             </div> -->
@@ -429,17 +428,17 @@
 
                 <!-- 1) LOGO -->
                 <div class="site-footer__col site-footer__col--logo">
-                    <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
-                        <img class="site-footer__logo-img" src="assets/isotipo/p-painting/ppainting-verde-cropped.png"
+                    <a class="site-footer__logo" href="/index.html" aria-label="Go to homepage">
+                        <img class="site-footer__logo-img" src="/assets/isotipo/p-painting/ppainting-verde-cropped.png"
                             alt="Perma Painting logo" width="120" height="120" loading="lazy" />
                     </a>
                 </div>
 
                 <!-- 2) LINKS -->
                 <nav class="site-footer__col site-footer__col--links" aria-label="Footer navigation">
-                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
-                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
-                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                    <a class="site-footer__item" href="/about-us.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="/contact.html">CONTACT</a>
                 </nav>
 
                 <!-- 3) CONTACT -->
@@ -463,7 +462,7 @@
                 <p class="site-footer__meta">PERMA Painting &copy; 2026</p>
 
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
-                    <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
+                    <img class="site-footer__badge-img" src="/assets/logos-empresas/nsw-government.svg"
                         alt="NSW Fair Trading" loading="lazy" />
                 </div>
 
@@ -475,7 +474,7 @@
 
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
 
 
 </body>
