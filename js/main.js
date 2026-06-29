@@ -469,3 +469,59 @@ document.addEventListener("DOMContentLoaded", loadReviews);
     { passive: true }
   );
 })();
+
+
+// =======================================
+// SCROLL REVEAL (calmo: fade + leve subida)
+// Revela los elementos .reveal una sola vez al entrar al viewport.
+// =======================================
+(() => {
+  const items = document.querySelectorAll(".reveal, .os-reveal");
+  if (!items.length) return;
+
+  // Fallback: sin IntersectionObserver o con reduced-motion, mostrar todo.
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const reveal = (el) => el.classList.add("is-visible");
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          obs.unobserve(entry.target); // una sola vez
+        }
+      });
+    },
+    // threshold 0 = dispara apenas el borde del elemento cruza la zona.
+    // El rootMargin negativo abajo retrasa ese cruce hasta que la imagen
+    // sube un poco en pantalla, dando a cada fila su propio punto de
+    // entrada sin exigir un % de área (que las imágenes altas no cumplen).
+    { threshold: 0, rootMargin: "0px 0px -12% 0px" }
+  );
+
+  items.forEach((el) => observer.observe(el));
+
+  // Red de seguridad: revela cualquier elemento que ya esté dentro del
+  // viewport pero que el observer no haya marcado (p. ej. imágenes altas
+  // que no disparan). Corre al cargar y en cada scroll, así ninguna fila
+  // queda atrapada invisible, pero las de más abajo conservan su entrada.
+  const isInViewport = (el) => {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    return r.top < vh * 0.92 && r.bottom > 0; // un poco dentro, no pegado al borde
+  };
+
+  const safetyCheck = () => {
+    items.forEach((el) => {
+      if (!el.classList.contains("is-visible") && isInViewport(el)) reveal(el);
+    });
+  };
+
+  window.addEventListener("scroll", safetyCheck, { passive: true });
+  window.addEventListener("load", () => setTimeout(safetyCheck, 300));
+})();

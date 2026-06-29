@@ -12,7 +12,11 @@ exports.handler = async function (event, context) {
         if (data.status !== 'OK') {
             return {
                 statusCode: 500,
-                body: JSON.stringify({ error: data.status_message || 'Error en Google API' })
+                body: JSON.stringify({
+                    error: data.status_message || 'Error en Google API',
+                    status: data.status,
+                    hasApiKey: Boolean(API_KEY)
+                })
             };
         }
 
