@@ -149,6 +149,7 @@ async function loadReviews() {
     }
 
     container.innerHTML = reviews
+      .slice(0, 4)
       .map((rev, i) => {
         const safeText = (rev.text || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         const safeAuthor = (rev.author_name || "")
