@@ -384,19 +384,44 @@ body.page-leave .site-header {
     animation: fadeDropIn 1.5s ease-out forwards;
 }
 
-.site-nav__item:nth-child(1) .site-nav__link {
+/* En items con dropdown, el <a> va dentro de .site-nav__link-row junto
+   a la flecha. Animamos el row entero (texto + flecha juntos) y evitamos
+   que el <a> interno haga su propia animación (doble fade). */
+.site-nav__item--has-dropdown > .site-nav__link-row {
+    opacity: 0;
+    animation: fadeDropIn 1.5s ease-out forwards;
+}
+
+.site-nav__item--has-dropdown > .site-nav__link-row .site-nav__link {
+    opacity: 1;
+    animation: none;
+}
+
+/* Cascada de entrada: un escalón por item (~120ms). El target es el
+   .site-nav__link normal o el .site-nav__link-row si hay dropdown.
+   Si se agrega/quita un link, sumá/sacá una línea manteniendo el paso. */
+.site-nav__item:nth-child(1) .site-nav__link,
+.site-nav__item:nth-child(1) > .site-nav__link-row {
     animation-delay: 120ms;
 }
 
-.site-nav__item:nth-child(2) .site-nav__link {
-    animation-delay: 300ms;
+.site-nav__item:nth-child(2) .site-nav__link,
+.site-nav__item:nth-child(2) > .site-nav__link-row {
+    animation-delay: 240ms;
 }
 
-.site-nav__item:nth-child(3) .site-nav__link {
-    animation-delay: 500ms;
+.site-nav__item:nth-child(3) .site-nav__link,
+.site-nav__item:nth-child(3) > .site-nav__link-row {
+    animation-delay: 360ms;
 }
 
-.site-header.is-compact .site-nav__link {
+.site-nav__item:nth-child(4) .site-nav__link,
+.site-nav__item:nth-child(4) > .site-nav__link-row {
+    animation-delay: 480ms;
+}
+
+.site-header.is-compact .site-nav__link,
+.site-header.is-compact .site-nav__link-row {
     animation: none;
     opacity: 1;
     transform: none;
@@ -445,7 +470,8 @@ body.is-nav-open .nav-backdrop {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .site-nav__link {
+    .site-nav__link,
+    .site-nav__link-row {
         animation: none;
         opacity: 1;
         transform: none;
@@ -541,5 +567,145 @@ body.is-nav-open .nav-backdrop {
     body.is-nav-open footer {
         filter: blur(10px);
         transition: filter 220ms ease;
+    }
+}
+
+/* =========================================================
+   NAV DROPDOWNS (OUR SERVICES / AREAS OF SERVICE)
+   Desktop: abre por hover (CSS). Mobile: por tap (JS toggle).
+========================================================= */
+
+.site-nav__item--has-dropdown {
+    position: relative;
+}
+
+/* Botón flecha que acompaña al link (toggle en mobile) */
+.site-nav__caret {
+    display: none;
+    background: transparent;
+    border: 0;
+    padding: 0 0 0 0.4rem;
+    cursor: pointer;
+    font-size: 0.7em;
+    line-height: 1;
+    color: inherit;
+    transition: transform 0.25s ease;
+}
+
+/* Panel del dropdown */
+.site-nav__dropdown {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+/* ---------- DESKTOP (hover) ---------- */
+@media (min-width: 769px) {
+    .site-nav__dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 260px;
+
+        /* padding-top = 1rem (puente de hover, fuera del panel visible)
+           + 0.5rem (aire interno arriba del primer link). El panel
+           visible (::before) arranca a 1rem, así que el contenido queda
+           con 0.5rem de respiro arriba y abajo. */
+        padding: 1.5rem 0 0.5rem;
+        background: transparent;
+        border: 0;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-6px);
+        transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
+
+        z-index: 80;
+    }
+
+    /* superficie visible del dropdown (con el fondo glass y borde) */
+    .site-nav__dropdown::before {
+        content: "";
+        position: absolute;
+        inset: 1rem 0 0 0;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid black;
+        border-radius: 8px;
+        z-index: -1;
+    }
+
+    /* aparece al pasar el mouse por el item */
+    .site-nav__item--has-dropdown:hover .site-nav__dropdown,
+    .site-nav__item--has-dropdown:focus-within .site-nav__dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: opacity 200ms ease, transform 200ms ease;
+    }
+
+    .site-nav__dropdown-link {
+        display: block;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        color: rgba(0, 0, 0, 0.8);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .site-nav__dropdown-link:hover,
+    .site-nav__dropdown-link:focus-visible {
+        background-color: rgba(116, 167, 176, 0.18);
+        color: var(--color-primary);
+    }
+}
+
+/* ---------- MOBILE (tap toggle) ---------- */
+@media (max-width: 768px) {
+    .site-nav__caret {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        padding-left: 0.6rem;
+    }
+
+    .site-nav__item--has-dropdown {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .site-nav__link-row {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* colapsado por defecto */
+    .site-nav__dropdown {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 280ms ease, opacity 200ms ease;
+        text-align: center;
+    }
+
+    .site-nav__item--has-dropdown.is-open .site-nav__dropdown {
+        max-height: 60vh;
+        opacity: 1;
+        padding: 0.5rem 0 0.25rem;
+    }
+
+    .site-nav__item--has-dropdown.is-open .site-nav__caret {
+        transform: rotate(180deg);
+    }
+
+    .site-nav__dropdown-link {
+        display: block;
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+        color: rgba(0, 0, 0, 0.78);
     }
 }

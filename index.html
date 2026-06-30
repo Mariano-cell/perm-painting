@@ -26,9 +26,12 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home.css?v=5">
     <link rel="stylesheet" href="css/footer.css">
     <title>Home | Perma Painting</title>
+
+    <!-- Google Search Console — verificación de propiedad del sitio -->
+    <meta name="google-site-verification" content="b2Ct2ylW8Z_CtDOcJgx68rfVUEP8bQDg68j8R0DoDc0">
 
     <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
 
@@ -66,11 +69,38 @@
 
             <nav class="site-nav" id="site-nav" aria-label="Main navigation">
                 <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
-
                     <ul class="site-nav__list">
                         <li class="site-nav__item"><a class="site-nav__link" href="about-us.html">ABOUT US</a></li>
-                        <li class="site-nav__item"><a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle services menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="house-painters-byron-bay.html">House Painters</a></li>
+                                <li><a class="site-nav__dropdown-link" href="interior-painting-byron-bay.html">Interior Painting</a></li>
+                                <li><a class="site-nav__dropdown-link" href="exterior-painting-byron-bay.html">Exterior Painting</a></li>
+                                <li><a class="site-nav__dropdown-link" href="roof-painting-byron-bay.html">Roof Painting</a></li>
+                                <li><a class="site-nav__dropdown-link" href="limewash-painting-byron-bay.html">Limewash Painting</a></li>
+                                <li><a class="site-nav__dropdown-link" href="deck-painting-byron-bay.html">Deck Painting</a></li>
+                                <li><a class="site-nav__dropdown-link" href="kitchen-cabinet-painting-byron-bay.html">Kitchen Cabinet Painting</a></li>
+                                <li><a class="site-nav__dropdown-link" href="commercial-painters-byron-bay.html">Commercial Painters</a></li>
+                            </ul>
                         </li>
+
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="byron-bay.html">AREAS OF SERVICE</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle areas menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="byron-bay.html">Byron Bay</a></li>
+                                <li><a class="site-nav__dropdown-link" href="ballina.html">Ballina</a></li>
+                                <li><a class="site-nav__dropdown-link" href="mullumbimby.html">Mullumbimby</a></li>
+                            </ul>
+                        </li>
+
                         <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
                                 href="contact.html">CONTACT</a></li>
                     </ul>
@@ -134,17 +164,21 @@
 
 
 
-                    <div class="hero__left--photo-container">
+                    <div class="hero__left--photo-container hero-slideshow">
 
-                        <img src="assets/photos/landing-hero/landing_006.jpg" alt="" class="hero__left--photo">
+                        <img src="assets/photos/landing-hero/landing_006.jpg" alt="" class="hero__left--photo hero-slide is-active">
+                        <img src="assets/photos/landing-hero/landing-left-2.jpg" alt="" class="hero__left--photo hero-slide" loading="lazy">
+                        <img src="assets/photos/landing-hero/landing-left-3.jpg" alt="" class="hero__left--photo hero-slide" loading="lazy">
 
                     </div>
 
                 </div>
 
                 <div class="hero__right">
-                    <div class="hero__right--photo-container">
-                        <img src="assets/photos/landing-hero/landing_005.jpg" alt="" class="hero__right--photo">
+                    <div class="hero__right--photo-container hero-slideshow">
+                        <img src="assets/photos/landing-hero/landing_005.jpg" alt="" class="hero__right--photo hero-slide is-active">
+                        <img src="assets/photos/landing-hero/landing-right-2.jpg" alt="" class="hero__right--photo hero-slide" loading="lazy">
+                        <img src="assets/photos/landing-hero/landing-right-3.jpg" alt="" class="hero__right--photo hero-slide" loading="lazy">
 
                     </div>
                 </div>
@@ -472,7 +506,7 @@
 
 
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=5"></script>
 
 </body>
 

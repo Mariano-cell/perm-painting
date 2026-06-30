@@ -179,6 +179,75 @@
 }
 
 
+/* ---------- HERO SLIDESHOW (cross-fade cada 4s) ----------
+   Modelo: TODAS las slides apiladas en absolute, opacidad controlada solo
+   por .is-active. La 1ª slide (original) define la altura del container
+   quedando en flujo, pero su opacidad la maneja .is-active igual que el resto. */
+
+.hero-slideshow {
+    position: relative;
+}
+
+.hero-slideshow .hero-slide {
+    object-fit: cover;
+    transition: opacity 1.2s ease-in-out;
+}
+
+/* La 1ª slide queda en flujo para dar altura al container.
+   Conserva su animación de reveal de entrada (heroRevealRight/Down). */
+.hero-slideshow .hero-slide:first-child {
+    position: relative;
+    z-index: 1;
+}
+
+/* Las demás se apilan encima, ocultas por defecto.
+   IMPORTANTE: anulamos la animación de reveal (heroRevealRight/Down) que la
+   clase .hero__left--photo / .hero__right--photo les aplica con 'forwards';
+   sin esto, esa animación las fijaría en opacity:1 y romperían el cross-fade. */
+.hero-slideshow .hero-slide:not(:first-child) {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    animation: none;
+    clip-path: none;
+    transform: none;
+    opacity: 0;
+}
+
+/* La slide superpuesta activa aparece por encima */
+.hero-slideshow .hero-slide:not(:first-child).is-active {
+    opacity: 1;
+}
+
+/* Cuando el carrusel arranca, la 1ª deja de depender de su animación de reveal
+   (que con 'forwards' fijaría opacity:1) y pasa a obedecer .is-active.
+   La 1ª arranca CON .is-active, así que mientras esté activa se mantiene en
+   opacity:1 sin pasar por 0 (eso evita el parpadeo/espasmo del primer cambio). */
+.hero-slideshow.is-running .hero-slide:first-child {
+    animation: none;
+    clip-path: none;
+    transform: none;
+    opacity: 1;
+}
+
+/* Solo se desvanece cuando deja de ser la activa */
+.hero-slideshow.is-running .hero-slide:first-child:not(.is-active) {
+    opacity: 0;
+}
+
+/* Zoom-in leve y lento (efecto Ken Burns) en la slide activa.
+   Se aplica solo con el carrusel en marcha (is-running) para no interferir
+   con la animación de reveal de entrada. La animación se reinicia cada vez
+   que una slide recibe .is-active. */
+.hero-slideshow.is-running .hero-slide.is-active {
+    animation: heroKenBurns 3.5s ease-out forwards;
+}
+
+@keyframes heroKenBurns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.06); }
+}
+
 .line-mask {
     display: block;
     overflow: hidden;
@@ -226,6 +295,12 @@
         opacity: 1;
         transform: none;
         clip-path: none;
+    }
+
+    /* Sin movimiento: mostramos solo la primera slide, ocultamos el resto */
+    .hero-slideshow .hero-slide:not(:first-child) {
+        opacity: 0;
+        transition: none;
     }
 }
 

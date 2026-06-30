@@ -1,0 +1,88 @@
+{
+  "type": "FeatureCollection",
+  "_note": "Contornos APROXIMADOS de las zonas de servicio alrededor de Byron Bay. NO son límites catastrales: son polígonos dibujados a mano para el mapa decorativo de areas-of-service. Coords en [lng, lat]. 'tier' define el color: primary = Byron Bay (destacado), secondary = localidades circundantes. Para ajustar una zona, editá sus coordenadas y regenerá con scripts/generate-landing-pages.py.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Byron Bay", "tier": "primary" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [153.5852, -28.6365],
+          [153.6065, -28.6321],
+          [153.6358, -28.6375],
+          [153.6465, -28.6438],
+          [153.6392, -28.6678],
+          [153.6085, -28.6825],
+          [153.5812, -28.6712],
+          [153.5785, -28.6521],
+          [153.5852, -28.6365]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Suffolk Park", "tier": "secondary" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [153.5812, -28.6712],
+          [153.6085, -28.6825],
+          [153.6190, -28.7010],
+          [153.6075, -28.7180],
+          [153.5860, -28.7155],
+          [153.5760, -28.6960],
+          [153.5812, -28.6712]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Brunswick Heads", "tier": "secondary" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [153.5310, -28.5240],
+          [153.5560, -28.5285],
+          [153.5630, -28.5460],
+          [153.5470, -28.5610],
+          [153.5240, -28.5520],
+          [153.5180, -28.5360],
+          [153.5310, -28.5240]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Bangalow", "tier": "secondary" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [153.5050, -28.6720],
+          [153.5320, -28.6680],
+          [153.5470, -28.6850],
+          [153.5390, -28.7060],
+          [153.5120, -28.7090],
+          [153.4960, -28.6920],
+          [153.5050, -28.6720]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Lennox Head", "tier": "secondary" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [153.5760, -28.7720],
+          [153.6000, -28.7760],
+          [153.6080, -28.7950],
+          [153.5950, -28.8140],
+          [153.5710, -28.8090],
+          [153.5630, -28.7900],
+          [153.5760, -28.7720]
+        ]]
+      }
+    }
+  ]
+}

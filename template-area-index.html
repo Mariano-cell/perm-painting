@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <title>Painting Services in {{ZONE}} | Perma Painting</title>
+
+    <meta name="description" content="{{META_DESCRIPTION}}">
+
+    <link rel="canonical" href="{{DOMAIN}}/{{SLUG}}">
+
+    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+{{SCHEMA_BREADCRUMB}}
+    </script>
+</head>
+
+<body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+{{HEADER}}
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main class="landing">
+        <div class="landing__inner">
+
+            <!-- Breadcrumb -->
+            <nav class="landing-breadcrumb" aria-label="Breadcrumb">
+                <ol class="landing-breadcrumb__list">
+                    <li class="landing-breadcrumb__item">
+                        <a class="landing-breadcrumb__link" href="index.html">Home</a>
+                    </li>
+                    <li class="landing-breadcrumb__item">
+                        <span class="landing-breadcrumb__current" aria-current="page">{{ZONE}}</span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Índice de zona: solo título + links a los 8 servicios.
+                 Sin contenido propio (para no canibalizar las landings). -->
+            <section class="area-index" aria-labelledby="area-index-title">
+
+                <!-- Cabecera: texto a la izq + (en Byron Bay) mapa de zonas a la der.
+                     El bloque del mapa queda vacío en las zonas sin mapa. -->
+                <div class="area-index__head">
+
+                    <div class="area-index__head-text">
+                        <p class="landing-area__label">AREAS OF SERVICE</p>
+                        <h1 id="area-index-title" class="area-index__title">Painting in {{ZONE}} and surrounds</h1>
+
+                        <p class="area-index__intro">We work across {{ZONE}} and the nearby coastal and hinterland
+                            communities. Here are the areas we cover:</p>
+
+                        <!-- 1) Localidades de la zona (pills). Sin links por ahora:
+                             no tienen página propia. Si se les crea, pasar a <a>. -->
+                        <ul class="landing-area__pills" aria-label="Areas we serve around {{ZONE}}">
+{{AREA_PILLS}}
+                        </ul>
+                    </div>
+
+{{AREA_MAP}}
+                </div>
+
+                <!-- 2) Servicios de la zona (abajo, como complemento). -->
+                <div class="landing-links" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgb(210, 210, 210);">
+                    <h2 class="landing-links__title">Our painting services in {{ZONE}}</h2>
+                    <ul class="landing-links__grid">
+{{SERVICE_LINKS}}
+                    </ul>
+                </div>
+
+                <!-- 3) Otras zonas principales (mini-sección propia, al final). -->
+                <div class="area-index__other-zones" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgb(210, 210, 210);">
+                    <p class="area-index__zones-label">Explore other areas:</p>
+                    <div class="area-index__zones" aria-label="Other service areas">
+{{OTHER_ZONE_LINKS}}
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+{{FOOTER}}
+
+{{AREA_MAP_SCRIPT}}
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

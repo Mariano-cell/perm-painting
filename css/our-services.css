@@ -227,27 +227,29 @@
 }
 
 
-/* Cards + reveal animation (fusionado, sin repetir selector) */
+/* Cards + reveal animation
+   Mismo molde que las galerías del resto del sitio (.os-reveal):
+   border-radius 8px + barrido de clip-path de abajo hacia arriba.
+   La clase .is-in la agrega our-services.js con stagger. */
 .services-projects__card {
     margin: 0;
     width: 100%;
     aspect-ratio: 3 / 4;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
 
     opacity: 0;
-    filter: blur(6px);
+    clip-path: inset(0 0 100% 0 round 8px);
     transition:
-        opacity 2000ms ease,
-        transform 520ms ease,
-        filter 520ms ease;
-    will-change: opacity, transform, filter;
+        opacity 0.9s ease-out,
+        clip-path 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: clip-path, opacity;
 }
 
 .services-projects__card.is-in {
     opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
+    clip-path: inset(0 0 0% 0 round 8px);
 }
 
 .services-projects__img {
@@ -279,10 +281,9 @@
 
 @media (prefers-reduced-motion: reduce) {
     .services-projects__card {
-        transition: none;
         opacity: 1;
-        transform: none;
-        filter: none;
+        clip-path: none;
+        transition: none;
     }
 }
 

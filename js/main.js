@@ -116,7 +116,51 @@ function closeNav() {
   body.classList.remove("is-nav-open");
 }
 
-backdrop.addEventListener("click", closeNav);
+if (backdrop) backdrop.addEventListener("click", closeNav);
+
+// =======================================
+// NAV DROPDOWNS (mobile tap toggle)
+// Desktop usa :hover (CSS). En mobile no hay hover, así que
+// la flechita (.site-nav__caret) abre/cierra el dropdown.
+// =======================================
+(() => {
+  const carets = document.querySelectorAll(".site-nav__caret");
+  if (!carets.length) return;
+
+  const mq = window.matchMedia("(max-width: 768px)");
+
+  carets.forEach((caret) => {
+    caret.addEventListener("click", (e) => {
+      // Solo interceptamos en mobile; en desktop la flecha no se muestra.
+      if (!mq.matches) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const item = caret.closest(".site-nav__item--has-dropdown");
+      if (!item) return;
+
+      // cerrar los otros dropdowns abiertos
+      document
+        .querySelectorAll(".site-nav__item--has-dropdown.is-open")
+        .forEach((el) => {
+          if (el !== item) el.classList.remove("is-open");
+        });
+
+      item.classList.toggle("is-open");
+    });
+  });
+
+  // al cerrar el menú o pasar a desktop, resetear los dropdowns
+  const resetDropdowns = () => {
+    document
+      .querySelectorAll(".site-nav__item--has-dropdown.is-open")
+      .forEach((el) => el.classList.remove("is-open"));
+  };
+
+  window.addEventListener("resize", () => {
+    if (!mq.matches) resetDropdowns();
+  }, { passive: true });
+})();
 
 const track = document.querySelector(".why-perma__reasons-track");
 
@@ -525,4 +569,50 @@ document.addEventListener("DOMContentLoaded", loadReviews);
 
   window.addEventListener("scroll", safetyCheck, { passive: true });
   window.addEventListener("load", () => setTimeout(safetyCheck, 300));
+})();
+
+// ==============================
+// HERO SLIDESHOW (cross-fade cada 6s, escalonado izq/der)
+// ==============================
+(() => {
+  const INTERVAL = 6000;       // ms entre fotos
+  const REVEAL_DONE = 2500;    // la animación de entrada del hero termina ~2.3s
+  const STAGGER = 1000;        // la derecha rota 1s después de la izquierda
+
+  // Respetar a quien prefiere menos movimiento: no rotar
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const left = document.querySelector(".hero__left--photo-container.hero-slideshow");
+  const right = document.querySelector(".hero__right--photo-container.hero-slideshow");
+
+  const start = (show, delay) => {
+    if (!show) return;
+    const slides = Array.from(show.querySelectorAll(".hero-slide"));
+    if (slides.length < 2) return;
+
+    // Activamos "is-running" cuando el reveal de entrada ya terminó: a partir de
+    // acá la 1ª slide hace cross-fade por opacidad (sin saltos ni parpadeo).
+    show.classList.add("is-running");
+
+    let current = 0; // arranca en la imagen original (1ª), ya marcada .is-active
+
+    const advance = () => {
+      slides[current].classList.remove("is-active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("is-active");
+    };
+
+    // El primer avance ocurre tras INTERVAL (+ delay escalonado); luego cada INTERVAL.
+    setTimeout(() => {
+      advance();
+      setInterval(advance, INTERVAL);
+    }, INTERVAL + delay);
+  };
+
+  // Esperamos a que termine el reveal de entrada antes de armar el carrusel,
+  // así "is-running" no provoca el espasmo en el primer cambio.
+  setTimeout(() => {
+    start(left, 0);
+    start(right, STAGGER); // la derecha, 1s después
+  }, REVEAL_DONE);
 })();
