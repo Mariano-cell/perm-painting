@@ -98,6 +98,8 @@
     const CAPTION_SUFFIX = "Byron Bay, NSW.";
 
 
+    const toWebpSrc = (src) => src.replace(/\.(jpe?g|png)$/i, ".webp");
+
     const renderGallery = (category) => {
         const items = galleries[category] || [];
         grid.innerHTML = "";
@@ -106,12 +108,21 @@
             const figure = document.createElement("figure");
             figure.className = "services-projects__card";
 
+            const picture = document.createElement("picture");
+            picture.className = "services-projects__picture";
+
+            const source = document.createElement("source");
+            source.srcset = toWebpSrc(item.src);
+            source.type = "image/webp";
+
             const img = document.createElement("img");
             img.className = "services-projects__img";
             img.src = item.src;
             img.alt = item.alt || "";
 
-            figure.appendChild(img);
+            picture.appendChild(source);
+            picture.appendChild(img);
+            figure.appendChild(picture);
             grid.appendChild(figure);
         });
 

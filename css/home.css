@@ -53,6 +53,8 @@
 .hero__left--photo {
     width: 100%;
     height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .hero__right {
@@ -72,6 +74,7 @@
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: cover;
 }
 
 .hero__presentation {
@@ -189,7 +192,9 @@
 }
 
 .hero-slideshow .hero-slide {
-    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
     transition: opacity 1.2s ease-in-out;
 }
 
@@ -208,10 +213,17 @@
     position: absolute;
     inset: 0;
     z-index: 2;
-    animation: none;
     clip-path: none;
     transform: none;
     opacity: 0;
+}
+
+.hero-slideshow .hero-slide:not(:first-child) > .hero__left--photo,
+.hero-slideshow .hero-slide:not(:first-child) > .hero__right--photo {
+    animation: none;
+    clip-path: none;
+    transform: none;
+    opacity: 1;
 }
 
 /* La slide superpuesta activa aparece por encima */
@@ -496,6 +508,12 @@
     aspect-ratio: 3 / 4;
     overflow: hidden;
     border-radius: 8px;
+}
+
+.our-services__picture {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .our-services__img {

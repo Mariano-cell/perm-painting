@@ -167,6 +167,12 @@
     overflow: hidden;
 }
 
+.hero__right--photo-picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 .hero__right--photo {
     width: 100%;
     height: 100%;
@@ -377,6 +383,12 @@
     overflow: hidden;
     background: rgba(0, 0, 0, 0.03);
     border-radius: 8px;
+}
+
+.landing-gallery__picture {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .landing-gallery__img {
@@ -1078,6 +1090,12 @@
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: 12px;
+}
+
+.area-index__photo-picture {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .area-index__photo {

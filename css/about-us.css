@@ -314,6 +314,10 @@ body.is-nav-open .nav-backdrop {
     border-radius: 8px;
 }
 
+.about-page__img-container picture {
+    display: block;
+}
+
 
 .about-page__img {
     width: 100%;

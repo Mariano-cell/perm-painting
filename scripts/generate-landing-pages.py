@@ -157,6 +157,10 @@ def page_slug(service: str, zone: str) -> str:
     return f"{slugify(service)}-{slugify(zone)}"
 
 
+def webp_src(src: str) -> str:
+    return re.sub(r"\.(jpe?g|png)$", ".webp", src, flags=re.IGNORECASE)
+
+
 def gallery_html(service: dict, zone: str) -> str:
     """4 figuras con fotos del servicio. Alt text incluye la zona."""
     prefix = service["prefix"]
@@ -173,10 +177,14 @@ def gallery_html(service: dict, zone: str) -> str:
     rows = []
     for i in range(4):
         n = f"{i+1:03d}"
+        src = f"assets/photos/{pdir}/{prefix}_{n}.jpg"
         rows.append(
             f'                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: {delays[i]}">\n'
-            f'                    <img src="assets/photos/{pdir}/{prefix}_{n}.jpg" alt="{alts[i]}"\n'
-            f'                        class="landing-gallery__img">\n'
+            f'                    <picture class="landing-gallery__picture">\n'
+            f'                        <source srcset="{webp_src(src)}" type="image/webp">\n'
+            f'                        <img src="{src}" alt="{alts[i]}"\n'
+            f'                            class="landing-gallery__img">\n'
+            f'                    </picture>\n'
             f'                </figure>'
         )
     return "\n\n".join(rows)
@@ -396,11 +404,15 @@ def generate_area_indexes() -> None:
             area_map_html = AREA_MAP_HTML
             area_map_script = AREA_MAP_SCRIPT
         else:
+            src = f"assets/photos/area-index/{slug}.jpg"
             area_map_html = (
                 '                <div class="area-index__head-media">\n'
                 '                    <div class="area-index__photo-container">\n'
-                f'                        <img src="assets/photos/area-index/{slug}.jpg"\n'
-                f'                            alt="Painting work in {zone}" class="area-index__photo">\n'
+                f'                        <picture class="area-index__photo-picture">\n'
+                f'                            <source srcset="{webp_src(src)}" type="image/webp">\n'
+                f'                            <img src="{src}"\n'
+                f'                                alt="Painting work in {zone}" class="area-index__photo">\n'
+                f'                        </picture>\n'
                 '                    </div>\n'
                 '                </div>'
             )
