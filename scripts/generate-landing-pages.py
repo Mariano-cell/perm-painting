@@ -360,7 +360,7 @@ AREA_MAP_HTML = """                <div class="area-index__head-media">
                     </div>
                 </div>"""
 
-AREA_MAP_SCRIPT = '    <script src="js/area-map.js"></script>'
+AREA_MAP_SCRIPT = '    <script src="js/area-map.js" defer></script>'
 
 
 def generate_area_indexes() -> None:
