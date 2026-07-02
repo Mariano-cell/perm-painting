@@ -201,7 +201,7 @@ def gallery_html(service: dict, zone: str) -> str:
             f'                    <picture class="landing-gallery__picture">\n'
             f'                        <source srcset="{webp_src(src)}" type="image/webp">\n'
             f'                        <img src="{src}" alt="{alts[i]}"\n'
-            f'                            class="landing-gallery__img" width="{width}" height="{height}" loading="lazy">\n'
+            f'                            class="landing-gallery__img" width="{width}" height="{height}" loading="lazy" decoding="async">\n'
             f'                    </picture>\n'
             f'                </figure>'
         )
