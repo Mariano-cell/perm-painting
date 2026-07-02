@@ -22,6 +22,8 @@ PENDIENTES DEL CLIENTE (marcados con [PENDIENTE] / contenido provisorio):
 import html as html_lib
 import json
 import re
+import subprocess
+from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -161,6 +163,21 @@ def webp_src(src: str) -> str:
     return re.sub(r"\.(jpe?g|png)$", ".webp", src, flags=re.IGNORECASE)
 
 
+@lru_cache(maxsize=None)
+def image_dimensions(src: str) -> tuple[int, int]:
+    output = subprocess.check_output(
+        ["sips", "-g", "pixelWidth", "-g", "pixelHeight", str(ROOT / src)],
+        text=True,
+    )
+    values: dict[str, str] = {}
+    for line in output.splitlines():
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        values[key.strip()] = value.strip()
+    return int(values["pixelWidth"]), int(values["pixelHeight"])
+
+
 def gallery_html(service: dict, zone: str) -> str:
     """4 figuras con fotos del servicio. Alt text incluye la zona."""
     prefix = service["prefix"]
@@ -178,12 +195,13 @@ def gallery_html(service: dict, zone: str) -> str:
     for i in range(4):
         n = f"{i+1:03d}"
         src = f"assets/photos/{pdir}/{prefix}_{n}.jpg"
+        width, height = image_dimensions(src)
         rows.append(
             f'                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: {delays[i]}">\n'
             f'                    <picture class="landing-gallery__picture">\n'
             f'                        <source srcset="{webp_src(src)}" type="image/webp">\n'
             f'                        <img src="{src}" alt="{alts[i]}"\n'
-            f'                            class="landing-gallery__img">\n'
+            f'                            class="landing-gallery__img" width="{width}" height="{height}" loading="lazy">\n'
             f'                    </picture>\n'
             f'                </figure>'
         )
@@ -405,13 +423,14 @@ def generate_area_indexes() -> None:
             area_map_script = AREA_MAP_SCRIPT
         else:
             src = f"assets/photos/area-index/{slug}.jpg"
+            width, height = image_dimensions(src)
             area_map_html = (
                 '                <div class="area-index__head-media">\n'
                 '                    <div class="area-index__photo-container">\n'
                 f'                        <picture class="area-index__photo-picture">\n'
                 f'                            <source srcset="{webp_src(src)}" type="image/webp">\n'
                 f'                            <img src="{src}"\n'
-                f'                                alt="Painting work in {zone}" class="area-index__photo">\n'
+                f'                                alt="Painting work in {zone}" class="area-index__photo" width="{width}" height="{height}">\n'
                 f'                        </picture>\n'
                 '                    </div>\n'
                 '                </div>'
