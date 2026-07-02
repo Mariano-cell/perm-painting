@@ -96,15 +96,71 @@
     };
 
     const CAPTION_SUFFIX = "Byron Bay, NSW.";
+    const GALLERY_PLACEHOLDER_WIDTH = 900;
+    const GALLERY_PLACEHOLDER_HEIGHT = 1200;
+    const EMPTY_IMAGE =
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
+    let galleryImageObserver = null;
 
     const toWebpSrc = (src) => src.replace(/\.(jpe?g|png)$/i, ".webp");
 
+    const disconnectGalleryImageObserver = () => {
+        if (galleryImageObserver) {
+            galleryImageObserver.disconnect();
+            galleryImageObserver = null;
+        }
+    };
+
+    const hydrateDeferredPicture = (picture) => {
+        const source = picture.querySelector("source[data-srcset]");
+        const img = picture.querySelector("img[data-src]");
+
+        if (source) {
+            source.srcset = source.dataset.srcset || "";
+            source.removeAttribute("data-srcset");
+        }
+
+        if (img) {
+            img.src = img.dataset.src || "";
+            img.removeAttribute("data-src");
+        }
+
+        picture.removeAttribute("data-deferred");
+    };
+
+    const observeDeferredPictures = () => {
+        const deferredPictures = Array.from(
+            grid.querySelectorAll('.services-projects__picture[data-deferred="true"]')
+        );
+
+        if (!deferredPictures.length) return;
+
+        if (!("IntersectionObserver" in window)) {
+            deferredPictures.forEach(hydrateDeferredPicture);
+            return;
+        }
+
+        galleryImageObserver = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    hydrateDeferredPicture(entry.target);
+                    observer.unobserve(entry.target);
+                });
+            },
+            { threshold: 0.01, rootMargin: "0px 0px 10% 0px" }
+        );
+
+        deferredPictures.forEach((picture) => galleryImageObserver.observe(picture));
+    };
+
     const renderGallery = (category) => {
         const items = galleries[category] || [];
+        disconnectGalleryImageObserver();
         grid.innerHTML = "";
 
-        items.forEach((item) => {
+        items.forEach((item, index) => {
             const figure = document.createElement("figure");
             figure.className = "services-projects__card";
 
@@ -112,13 +168,25 @@
             picture.className = "services-projects__picture";
 
             const source = document.createElement("source");
-            source.srcset = toWebpSrc(item.src);
             source.type = "image/webp";
 
             const img = document.createElement("img");
             img.className = "services-projects__img";
-            img.src = item.src;
             img.alt = item.alt || "";
+            img.decoding = "async";
+            img.width = GALLERY_PLACEHOLDER_WIDTH;
+            img.height = GALLERY_PLACEHOLDER_HEIGHT;
+
+            if (index < 2) {
+                source.srcset = toWebpSrc(item.src);
+                img.src = item.src;
+            } else {
+                picture.dataset.deferred = "true";
+                source.dataset.srcset = toWebpSrc(item.src);
+                img.dataset.src = item.src;
+                img.src = EMPTY_IMAGE;
+                img.loading = "lazy";
+            }
 
             picture.appendChild(source);
             picture.appendChild(img);
@@ -134,6 +202,7 @@
         caption.textContent = `${label} - ${CAPTION_SUFFIX}`;
 
         grid.appendChild(caption);
+        observeDeferredPictures();
 
         // Disparar animación de entrada (stagger)
         const cards = Array.from(grid.querySelectorAll(".services-projects__card"));
