@@ -43,7 +43,10 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/contact.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/footer.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
     <title>Painting Services in New Brighton | Perma P.</title>
     <meta name="description"
         content="Professional painting services in New Brighton, NSW. Get a free quote from Perma Painting, your local Northern Rivers painters.">
@@ -51,7 +54,11 @@
 
     <link rel="icon" type="image/png" href="/assets/isotipo/p/p-verde.png">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print"
+        onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    </noscript>
 
 </head>
 
