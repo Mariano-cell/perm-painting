@@ -1,6 +1,6 @@
 # Performance post render-blocking
 
-Medicion local tomada el 2 de julio de 2026 sobre `http://127.0.0.1:4173` con Lighthouse CLI en modo mobile (categoria `performance`).
+Medicion local tomada el 2 de julio de 2026 sobre `http://127.0.0.1:8000` con Lighthouse CLI en modo mobile.
 
 ## Referencia externa
 
@@ -11,15 +11,18 @@ Medicion local tomada el 2 de julio de 2026 sobre `http://127.0.0.1:4173` con Li
 
 | Pagina | Performance local | Delta vs 56 | LCP | TBT | Speed Index |
 |---|---:|---:|---:|---:|---:|
-| `/index.html` | 74 | +18 | 9.4 s | 140 ms | 2.0 s |
-| `/our-services.html` | 96 | +40 | 2.6 s | 110 ms | 1.1 s |
+| `/index.html` | 83 | +27 | 4.3 s | 180 ms | 1.6 s |
+| `/our-services.html` | 97 | +41 | 2.4 s | 120 ms | 1.1 s |
 
 ## Cambios incluidos en esta corrida
 
 - GTM se difiere fuera del render inicial y sigue cargando con el contenedor `GTM-NPJJRLZB`.
 - Google Fonts pasa a cargar con patron no bloqueante (`media="print"` + `onload` + `noscript`).
+- Los estilos no criticos (`footer.css` y el CSS del mapa en contacto) salen del critical path.
 - Las fotos de contenido below-the-fold mantienen `loading="lazy"` y suman `decoding="async"` donde faltaba.
 - Los scripts al final del `body` ahora usan `defer`.
+- El hero/LCP y los logos pasan a variantes mas chicas y responsivas para bajar payload inicial.
+- Los iconos decorativos y de CTA ahora tienen dimensiones explicitas y nombres accesibles consistentes.
 
 ## Nota importante
 
