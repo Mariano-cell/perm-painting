@@ -1,10 +1,22 @@
 exports.handler = async function (event, context) {
     const PLACE_ID = 'ChIJvRmc7caPkGsRkzqug2m9w58';
     const API_KEY = process.env.GOOGLE_PLACES_API_KEY;
+    const emptyResponse = {
+        statusCode: 200,
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify([])
+    };
 
     // Places API (New): el endpoint legacy (maps/api/place/details/json) devuelve
     // NOT_FOUND para este perfil de "area de servicio". La API nueva si lo encuentra.
     const url = `https://places.googleapis.com/v1/places/${PLACE_ID}`;
+
+    if (!API_KEY) {
+        return emptyResponse;
+    }
 
     try {
         const response = await fetch(url, {
@@ -17,14 +29,7 @@ exports.handler = async function (event, context) {
         const data = await response.json();
 
         if (!response.ok || data.error) {
-            return {
-                statusCode: 500,
-                body: JSON.stringify({
-                    error: (data.error && data.error.message) || 'Error en Google API',
-                    status: (data.error && data.error.status) || response.status,
-                    hasApiKey: Boolean(API_KEY)
-                })
-            };
+            return emptyResponse;
         }
 
         // La API nueva devuelve las reviews con otra estructura. Las mapeamos al
@@ -36,17 +41,10 @@ exports.handler = async function (event, context) {
         }));
 
         return {
-            statusCode: 200,
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
-            },
+            ...emptyResponse,
             body: JSON.stringify(reviews)
         };
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: 'Fallo al conectar con Google' })
-        };
+        return emptyResponse;
     }
 };

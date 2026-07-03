@@ -182,11 +182,28 @@ async function loadReviews() {
   const container = document.getElementById("reviews-container");
   if (!container) return;
 
+  const isLocalPreview =
+    window.location.protocol === "file:" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "localhost";
+
+  if (isLocalPreview) {
+    container.innerHTML =
+      '<p class="hero__insight">Reviews are available on the live site.</p>';
+    return;
+  }
+
   try {
     const response = await fetch("/.netlify/functions/get-reviews");
+    if (!response.ok) {
+      container.innerHTML =
+        '<p class="hero__insight">No reviews available at the moment.</p>';
+      return;
+    }
+
     const reviews = await response.json();
 
-    if (!reviews || reviews.length === 0) {
+    if (!Array.isArray(reviews) || reviews.length === 0) {
       container.innerHTML =
         '<p class="hero__insight">No reviews available at the moment.</p>';
       return;
@@ -319,7 +336,8 @@ async function loadReviews() {
 
 
   } catch (error) {
-    container.innerHTML = "<p>Something went wrong loading reviews.</p>";
+    container.innerHTML =
+      '<p class="hero__insight">No reviews available at the moment.</p>';
   }
 }
 
