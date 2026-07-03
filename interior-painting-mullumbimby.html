@@ -47,6 +47,10 @@
     <noscript>
         <link rel="stylesheet" href="css/footer.css">
     </noscript>
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+        href="assets/photos/landing-hero/landing_005-900.webp"
+        imagesrcset="assets/photos/landing-hero/landing_005-900.webp 900w, assets/photos/landing-hero/landing_005.webp 1296w"
+        imagesizes="(max-width: 768px) calc(100vw - 2rem), 50vw">
 
     <title>Interior Painting in Mullumbimby | Perma Painting</title>
 
@@ -131,9 +135,13 @@
         <div class="site-header__inner">
 
             <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
-                <img src="assets/isotipo/perma-grande/primario/iso1-verde.png" alt="Perma Painting"
+                <img src="assets/isotipo/perma-grande/primario/iso1-verde.webp"
+                    srcset="assets/isotipo/perma-grande/primario/iso1-verde-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-verde-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-verde.webp 1299w"
+                    sizes="(max-width: 768px) 202px, 264px" alt="Perma Painting"
                     class="site-header__logo-img-green">
-                <img src="assets/isotipo/perma-grande/primario/iso1-negro.png" alt=""
+                <img src="assets/isotipo/perma-grande/primario/iso1-negro.webp"
+                    srcset="assets/isotipo/perma-grande/primario/iso1-negro-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-negro-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-negro.webp 1299w"
+                    sizes="(max-width: 768px) 202px, 264px" alt=""
                     class="site-header__logo-img-black">
             </a>
 
@@ -245,9 +253,13 @@
                 <div class="landing-hero__right">
                     <div class="hero__right--photo-container">
                         <picture class="hero__right--photo-picture">
-                            <source srcset="assets/photos/landing-hero/landing_005.webp" type="image/webp">
+                            <source
+                                srcset="assets/photos/landing-hero/landing_005-900.webp 900w, assets/photos/landing-hero/landing_005.webp 1296w"
+                                sizes="(max-width: 768px) calc(100vw - 2rem), 50vw" type="image/webp">
                             <img src="assets/photos/landing-hero/landing_005.jpg" alt="interior painting in Mullumbimby"
-                                class="hero__right--photo" width="1296" height="1296">
+                                srcset="assets/photos/landing-hero/landing_005-900.jpg 900w, assets/photos/landing-hero/landing_005.jpg 1296w"
+                                sizes="(max-width: 768px) calc(100vw - 2rem), 50vw" class="hero__right--photo"
+                                width="1296" height="1296" fetchpriority="high">
                         </picture>
                     </div>
                 </div>
@@ -522,7 +534,7 @@
             <div class="site-footer__mobile-main">
                 <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
                     <img class="site-footer__logo-img site-footer__logo-img--mobile"
-                        src="assets/isotipo/p-painting/ppainting-verde-cropped.png" alt="Perma Painting logo"
+                        src="assets/isotipo/p-painting/ppainting-verde-cropped.webp" alt="Perma Painting logo"
                         width="240" height="240" loading="lazy" />
                 </a>
 
@@ -543,7 +555,7 @@
 
                 <div class="site-footer__col site-footer__col--logo">
                     <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
-                        <img class="site-footer__logo-img" src="assets/isotipo/p-painting/ppainting-verde-cropped.png"
+                        <img class="site-footer__logo-img" src="assets/isotipo/p-painting/ppainting-verde-cropped.webp"
                             alt="Perma Painting logo" width="120" height="120" loading="lazy" />
                     </a>
                 </div>
