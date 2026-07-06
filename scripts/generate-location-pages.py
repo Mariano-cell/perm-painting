@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "contact.html"
 OUT_DIR = ROOT / "contact"
-DOMAIN = "https://www.permapainting.com.au"
+DOMAIN = "https://permapainting.com.au"
 
 # Variantes de texto por página, para que las 30 URLs no sean idénticas.
 # La elección es determinística (hash del slug): regenerar no cambia los textos.

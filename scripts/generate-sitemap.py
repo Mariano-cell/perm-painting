@@ -18,7 +18,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DOMAIN = "https://www.permapainting.com.au"
+DOMAIN = "https://permapainting.com.au"
 TODAY = date.today().isoformat()
 
 SERVICES = [

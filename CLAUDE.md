@@ -32,7 +32,7 @@ python3 scripts/generate-sitemap.py
 **sitemap.xml:** incluye SOLO lo nuevo + core (24 landings + 3 índices + home/about-us/our-services/contact = 31 URLs). NO incluye las 30 `/contact/<slug>` viejas, para no competir por las mismas keywords (canibalización). Las viejas no se rompen, solo no se "empujan".
 
 **PENDIENTES DEL CLIENTE (marcados en el código como provisorios/placeholder):**
-- 24 meta descriptions → placeholder `[META DESCRIPTION PENDIENTE — ...]`.
+- ~~24 meta descriptions~~ → HECHO (jul 2026): cargadas en `META_DESCS` del generador con los textos de Ramón. Las 3 de los índices de zona las redactamos internamente (`AREA_META_DESCS`); si Ramón manda las suyas, reemplazar ahí.
 - FAQs (3 por servicio) → inventadas, en `FAQS` dentro de `generate-landing-pages.py`. Revisar/reemplazar; alimentan también el schema FAQPage.
 - Fotos: por ahora las primeras 4 de cada carpeta de servicio; mismas 3 fotos por servicio en las 3 zonas (alt text cambia la zona).
 
@@ -58,5 +58,5 @@ Las páginas en `contact/` NO se editan a mano: se pisan al regenerar.
 
 ### Otras notas
 
-- El dominio asumido en canonicals es `https://www.permapainting.com.au` (definido en `DOMAIN` dentro de `scripts/generate-location-pages.py`) — verificar que sea el dominio real en producción.
+- El dominio canónico es `https://permapainting.com.au` (SIN www — verificado jul 2026: el sitio vive sin www y Netlify redirige www → apex con 301). `DOMAIN` está definido en los 3 scripts (`generate-landing-pages.py`, `generate-sitemap.py`, `generate-location-pages.py`); mantenerlos consistentes. Las páginas core (index, about-us, our-services, contact) tienen canonical propio hardcodeado en su HTML. Las 30 páginas viejas `contact/<slug>` todavía tienen canonical con www (no se regeneraron a propósito — sistema viejo sin tocar).
 - La slugificación vive duplicada: en `slugify()` de `main.js` y en `slugify()` del script generador. Deben mantenerse idénticas (minúsculas, no-alfanuméricos → `-`).

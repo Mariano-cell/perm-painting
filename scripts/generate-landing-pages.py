@@ -15,8 +15,9 @@ Correr desde la raíz cada vez que se modifique el template o los datos:
 Las páginas generadas NO se editan a mano: se pisan al regenerar.
 
 PENDIENTES DEL CLIENTE (marcados con [PENDIENTE] / contenido provisorio):
-- meta descriptions (24): placeholder, esperando aprobación.
 - FAQ (3 por página): preguntas/respuestas inventadas, a revisar.
+- meta descriptions de los 3 índices de zona: redactadas internamente
+  (AREA_META_DESCS); Ramón no mandó esas 3, reemplazar si las manda.
 """
 
 import html as html_lib
@@ -28,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "template-landing.html"
-DOMAIN = "https://www.permapainting.com.au"
+DOMAIN = "https://permapainting.com.au"
 
 # ---------------------------------------------------------------------------
 # DATOS
@@ -143,7 +144,43 @@ FAQS = {
     ],
 }
 
-META_DESC_PLACEHOLDER = "[META DESCRIPTION PENDIENTE — {service} in {zone}]"
+# Meta descriptions por (servicio, zona). Provistas por marketing (Ramón, jul 2026).
+META_DESCS = {
+    ("House Painters", "Byron Bay"): "Byron Bay house painters with a clean, professional finish. Low-tox products, clear timelines, no surprises. Free quote today.",
+    ("Interior Painting", "Byron Bay"): "Interior painting in Byron Bay done with minimal mess and disruption. Durable, low-toxicity finishes. Request a free quote.",
+    ("Exterior Painting", "Byron Bay"): "Coastal-grade exterior painting for Byron Bay homes — coatings built to handle salt air and humidity. Get a free quote.",
+    ("Roof Painting", "Byron Bay"): "Heat-resistant roof painting and restoration in Byron Bay. Lower indoor temps, longer-lasting finish. Free quote today.",
+    ("Limewash Painting", "Byron Bay"): "Limewash painting in Byron Bay for a natural, breathable, textured look — increasingly popular on Byron homes. Request a quote.",
+    ("Deck Painting", "Byron Bay"): "Outdoor deck painting and staining in Byron Bay, built to handle sun, salt and rain. Get a free quote today.",
+    ("Kitchen Cabinet Painting", "Byron Bay"): "Refresh your kitchen in Byron Bay without a full renovation. Cabinet painting with a lasting finish. Free quote today.",
+    ("Commercial Painters", "Byron Bay"): "Commercial painters in Byron Bay for shops, offices and hospitality fit-outs. Minimal disruption, clear timelines. Request a quote.",
+
+    ("House Painters", "Ballina"): "Looking for reliable house painters in Ballina? Quality finishes, low-tox products and a schedule you can count on. Free quote.",
+    ("Interior Painting", "Ballina"): "Interior painting in Ballina with clean processes and durable, low-toxicity finishes. Get a free quote today.",
+    ("Exterior Painting", "Ballina"): "Exterior painting in Ballina with coatings built for the Northern Rivers climate. Request a free quote.",
+    ("Roof Painting", "Ballina"): "Roof painting and restoration in Ballina. Durable, heat-resistant coatings that hold up over time. Free quote today.",
+    ("Limewash Painting", "Ballina"): "Specialist limewash painting in Ballina — a natural, breathable finish with real texture and depth. Request a free quote.",
+    ("Deck Painting", "Ballina"): "Deck painting and staining in Ballina, finished to handle Northern Rivers weather year-round without early wear or fading. Get a free quote today.",
+    ("Kitchen Cabinet Painting", "Ballina"): "Transform your Ballina kitchen with professional cabinet painting, no full renovation needed and minimal downtime involved. Request a free quote today.",
+    ("Commercial Painters", "Ballina"): "Professional commercial painters in Ballina for offices, retail and hospitality spaces, with reliable timelines you can plan around. Get a free quote.",
+
+    ("House Painters", "Mullumbimby"): "House painters in Mullumbimby offering high-quality finishes and a clear, reliable timeline from first quote to final coat. Request a free quote.",
+    ("Interior Painting", "Mullumbimby"): "Expert interior painting in Mullumbimby using low-toxicity products and a clean, tidy process room by room of your home. Request a free quote today.",
+    ("Exterior Painting", "Mullumbimby"): "Exterior painters in Mullumbimby using coatings designed to handle the Northern Rivers climate and hinterland humidity year-round. Get a free quote.",
+    ("Roof Painting", "Mullumbimby"): "Roof painting and restoration in Mullumbimby with durable, heat-resistant coatings built for local weather conditions. Request a free quote today.",
+    ("Limewash Painting", "Mullumbimby"): "Limewash painting in Mullumbimby for a distinctive, natural and breathable finish that suits the area's character homes well. Get a free quote today.",
+    ("Deck Painting", "Mullumbimby"): "Weather-resistant deck painting and staining for Mullumbimby homes, built to handle humidity and seasonal rain year-round. Request a free quote today.",
+    ("Kitchen Cabinet Painting", "Mullumbimby"): "Kitchen cabinet painting in Mullumbimby for a fresh look without a full renovation or weeks of downtime involved. Get a free quote today.",
+    ("Commercial Painters", "Mullumbimby"): "Commercial painters in Mullumbimby for shops, offices and local businesses, with professional finishes and clear timelines throughout the job.",
+}
+
+# Meta descriptions de los 3 índices de zona (redactadas internamente, jul 2026;
+# Ramón no mandó estas 3 — reemplazar acá si las manda).
+AREA_META_DESCS = {
+    "Byron Bay": "Professional painting services in Byron Bay — house, interior, exterior, roof, limewash, deck, kitchen cabinets and commercial. Free quote today.",
+    "Ballina": "Painting services in Ballina — from full house repaints to roofs, decks and commercial spaces. Low-tox products, clear timelines. Request a free quote.",
+    "Mullumbimby": "Painters in Mullumbimby for every job — interiors, exteriors, roofs, limewash, decks and more. Quality finishes, reliable timelines. Get a free quote.",
+}
 
 # ---------------------------------------------------------------------------
 # HELPERS
@@ -165,10 +202,17 @@ def webp_src(src: str) -> str:
 
 @lru_cache(maxsize=None)
 def image_dimensions(src: str) -> tuple[int, int]:
-    output = subprocess.check_output(
-        ["sips", "-g", "pixelWidth", "-g", "pixelHeight", str(ROOT / src)],
-        text=True,
-    )
+    # macOS: sips. Fallback (Linux/otros): Pillow, si está instalado.
+    try:
+        output = subprocess.check_output(
+            ["sips", "-g", "pixelWidth", "-g", "pixelHeight", str(ROOT / src)],
+            text=True,
+        )
+    except FileNotFoundError:
+        from PIL import Image
+
+        with Image.open(ROOT / src) as im:
+            return im.size
     values: dict[str, str] = {}
     for line in output.splitlines():
         if ":" not in line:
@@ -302,7 +346,7 @@ def main() -> None:
             page = template
             replacements = {
                 "{{META_TITLE}}": f"{sname} in {zone} | Perma Painting",
-                "{{META_DESCRIPTION}}": META_DESC_PLACEHOLDER.format(service=sname, zone=zone),
+                "{{META_DESCRIPTION}}": META_DESCS[(sname, zone)],
                 "{{DOMAIN}}": DOMAIN,
                 "{{SLUG}}": slug,
                 "{{SERVICE}}": sname,
@@ -449,10 +493,7 @@ def generate_area_indexes() -> None:
         page = page.replace("{{ZONE}}", zone)
         page = page.replace("{{SLUG}}", slug)
         page = page.replace("{{DOMAIN}}", DOMAIN)
-        page = page.replace(
-            "{{META_DESCRIPTION}}",
-            f"[META DESCRIPTION PENDIENTE — Painting services in {zone}]",
-        )
+        page = page.replace("{{META_DESCRIPTION}}", AREA_META_DESCS[zone])
 
         (ROOT / f"{slug}.html").write_text(page, encoding="utf-8")
         print(f"  ✓ {slug}.html (índice de zona)")
