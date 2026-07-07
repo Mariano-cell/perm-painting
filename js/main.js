@@ -341,7 +341,38 @@ async function loadReviews() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadReviews);
+function scheduleReviewsLoad() {
+  const container = document.getElementById("reviews-container");
+  if (!container) return;
+
+  let hasLoaded = false;
+  let observer;
+
+  const start = () => {
+    if (hasLoaded) return;
+    hasLoaded = true;
+    if (observer) observer.disconnect();
+    loadReviews();
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    window.addEventListener("load", start, { once: true });
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) start();
+      });
+    },
+    { rootMargin: "300px 0px" }
+  );
+
+  observer.observe(container);
+}
+
+document.addEventListener("DOMContentLoaded", scheduleReviewsLoad);
 
 
 // =======================================
@@ -585,6 +616,6 @@ document.addEventListener("DOMContentLoaded", loadReviews);
     });
   };
 
-  window.addEventListener("scroll", safetyCheck, { passive: true });
-  window.addEventListener("load", () => setTimeout(safetyCheck, 300));
+  window.addEventListener("load", () => setTimeout(safetyCheck, 300), { once: true });
+  window.addEventListener("resize", safetyCheck, { passive: true });
 })();
