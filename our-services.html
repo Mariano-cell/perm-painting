@@ -5,8 +5,12 @@
     <meta charset="UTF-8" />
 
     <script>
-        window.addEventListener("load", function () {
+        (function () {
+            var loaded = false;
+
             var loadGtm = function () {
+                if (loaded) return;
+                loaded = true;
                 (function (w, d, s, l, i) {
                     w[l] = w[l] || [];
                     w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -19,13 +23,16 @@
                 })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
             };
 
-            if ("requestIdleCallback" in window) {
-                requestIdleCallback(loadGtm, { timeout: 2000 });
-                return;
-            }
+            // Carga en la primera interacción del usuario…
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
+                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            });
 
-            setTimeout(loadGtm, 0);
-        }, { once: true });
+            // …o como máximo 5s después del load (visitas sin interacción).
+            window.addEventListener("load", function () {
+                setTimeout(loadGtm, 5000);
+            }, { once: true });
+        })();
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -248,7 +255,7 @@
             <!-- <div class="site-footer__row--first">
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
                     <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
-                        alt="NSW Fair Trading" loading="lazy" />
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
                 </div>
             </div> -->
 
@@ -292,7 +299,7 @@
 
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
                     <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
-                        alt="NSW Fair Trading" loading="lazy" />
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
                 </div>
 
                 <p class="site-footer__credit">SITE BY MARIANO RICHARDS</p>
