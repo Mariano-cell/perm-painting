@@ -18,7 +18,7 @@
 .landing__inner {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding-inline: var(--container-pad);
+    padding-inline: 1rem;
 }
 
 /* Línea fina gris entre secciones (como en el home).

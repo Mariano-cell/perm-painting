@@ -26,6 +26,8 @@ const AreaMap = {
     { center: [153.4, -28.7],    zoom: 8,    speed: 0.8 }, // Northern Rivers (vuelo lento)
     { center: [153.5550, -28.6650], zoom: 8.9, speed: 0.6 }, // Byron + alrededores (vuelo lento)
   ],
+  MOBILE_BREAKPOINT: 768,
+  MOBILE_FINAL_ZOOM_OFFSET: -0.35,
 
   /* Punto a marcar (Byron Bay). Sin label: termina solo con el punto. */
   MARKER: [153.6020, -28.6470], // Byron Bay [lng, lat]
@@ -74,8 +76,9 @@ const AreaMap = {
   },
 
   onLibraryLoaded() {
+    const stages = this.getStages();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const start = reduced ? this.STAGES[this.STAGES.length - 1] : this.STAGES[0];
+    const start = reduced ? stages[stages.length - 1] : stages[0];
 
     this.map = new maplibregl.Map({
       container: this.CANVAS_ID,
@@ -90,7 +93,7 @@ const AreaMap = {
       this.applyGrayscale();
 
       if (reduced) {
-        const last = this.STAGES[this.STAGES.length - 1];
+        const last = stages[stages.length - 1];
         this.map.jumpTo({ center: last.center, zoom: last.zoom });
         this.showMarker();
         this.showReach();
@@ -101,11 +104,23 @@ const AreaMap = {
         if (entries[0].isIntersecting && !this.sequencePlayed) {
           this.sequencePlayed = true;
           animObserver.disconnect();
-          this.runSequence();
+          this.runSequence(stages);
         }
       }, { threshold: 0.3 });
       animObserver.observe(this.container);
     });
+  },
+
+  isMobileViewport() {
+    return window.matchMedia(`(max-width: ${this.MOBILE_BREAKPOINT}px)`).matches;
+  },
+
+  getStages() {
+    const stages = this.STAGES.map((stage) => ({ ...stage }));
+    if (!this.isMobileViewport()) return stages;
+    const lastStage = stages[stages.length - 1];
+    if (lastStage) lastStage.zoom += this.MOBILE_FINAL_ZOOM_OFFSET;
+    return stages;
   },
 
   /* Recolorea el basemap a escala de grises. */
@@ -161,8 +176,7 @@ const AreaMap = {
     });
   },
 
-  runSequence() {
-    const stages = this.STAGES;
+  runSequence(stages = this.getStages()) {
     let current = 0;
     const next = () => {
       current++;

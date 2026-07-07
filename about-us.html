@@ -214,40 +214,179 @@
                     <h2 class="locations__title">
                         We’re proudly based in Byron Bay.<br />
                         We also work across The Northern Rivers region, including:
-                    </h2>
+                        <span class="locations__dropdown locations__dropdown--inline" data-locations
+                            data-locations-mode="navigate">
+                            <button type="button" class="locations__trigger" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="locations__trigger-text">Select a location</span>
+                                <span class="locations__trigger-icon" aria-hidden="true">▾</span>
+                            </button>
 
-                    <ul class="locations__list">
-                        <li>Suffolk Park</li>
-                        <li>Byron Bay</li>
-                        <li>Ewingsdale</li>
-                        <li>Sunrise</li>
-                        <li>Broken Head</li>
-                        <li>Lennox Head</li>
-                        <li>Ballina</li>
-                        <li>East Ballina</li>
-                        <li>Brunswick Heads</li>
-                        <li>Ocean Shores</li>
-                        <li>South Golden Beach</li>
-                        <li>New Brighton</li>
-                        <li>Pottsville</li>
-                        <li>Alstonville</li>
-                        <li>Billinudgel</li>
-                        <li>Myocum</li>
-                        <li>Tyagarah</li>
-                        <li>Bangalow</li>
-                        <li>Mullumbimby</li>
-                        <li>Newrybar</li>
-                        <li>Federal</li>
-                        <li>Lismore</li>
-                        <li>Tintenbar</li>
-                        <li>Wardell</li>
-                        <li>Coorabell</li>
-                        <li>The Pocket</li>
-                        <li>Cumbalum</li>
-                        <li>Skinners Head</li>
-                        <li>Belongil</li>
-                        <li>Skinners Shoot</li>
-                    </ul>
+                            <div class="locations__panel" hidden>
+                                <label class="locations__search">
+                                    <input class="locations__search-input" type="search" placeholder="Type to search…"
+                                        autocomplete="off" />
+                                </label>
+
+                                <ul class="locations__menu" role="listbox" aria-label="Locations">
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/suffolk-park" data-location="Suffolk Park">
+                                            Suffolk Park
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/byron-bay" data-location="Byron Bay">
+                                            Byron Bay
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/ewingsdale" data-location="Ewingsdale">
+                                            Ewingsdale
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/sunrise-byron-bay"
+                                            data-location="Sunrise, Byron Bay">
+                                            Sunrise, Byron Bay
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/broken-head" data-location="Broken Head">
+                                            Broken Head
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/lennox-head" data-location="Lennox Head">
+                                            Lennox Head
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/ballina" data-location="Ballina">
+                                            Ballina
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/east-ballina" data-location="East Ballina">
+                                            East Ballina
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/brunswick-heads"
+                                            data-location="Brunswick Heads">
+                                            Brunswick Heads
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/ocean-shores" data-location="Ocean Shores">
+                                            Ocean Shores
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/south-golden-beach"
+                                            data-location="South Golden Beach">
+                                            South Golden Beach
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/new-brighton" data-location="New Brighton">
+                                            New Brighton
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/pottsville" data-location="Pottsville">
+                                            Pottsville
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/alstonville" data-location="Alstonville">
+                                            Alstonville
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/billinudgel" data-location="Billinudgel">
+                                            Billinudgel
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/myocum" data-location="Myocum">
+                                            Myocum
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/tyagarah" data-location="Tyagarah">
+                                            Tyagarah
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/bangalow" data-location="Bangalow">
+                                            Bangalow
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/mullumbimby" data-location="Mullumbimby">
+                                            Mullumbimby
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/newrybar" data-location="Newrybar">
+                                            Newrybar
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/federal" data-location="Federal">
+                                            Federal
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/lismore" data-location="Lismore">
+                                            Lismore
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/tintenbar" data-location="Tintenbar">
+                                            Tintenbar
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/wardell" data-location="Wardell">
+                                            Wardell
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/coorabell" data-location="Coorabell">
+                                            Coorabell
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/the-pocket" data-location="The Pocket">
+                                            The Pocket
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/cumbalum" data-location="Cumbalum">
+                                            Cumbalum
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/skinners-head"
+                                            data-location="Skinners Head">
+                                            Skinners Head
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/belongil" data-location="Belongil">
+                                            Belongil
+                                        </a>
+                                    </li>
+                                    <li class="locations__option" role="option">
+                                        <a class="locations__option-btn" href="/contact/skinners-shoot"
+                                            data-location="Skinners Shoot">
+                                            Skinners Shoot
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </span>
+                    </h2>
 
                 </div>
             </section>

@@ -425,6 +425,7 @@ document.addEventListener("DOMContentLoaded", scheduleReviewsLoad);
   const panel = root.querySelector(".locations__panel");
   const searchInput = root.querySelector(".locations__search-input");
   const optionBtns = Array.from(root.querySelectorAll(".locations__option-btn"));
+  const shouldInterceptNavigation = root.dataset.locationsMode !== "navigate";
 
   if (!trigger || !triggerText || !panel || !searchInput || optionBtns.length === 0) return;
 
@@ -513,6 +514,8 @@ document.addEventListener("DOMContentLoaded", scheduleReviewsLoad);
   // 3) seleccionar opción
   optionBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
+      if (!shouldInterceptNavigation) return;
+
       // El href existe para que Google indexe /contact/<slug>;
       // acá interceptamos para no recargar y no perder datos del form.
       e.preventDefault();
