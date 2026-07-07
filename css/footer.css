@@ -212,6 +212,9 @@
 /* Mobile -> activar layout nuevo */
 @media (max-width: 768px) {
 
+    .site-footer {
+        padding-top: 3rem;
+    }
 
     /* Ocultamos el layout desktop de arriba */
     .site-footer__row--top {

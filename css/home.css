@@ -366,6 +366,37 @@
     height: 1em;
 }
 
+/* Salto de línea del CTA: oculto por defecto, activo solo en mobile chico */
+.about-us__CTA-br {
+    display: none;
+}
+
+/* En pantallas angostas "REQUEST FREE QUOTE" no entra en una línea
+   (por el white-space: nowrap generaba scroll lateral): se parte en
+   dos renglones dentro del slot. Máscara y filas pasan de 1.2em a
+   2.4em para que la animación (translateY -50%) siga funcionando.
+   La flecha queda centrada sola: el botón alinea con align-items: center. */
+@media (max-width: 430px) {
+    .about-us__CTA-button {
+        white-space: normal;
+    }
+
+    .about-us__CTA-br {
+        display: inline;
+    }
+
+    .about-us__CTA-button .btn-slot-mask {
+        height: 2.4em;
+    }
+
+    .about-us__CTA-button .btn-slot-row {
+        display: block;
+        height: 2.4em;
+        line-height: 1.2em;
+        text-align: center;
+    }
+}
+
 @media (max-width: 768px) {
     .about-us__grid {
         margin-inline: 1rem;
