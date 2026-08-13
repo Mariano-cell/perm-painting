@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
 
     <script>
-        window.addEventListener("load", function () {
+        (function () {
+            var loaded = false;
+
             var loadGtm = function () {
+                if (loaded) return;
+                loaded = true;
                 (function (w, d, s, l, i) {
                     w[l] = w[l] || [];
                     w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -19,13 +23,16 @@
                 })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
             };
 
-            if ("requestIdleCallback" in window) {
-                requestIdleCallback(loadGtm, { timeout: 2000 });
-                return;
-            }
+            // Carga en la primera interacción del usuario…
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
+                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            });
 
-            setTimeout(loadGtm, 0);
-        }, { once: true });
+            // …o como máximo 5s después del load (visitas sin interacción).
+            window.addEventListener("load", function () {
+                setTimeout(loadGtm, 5000);
+            }, { once: true });
+        })();
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +57,8 @@
     <title>House Painters in Brunswick Heads | Perma P.</title>
     <meta name="description"
         content="Looking for painters in Brunswick Heads? Perma Painting offers interior and exterior painting across the Northern Rivers. Free quotes.">
-    <link rel="canonical" href="https://www.permapainting.com.au/contact/brunswick-heads">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://permapainting.com.au/contact/brunswick-heads">
 
     <link rel="icon" type="image/png" href="/assets/isotipo/p/p-verde.png">
 
@@ -462,7 +470,7 @@
                 </a>
 
                 <nav class="site-footer__mobile-links" aria-label="Footer navigation mobile">
-                    <a class="site-footer__item" href="/about.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/about-us.html">ABOUT&nbsp;&nbsp;US</a>
                     <a class="site-footer__item" href="/our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
                     <a class="site-footer__item" href="/contact.html">CONTACT</a>
                 </nav>
@@ -476,7 +484,7 @@
             <!-- <div class="site-footer__row--first">
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
                     <img class="site-footer__badge-img" src="/assets/logos-empresas/nsw-government.svg"
-                        alt="NSW Fair Trading" loading="lazy" />
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
                 </div>
             </div> -->
 
@@ -520,7 +528,7 @@
 
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
                     <img class="site-footer__badge-img" src="/assets/logos-empresas/nsw-government.svg"
-                        alt="NSW Fair Trading" loading="lazy" />
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
                 </div>
 
                 <p class="site-footer__credit">SITE BY <br>MARIANO RICHARDS</p>

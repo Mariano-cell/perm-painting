@@ -4,7 +4,8 @@ Genera una página estática por localidad para SEO local.
 
 Fuente de verdad: contact.html (las localidades salen del dropdown).
 Salida: contact/<slug>.html — igual a contact.html pero con
-<title>, meta description, canonical y h2 propios de cada localidad.
+<title>, meta description, canonical y h2 propios de cada localidad,
+mas <meta name="robots" content="noindex, follow"> (ver comentario abajo).
 
 Correr desde la raíz del proyecto cada vez que:
 - se modifique contact.html (form, footer, estilos, etc.)
@@ -118,6 +119,18 @@ def main() -> None:
             r'(<link rel="canonical" href=")[^"]*(")',
             rf"\g<1>{DOMAIN}/contact/{slug}\g<2>",
             page,
+        )
+
+        # noindex (pedido de Ramon, jul 2026): las 30 paginas son casi identicas
+        # entre si y le generaban a Google contenido duplicado a nivel dominio,
+        # compitiendo con las 24 landings de la estrategia nueva. Se dejan online
+        # y funcionando (el form anda igual), solo fuera del indice de Google.
+        # "follow" a proposito: que siga los links internos hacia las landings.
+        # OJO: va SOLO en las generadas. contact.html si se indexa.
+        page = page.replace(
+            f'<link rel="canonical" href="{DOMAIN}/contact/{slug}">',
+            '<meta name="robots" content="noindex, follow">\n'
+            f'    <link rel="canonical" href="{DOMAIN}/contact/{slug}">',
         )
         page = page.replace(
             '<h2 class="contact-form__title text-animate-in">Tell us about<br>your project</h2>',
