@@ -2,18 +2,26 @@
 
 Sitio estático (HTML/CSS/JS vanilla) deployado en Netlify. Sin build step ni frameworks. Respetar esta arquitectura: no introducir frameworks, bundlers ni reestructuras grandes.
 
+## Demo scroll (grabación de videos para portfolio)
+
+Existe `js/demo-scroll.js`, "desconectado" a propósito (ninguna página lo carga; NO borrarlo). Si Mariano quiere grabar un screencast del sitio, preguntarle si quiere activarlo y seguir **`MANUAL-DEMO-SCROLL.md`** (cómo conectar los botones, velocidades, gotchas de scroll-behavior/lazy images, netlify dev para ver las reviews en local, y cómo desconectar antes de deployar). Nunca deployar con los botones conectados.
+
 ## SEO local — CAMBIO DE ESTRATEGIA (jun 2026)
 
 **El cliente contrató a un marketing (Ramón) que reemplaza la estrategia anterior.** La nueva estrategia es **24 landing pages = 8 servicios × 3 zonas** (Byron Bay, Ballina, Mullumbimby), URLs planas tipo `/roof-painting-byron-bay`, generadas con un template/script único, cada una con intro única, schema markup (LocalBusiness + Service + FAQPage), FAQ, crosslinks a las otras 23, y meta title/description propios. Más: "OUR SERVICES" pasa a dropdown por servicio y se agrega "AREAS OF SERVICE" como dropdown por zona. Esta estrategia **reemplaza** el sistema `/contact/<slug>` descrito abajo.
 
-**PENDIENTE — sistema viejo `/contact/<slug>`:** se deja SIN TOCAR por ahora (no se borra, no se redirige). Cuando se retome, decidir: borrarlo (script + 30 páginas + lógica de intercept en `main.js`) o redirigir con 301 cada `/contact/<zona>` a la página de esa zona en el servicio principal (ej. `/contact/ballina` → `/house-painters-ballina`). No dejarlo huérfano indefinidamente.
+**SISTEMA VIEJO `/contact/<slug>` — NOINDEX (ago 2026):** Ramón detectó en Search Console que las 30 páginas estaban indexadas y le generaban a Google contenido duplicado a nivel dominio, compitiendo con las 24 landings. Solución aplicada: `<meta name="robots" content="noindex, follow">` en las 30, inyectado por `scripts/generate-location-pages.py` (NO a mano). Las páginas siguen online y el formulario funciona igual: solo salen del índice. `follow` es a propósito, para no cortar el linking interno hacia las landings. `contact.html` NO lleva noindex.
+
+**Ojo si se retoma:** NO bloquear `/contact/` en `robots.txt` — si Google no puede crawlear, no ve el noindex y las URLs quedan indexadas igual. La desindexación tarda semanas; se puede acelerar pidiendo "Validar corrección" en Search Console.
+
+**PENDIENTE — qué hacer definitivamente con el sistema viejo:** el noindex es la solución mínima, no la final. Cuando se retome, decidir: borrarlo (script + 30 páginas + lógica de intercept en `main.js`) o redirigir con 301 cada `/contact/<zona>` a la página de esa zona en el servicio principal (ej. `/contact/ballina` → `/house-painters-ballina`). No dejarlo huérfano indefinidamente.
 
 ### IMPLEMENTADO (jun 2026) — estrategia nueva de 24 landings
 
 **Estructura de archivos:**
 - `template-landing.html` — molde de las 24 landings, con placeholders `{{...}}`. Se edita como HTML normal; para cambiar el diseño de TODAS las landings se toca este archivo y se regenera.
 - `template-area-index.html` — molde de los 3 índices por zona.
-- `scripts/generate-landing-pages.py` — genera las 24 landings + los 3 índices de zona. Contiene TODOS los datos: servicios (con su carpeta de fotos), zonas, los 24 intros, localidades cercanas por zona, FAQs (PROVISORIAS, inventadas), CTA por servicio, crosslinks automáticos y schema (BreadcrumbList + FAQPage).
+- `scripts/generate-landing-pages.py` — genera las 24 landings + los 3 índices de zona. Contiene TODOS los datos: servicios (con su carpeta de fotos), zonas, los 24 intros, localidades cercanas por zona, las 24 FAQs, CTA por servicio, crosslinks automáticos y schema (BreadcrumbList + FAQPage).
 - `scripts/generate-sitemap.py` — genera `sitemap.xml` + `robots.txt`.
 - `scripts/propagate-header.py` — propaga el header nuevo (con dropdowns) a las páginas que NO genera el script (index, about-us, our-services, contact.html y las 30 `contact/<slug>`).
 - `css/landing.css` — estilos propios de las landings/índices (las páginas viejas NO lo cargan; por eso varias reglas de home.css están copiadas acá: `.os-reveal`, `.why-perma`, `.hero__right--photo`, testimonials).
@@ -33,7 +41,7 @@ python3 scripts/generate-sitemap.py
 
 **PENDIENTES DEL CLIENTE (marcados en el código como provisorios/placeholder):**
 - ~~24 meta descriptions~~ → HECHO (jul 2026): cargadas en `META_DESCS` del generador con los textos de Ramón. Las 3 de los índices de zona las redactamos internamente (`AREA_META_DESCS`); si Ramón manda las suyas, reemplazar ahí.
-- FAQs (3 por servicio) → inventadas, en `FAQS` dentro de `generate-landing-pages.py`. Revisar/reemplazar; alimentan también el schema FAQPage.
+- ~~FAQs (3 por servicio, inventadas)~~ → HECHO (ago 2026): cargadas las de Ramón (PDF "Nuevas FAQ 27_7") en `FAQS` dentro de `generate-landing-pages.py`. **Cambió la estructura del dict:** antes estaba indexado por servicio (las 3 zonas compartían preguntas, con placeholder `{zone}`); ahora la llave es `(servicio, zona)` — mismo patrón que `META_DESCS` — porque las FAQs son únicas por página. Son 74 Q/A: 3 por página salvo interior y exterior de Ballina, que tienen 4 (así las mandó Ramón; el HTML y el CSS soportan N items sin tocar nada). El mismo dict alimenta el HTML visible y el schema FAQPage, así que editar ahí los mantiene en sync.
 - Fotos: por ahora las primeras 4 de cada carpeta de servicio; mismas 3 fotos por servicio en las 3 zonas (alt text cambia la zona).
 
 ---
@@ -56,7 +64,13 @@ Las páginas en `contact/` NO se editan a mano: se pisan al regenerar.
 2. **Linkear las localidades de `about-us.html`**: hoy son `<li>` sin links; deberían apuntar a las mismas URLs `/contact/<slug>` para sumar linking interno.
 3. **Párrafo único por localidad**: hoy las 30 páginas solo difieren en title/meta/h2 — diferenciación mínima, riesgo de que Google las trate como duplicadas ("doorway pages"). El upgrade: agregar contenido único por localidad (testimonios de esa zona, trabajos hechos ahí, texto específico). Eso las convierte en landing pages legítimas a ojos de Google. Implementación sugerida: un JSON/dict de contenido por slug que el script generador inyecte.
 
+### 404 de `/about.html` — arreglado (ago 2026)
+
+Search Console reportaba un 404 en `/about.html`. Origen: el bloque `site-footer__mobile-links` (footer mobile) linkeaba a `about.html`, archivo que nunca existió — el real es `about-us.html`. Estaba en `index.html`, `our-services.html`, `contact.html` y, por herencia, en las 30 `contact/<slug>`. Arreglado en los 3 archivos fuente + regeneración de las 30. Se sumó además un 301 `/about.html` → `/about-us.html` en `netlify.toml` para backlinks externos.
+
+**El footer NO tiene script propagador** (a diferencia del header, que usa `propagate-header.py`): se edita a mano en cada archivo. Si se toca un link del footer, revisar página por página con `grep -rn`.
+
 ### Otras notas
 
-- El dominio canónico es `https://permapainting.com.au` (SIN www — verificado jul 2026: el sitio vive sin www y Netlify redirige www → apex con 301). `DOMAIN` está definido en los 3 scripts (`generate-landing-pages.py`, `generate-sitemap.py`, `generate-location-pages.py`); mantenerlos consistentes. Las páginas core (index, about-us, our-services, contact) tienen canonical propio hardcodeado en su HTML. Las 30 páginas viejas `contact/<slug>` todavía tienen canonical con www (no se regeneraron a propósito — sistema viejo sin tocar).
+- El dominio canónico es `https://permapainting.com.au` (SIN www — verificado jul 2026: el sitio vive sin www y Netlify redirige www → apex con 301). `DOMAIN` está definido en los 3 scripts (`generate-landing-pages.py`, `generate-sitemap.py`, `generate-location-pages.py`); mantenerlos consistentes. Las páginas core (index, about-us, our-services, contact) tienen canonical propio hardcodeado en su HTML. Las 30 `contact/<slug>` tenían canonical con www; al regenerarlas (ago 2026, por el noindex) quedaron alineadas al apex y de paso se sincronizaron con `contact.html` en el snippet de GTM y el `width/height` del logo de NSW Fair Trading.
 - La slugificación vive duplicada: en `slugify()` de `main.js` y en `slugify()` del script generador. Deben mantenerse idénticas (minúsculas, no-alfanuméricos → `-`).
