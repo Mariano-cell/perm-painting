@@ -182,10 +182,10 @@ async function loadReviews() {
   const container = document.getElementById("reviews-container");
   if (!container) return;
 
-  const isLocalPreview =
-    window.location.protocol === "file:" ||
-    window.location.hostname === "127.0.0.1" ||
-    window.location.hostname === "localhost";
+  // Solo en file:// no hay forma de llegar a la función; en localhost puede
+  // estar corriendo netlify dev (que sí sirve las funciones), así que probamos
+  // el fetch igual y si falla cae en el mensaje de fallback.
+  const isLocalPreview = window.location.protocol === "file:";
 
   if (isLocalPreview) {
     container.innerHTML =
