@@ -15,7 +15,6 @@ Correr desde la raíz cada vez que se modifique el template o los datos:
 Las páginas generadas NO se editan a mano: se pisan al regenerar.
 
 PENDIENTES DEL CLIENTE (marcados con [PENDIENTE] / contenido provisorio):
-- FAQ (3 por página): preguntas/respuestas inventadas, a revisar.
 - meta descriptions de los 3 índices de zona: redactadas internamente
   (AREA_META_DESCS); Ramón no mandó esas 3, reemplazar si las manda.
 """
@@ -99,48 +98,216 @@ CTA_TEXTS = {
     "Commercial Painters": "Tell us about your premises and we'll get back to you with a clear, no-obligation quote.",
 }
 
-# FAQ PROVISORIO por servicio (3 Q/A). Inventado — el cliente debe revisar.
-# {zone} se reemplaza con la zona de cada página.
+# FAQ por (servicio, zona). Textos provistos por marketing (Ramón, jul 2026),
+# PDF "Nuevas FAQ 27_7". Son ÚNICOS por página: las 3 zonas NO comparten
+# preguntas ni respuestas (los datos cambian por zona a propósito: días de obra,
+# años entre repintados, localidades). Alimentan el HTML visible (faq_html) y
+# el schema FAQPage (schema_faq), así que editar acá los mantiene en sync.
+# Casi todas tienen 3 Q/A; interior y exterior de Ballina tienen 4 (así vinieron).
+# El {zone} de las plantillas viejas ya no se usa, pero .format(zone=...) sigue
+# aplicándose por si se quiere volver a usar en algún texto.
+
 FAQS = {
-    "House Painters": [
-        ("How long does a full house repaint take in {zone}?", "It depends on the size of the home and how much prep is needed, but most full repaints in {zone} take one to two weeks. We'll give you a clear timeline with your quote so you know what to expect."),
-        ("Do you paint both inside and outside?", "Yes. We handle full interior and exterior repaints with one team, so prep, painting and clean-up are all coordinated and you only deal with one point of contact."),
-        ("What kind of paint do you use?", "We work with low-toxicity, durable products chosen to suit your surfaces and the {zone} climate, prioritising longevity over quick fixes."),
+    # --- BYRON BAY ---
+    ("House Painters", "Byron Bay"): [
+        ("How long does a full house repaint take?",
+         "A standard 3 bedroom home in Byron Bay usually takes 6-10 days depending on size and prep needed, longer if we're stripping old coastal salt damage first."),
+        ("Do I need to move out while the work is being done?",
+         "No, most Byron Bay homes stay liveable throughout. We work room by room or section by section and keep pathways and living areas clear."),
+        ("What areas near Byron Bay do you service?",
+         "Alongside Byron Bay itself, we regularly work in Suffolk Park, Bangalow, Brunswick Heads, Lennox Head and most of the Northern Rivers region."),
     ],
-    "Interior Painting": [
-        ("Will my furniture and floors be protected?", "Yes. We mask and cover furniture and floors before we start, and our dustless system keeps dust and airborne particles contained while we work, room by room."),
-        ("Do I need to move out during the job?", "Usually not. We work room by room so you can keep living in your {zone} home, and we keep the space clean and tidy throughout."),
-        ("Are your paints low-odour?", "We use low-VOC paints, which are lower in odour and emissions than standard paints — better for your family while we work and after we leave."),
+    ("Interior Painting", "Byron Bay"): [
+        ("Will my furniture and floors be protected?",
+         "Yes, floors, furniture and fittings are fully covered before we start, and we use a dustless sanding system to keep dust to a minimum — especially useful in Byron Bay's open-plan coastal homes."),
+        ("Do I need to move out during interior painting?",
+         "No. We work zone by zone, so you can keep living in the rest of the house — handy for short-stay rental turnovers too, if that applies to your property."),
+        ("What products do you use for interior work?",
+         "We use low-toxicity, low-odour paints, which matter in Byron Bay's tightly sealed, energy-efficient newer builds where ventilation can be limited."),
     ],
-    "Exterior Painting": [
-        ("How long will an exterior paint job last in {zone}?", "With proper prep and the right coatings for the coastal climate, a quality exterior repaint in {zone} can last many years. We choose products to suit your surface and the conditions."),
-        ("Do you do the prep work too?", "Yes. Surface preparation is the most important part of a lasting finish — we clean, repair and prime before painting, and it's all included in your quote."),
-        ("Can you work around the weather?", "We plan exterior jobs around the forecast and the wet season, so coats go on in the right conditions and the finish holds up."),
+    ("Exterior Painting", "Byron Bay"): [
+        ("How long does exterior paint last in Byron Bay?",
+         "Given the salt air and UV exposure, we generally see 5-7 years before a repaint is needed, sometimes less on north or ocean-facing walls."),
+        ("How do you prepare weathered or peeling exteriors?",
+         "We wash down, scrape back any failing paint, sand and prime before applying coatings rated for coastal conditions."),
+        ("Can you paint during Byron Bay's humid months?",
+         "We schedule around weather and humidity, choosing dry windows and avoiding early mornings when dew is heavy."),
     ],
-    "Roof Painting": [
-        ("How long does a roof painting job take in {zone}?", "Most residential roofs take two to four days, depending on size, the condition of the surface and the weather. We clean and repair first, then apply the coats — and we'll give you a clear timeline with your quote so you know what to expect from start to finish."),
-        ("Can you paint both tile and metal roofs?", "Yes. We work on both tile and Colorbond/metal roofs, using a coating system suited to each surface. For the conditions around {zone} we use heat-reflective, weather-resistant finishes that hold up through summer heat and the wet season."),
-        ("Is a roof inspection included before you start?", "Every job starts with an inspection. We check for broken tiles, rust, leaks and any surface issues, then include the necessary repairs in your quote — so there are no surprises once the work begins."),
+    ("Roof Painting", "Byron Bay"): [
+        ("Does roof painting actually help with heat inside the house?",
+         "Yes — a heat-reflective coating can noticeably lower indoor temperatures in Byron Bay's summer, especially in homes with lower ceiling insulation."),
+        ("How often should a roof be repainted?",
+         "Coastal salt exposure means most Byron Bay roofs benefit from a repaint every 8-10 years."),
+        ("What does the roof prep process involve?",
+         "We pressure wash, treat any rust or moss, then apply a primer before the topcoat."),
     ],
-    "Limewash Painting": [
-        ("What is limewash and why choose it?", "Limewash is a breathable mineral finish with natural texture and depth. It lets brick and render breathe instead of trapping moisture, and gives the soft, characterful look many {zone} homes are after."),
-        ("Can limewash go over any surface?", "It's best suited to porous surfaces like brick and render. We assess your walls first and let you know whether limewash is the right choice for your {zone} home."),
-        ("Is limewash durable?", "Applied correctly, limewash is long-lasting and ages gracefully. It's a specialist application, and we have the experience to get it right."),
+    ("Limewash Painting", "Byron Bay"): [
+        ("What exactly is limewash, and how is it different to regular paint?",
+         "Limewash is a mineral-based finish that soaks into the surface rather than sitting on top, giving a soft, textured, matte look popular on Byron Bay's beach-style homes."),
+        ("Does limewash need any special upkeep?",
+         "It weathers naturally over time, which is part of its appeal, but we can talk you through simple maintenance if you want it looking consistent."),
+        ("What surfaces work best for limewash?",
+         "Render, brick, drywall and some masonry surfaces take limewash particularly well — we can assess your walls during the quote."),
     ],
-    "Deck Painting": [
-        ("Should I paint, stain or oil my deck?", "It depends on the timber and the look you want. We help you pick the right finish for your {zone} deck and the conditions it faces, so it stays protected and looks the part."),
-        ("How do you handle weathered timber?", "We clean, sand and prep weathered boards before any coating goes on — proper prep is what makes the finish last against humidity and sun."),
-        ("How often will the deck need recoating?", "It varies with exposure and the finish used, but the right coating keeps a {zone} deck looking sharp for years without constant upkeep."),
+    ("Deck Painting", "Byron Bay"): [
+        ("How long does decking oil or stain last outdoors in Byron Bay?",
+         "With direct sun and salt air, most deck coatings need refreshing every 1-2 years to keep protecting the timber."),
+        ("Do you repair damaged timber before painting?",
+         "Yes, we check for rot, loose boards or damaged sections and repair these before any coating goes on."),
+        ("What finish do you recommend for outdoor decks here?",
+         "We generally recommend a UV and salt-resistant stain or paint suited to coastal exposure — we'll talk through options during the quote."),
     ],
-    "Kitchen Cabinet Painting": [
-        ("Is cabinet painting cheaper than a new kitchen?", "Yes — painting your existing cabinetry gives a fresh, modern look for a fraction of the cost of a full kitchen replacement, with far less downtime."),
-        ("How durable is the finish?", "We prep and finish cabinets to a durable, high-end enamel standard built to stand up to everyday use in your {zone} kitchen."),
-        ("How long does it take?", "Most kitchens take several days, depending on the number of doors and drawers. We'll give you a clear timeline with your quote."),
+    ("Kitchen Cabinet Painting", "Byron Bay"): [
+        ("Is painting cabinets cheaper than replacing them?",
+         "Yes, generally significantly cheaper than a full replacement, and a popular option for Byron Bay renovations and rental refreshes alike."),
+        ("How long does a kitchen cabinet respray take?",
+         "Most Byron Bay kitchens take 3-5 days, depending on the number of doors and drawers."),
+        ("Can any cabinet material be painted?",
+         "Most laminate, timber and MDF cabinets can be painted with the right prep — we'll confirm suitability when we see your kitchen."),
     ],
-    "Commercial Painters": [
-        ("Can you work outside our trading hours?", "Yes. We schedule commercial jobs around your trading hours in {zone} — including early mornings, evenings or quieter days — so your business keeps running while the work gets done."),
-        ("Do you handle larger commercial sites?", "Yes. We take on cafes, retail, offices and larger premises, with timelines and finishes you can rely on."),
-        ("Will the work disrupt our customers?", "We plan the job to minimise disruption, keeping work areas tidy and contained so your space stays presentable while we're there."),
+    ("Commercial Painters", "Byron Bay"): [
+        ("Can you work outside normal business hours?",
+         "Yes, we regularly schedule around trading hours for Byron Bay cafes, shops and accommodation providers to avoid disrupting business."),
+        ("Do you work on strata or multi-tenant buildings?",
+         "Yes, we manage the logistics and communication needed for shared or strata-titled commercial properties."),
+        ("What types of businesses do you typically work with?",
+         "Retail stores, hospitality venues and short-stay accommodation are common in Byron Bay, alongside standard office spaces."),
+    ],
+
+    # --- BALLINA ---
+    ("House Painters", "Ballina"): [
+        ("How long does a full house repaint take?",
+         "A full interior and exterior repaint typically takes 8-12 days for an average Ballina home, depending on size and how much prep work is needed."),
+        ("Will I need to vacate the property during the job?",
+         "You can stay in your home during most of the job. We section off work areas and keep noise and mess to a minimum."),
+        ("Do you cover areas outside Ballina itself?",
+         "Yes — our Ballina crew also covers East Ballina, South Ballina, Lennox Head and Wardell."),
+    ],
+    ("Interior Painting", "Ballina"): [
+        ("How long does interior painting take?",
+         "A standard Ballina home takes around 5-10 days for interior painting, depending on the number of rooms and prep required."),
+        ("How do you protect my floors and furniture?",
+         "Everything is covered before we start, and our dustless sanding system keeps airborne dust down throughout the job."),
+        ("Is it possible to stay home while you paint the interior?",
+         "Yes — we section the work so parts of your Ballina home stay usable while we finish other rooms."),
+        ("Are the paints you use safe indoors?",
+         "We only use low-toxicity, low-odour paints, which is worth knowing if anyone in the household is sensitive to fumes."),
+    ],
+    ("Exterior Painting", "Ballina"): [
+        ("How long does exterior painting take?",
+         "Exterior painting for an average Ballina home takes around 7-12 days, depending on size, surface condition and weather."),
+        ("How long does exterior paint typically last in Ballina?",
+         "Homes further from the coastline tend to hold their exterior finish for 6-8 years, though river-facing properties may need attention sooner."),
+        ("What's involved in prepping an older exterior?",
+         "We start with a wash-down, address any flaking or cracked paint, then sand and prime before the final coats go on."),
+        ("Does Northern Rivers humidity affect the painting schedule?",
+         "Yes, we monitor humidity and rainfall and schedule exterior work for drier stretches to make sure the paint cures properly."),
+    ],
+    ("Roof Painting", "Ballina"): [
+        ("Will roof painting reduce heat in my home?",
+         "A quality reflective coating can make a real difference to indoor temperatures, particularly on north-facing roofs around Ballina."),
+        ("How often does a roof need repainting in Ballina?",
+         "Most Ballina roofs go 9-11 years between coats, depending on material and sun exposure."),
+        ("What's involved in preparing the roof beforehand?",
+         "We clean off moss and debris, repair any minor damage, then prime before applying the final coating."),
+    ],
+    ("Limewash Painting", "Ballina"): [
+        ("What is limewash painting exactly?",
+         "It's a breathable, mineral-based coating that creates texture and depth rather than a flat, uniform finish — a look that's becoming more popular on Ballina renders and brick homes."),
+        ("Is limewash high-maintenance?",
+         "Not really — it ages gracefully, though we can advise on refresh options if you'd prefer a consistent look long-term."),
+        ("Which parts of my home suit limewash?",
+         "Rendered or brick exteriors are the best candidates; we'll check your surfaces during the quote to confirm suitability."),
+    ],
+    ("Deck Painting", "Ballina"): [
+        ("How long does deck painting last in Ballina's climate?",
+         "Typically 2-3 years before a refresh is needed, but an annual recoat is recommendable."),
+        ("Will you fix any damaged boards first?",
+         "Yes, any rot, splitting or loose boards are repaired before we apply any coating."),
+        ("What's the best finish for a Ballina deck?",
+         "A weather-resistant stain or paint that handles humidity and rain well is usually the right call — we can advise based on your deck's exposure."),
+    ],
+    ("Kitchen Cabinet Painting", "Ballina"): [
+        ("Does cabinet painting cost less than a full replacement?",
+         "Yes, it's usually a fraction of the cost of new cabinetry, which makes it popular for Ballina kitchen updates."),
+        ("How long does the kitchen cabinet job take?",
+         "Typically 3-5 days for an average Ballina kitchen, depending on the layout and finish chosen."),
+        ("Will my cabinets be suitable for painting?",
+         "Most materials can be prepped and painted — we assess this during your free quote."),
+    ],
+    ("Commercial Painters", "Ballina"): [
+        ("Can painting be scheduled outside business hours?",
+         "Yes, we work with Ballina businesses to schedule around trading hours, including evenings or weekends if needed."),
+        ("Do you handle strata-managed commercial properties?",
+         "Yes, we're experienced coordinating with strata managers and multiple tenants on shared properties."),
+        ("What kinds of commercial clients do you usually work with?",
+         "Offices, retail spaces and hospitality venues around Ballina make up most of our commercial work."),
+    ],
+
+    # --- MULLUMBIMBY ---
+    ("House Painters", "Mullumbimby"): [
+        ("How long does a house repaint take in Mullumbimby?",
+         "Older character homes and Queenslanders in Mullumbimby often take 6-9 days, as heritage weatherboard needs more careful prep than newer builds."),
+        ("Can I stay in my home during the repaint?",
+         "In most cases yes. We plan the job in stages so you're never without access to key living areas."),
+        ("What surrounding areas do you service from Mullumbimby?",
+         "We also service Brunswick Heads, Ocean Shores, Federal and Myocum from our Mullumbimby jobs."),
+    ],
+    ("Interior Painting", "Mullumbimby"): [
+        ("Will my belongings be protected during interior painting?",
+         "We cover floors, furniture and fixtures before starting, and use a dustless sanding system — particularly useful in older Mullumbimby homes with timber floors that scratch easily."),
+        ("Do I need to leave the house while the interior is painted?",
+         "No, most clients stay home. We work through the house in stages so daily life isn't disrupted."),
+        ("What paint do you use inside heritage homes?",
+         "We use low-toxicity, breathable-where-needed products suited to older weatherboard and Queenslander interiors common in Mullumbimby."),
+    ],
+    ("Exterior Painting", "Mullumbimby"): [
+        ("How long does exterior paint last on Mullumbimby homes?",
+         "Inland from the coast, exteriors typically last 7-9 years, though hinterland rain and humidity mean prep quality matters more than in drier areas."),
+        ("How do you handle prep on older weatherboard exteriors?",
+         "Heritage weatherboard needs careful scraping and sanding to avoid damaging the timber, followed by priming suited to older materials."),
+        ("Can painting go ahead during Mullumbimby's wetter months?",
+         "We work around the hinterland's rain patterns and hold off on exterior coats until surfaces are properly dry."),
+    ],
+    ("Roof Painting", "Mullumbimby"): [
+        ("Does roof painting help with heat retention in Mullumbimby homes?",
+         "Yes, especially on older tin roofs common in the hinterland, where a reflective coating can meaningfully cool the roof space."),
+        ("How often should roofs be repainted around Mullumbimby?",
+         "With less salt exposure inland, roofs here often go 10-12 years, though heavier rainfall means we check for rust more closely."),
+        ("What does your roof prep involve?",
+         "We wash the roof, treat rust spots and moss build-up from higher rainfall, then prime before the final coat."),
+    ],
+    ("Limewash Painting", "Mullumbimby"): [
+        ("What makes limewash different from standard paint?",
+         "It's a natural, breathable mineral finish rather than a plastic-based coating, which suits the character of Mullumbimby's older homes and gives a distinctive textured look."),
+        ("Does limewash require special care over time?",
+         "It naturally develops a soft patina, which many owners of character homes actually prefer — we can advise on options if you want a more even finish maintained."),
+        ("What surfaces in my home would suit limewash?",
+         "Render and masonry surfaces work best — common on many of Mullumbimby's older and heritage-style homes."),
+    ],
+    ("Deck Painting", "Mullumbimby"): [
+        ("How often does deck coating need redoing in Mullumbimby?",
+         "With higher rainfall and humidity inland, we generally recommend a refresh every 2-3 years to prevent moisture getting into the timber."),
+        ("Do you address timber damage before painting the deck?",
+         "Yes, we repair any rot or damaged boards first, which is especially important given the wetter hinterland climate."),
+        ("What finish holds up best on Mullumbimby decks?",
+         "A moisture-resistant stain designed to cope with higher humidity and rainfall works best here."),
+    ],
+    ("Kitchen Cabinet Painting", "Mullumbimby"): [
+        ("Is cabinet painting a cheaper alternative to replacing my kitchen?",
+         "Yes, it's a cost-effective way to modernise a kitchen without a full renovation, which suits many of Mullumbimby's older homes."),
+        ("How long does kitchen cabinet painting take?",
+         "Usually 3-5 days, sometimes longer for older cabinetry that needs extra prep."),
+        ("Can older cabinets in character homes be painted?",
+         "In most cases yes — older timber cabinetry common in Mullumbimby homes typically takes paint very well once properly prepped."),
+    ],
+    ("Commercial Painters", "Mullumbimby"): [
+        ("Will the work disrupt my business during trading hours?",
+         "We can schedule around your opening hours, including early mornings or after close, to minimise disruption to Mullumbimby businesses."),
+        ("Do you work with strata or shared commercial buildings?",
+         "Yes, we coordinate directly with strata managers and other tenants when needed."),
+        ("What sort of businesses do you usually paint for?",
+         "We work with local shops, offices and hospitality venues around Mullumbimby's town centre and surrounds."),
     ],
 }
 
@@ -258,9 +425,9 @@ def pills_html(zone: str) -> str:
 
 
 def faq_html(service: str, zone: str) -> str:
-    """details/summary nativo. {zone} reemplazado en las plantillas."""
+    """details/summary nativo. FAQ propio de cada (servicio, zona)."""
     items = []
-    for q, a in FAQS[service]:
+    for q, a in FAQS[(service, zone)]:
         q = q.format(zone=zone)
         a = a.format(zone=zone)
         items.append(
@@ -319,7 +486,7 @@ def schema_breadcrumb(service: str, zone: str, slug: str) -> str:
 
 def schema_faq(service: str, zone: str) -> str:
     main = []
-    for q, a in FAQS[service]:
+    for q, a in FAQS[(service, zone)]:
         main.append({
             "@type": "Question",
             "name": q.format(zone=zone),
