@@ -1,0 +1,536 @@
+/* =========================================================
+   BLOG — índice (/blog) y artículos (/blog/<slug>)
+
+   Estas páginas cargan style.css + landing.css + blog.css.
+   landing.css aporta el layout base (.landing, .landing__inner,
+   breadcrumb, .landing-area__label, .landing-cta) para no duplicar
+   reglas: acá va SOLO lo propio del blog.
+========================================================= */
+
+/* ---------------------------------------------------------
+   Cabecera del índice
+--------------------------------------------------------- */
+.blog-head__title {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: 0;
+    text-transform: none;
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    max-width: 22ch;
+}
+
+.blog-head__intro {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 62ch;
+    margin: 0 0 2.25rem;
+    color: #2a2a2a;
+}
+
+/* ---------------------------------------------------------
+   Filtros por categoría (pills)
+   Mismo lenguaje que .landing-area__pill, pero clickeables.
+--------------------------------------------------------- */
+.blog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.blog-filter {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 50px;
+    background: transparent;
+    color: var(--color-primary);
+    white-space: nowrap;
+    cursor: pointer;
+
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.blog-filter:hover,
+.blog-filter:focus-visible {
+    background-color: rgba(60, 91, 73, 0.08);
+}
+
+.blog-filter.is-active {
+    background-color: var(--color-primary);
+    color: rgb(240, 239, 234);
+}
+
+/* ---------------------------------------------------------
+   Tag de categoría (en tarjetas y en el artículo)
+--------------------------------------------------------- */
+.blog-tag {
+    display: inline-block;
+    font-family: "Inconsolata", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.7);
+    width: fit-content;
+}
+
+/* Un color por categoría. Si Ramón suma una categoría nueva,
+   agregá acá su par de colores (fondo + texto) usando el slug. */
+.blog-tag--exterior {
+    background: #f2e6da;
+    color: #8a4a22;
+}
+
+.blog-tag--interior {
+    background: #e2e9dd;
+    color: #3c5b49;
+}
+
+.blog-tag--lead-paint {
+    background: #eee7ce;
+    color: #6d5f28;
+}
+
+.blog-tag--epoxy-floors {
+    background: #dde8ec;
+    color: #2c5666;
+}
+
+/* ---------------------------------------------------------
+   Artículo destacado (foto izq + texto der)
+--------------------------------------------------------- */
+.blog-featured {
+    display: grid;
+    grid-template-columns: 0.42fr 0.58fr;
+    align-items: stretch;
+
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-featured:hover,
+.blog-featured:focus-within {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.blog-featured__media {
+    overflow: hidden;
+    /* Proporción fija: sin esto la foto (que suele ser vertical) estira
+       la tarjeta a lo alto y deja un hueco enorme del lado del texto. */
+    aspect-ratio: 3 / 2;
+}
+
+.blog-featured__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-featured:hover .blog-featured__img {
+    transform: scale(1.03);
+}
+
+.blog-featured__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.85rem;
+    padding: 2.5rem;
+}
+
+.blog-featured__title {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: none;
+    margin: 0;
+    color: var(--color-primary);
+    max-width: 26ch;
+}
+
+.blog-featured__excerpt {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    color: #2a2a2a;
+    max-width: 52ch;
+}
+
+.blog-featured__meta,
+.blog-card__meta {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* El link cubre toda la tarjeta (el título queda como texto clickeable
+   para lectores de pantalla, el resto es superficie de click). */
+.blog-featured__link,
+.blog-card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.blog-featured,
+.blog-card {
+    position: relative;
+}
+
+/* ---------------------------------------------------------
+   Grilla de tarjetas
+--------------------------------------------------------- */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover,
+.blog-card:focus-within {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.blog-card__media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.blog-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-card:hover .blog-card__img {
+    transform: scale(1.04);
+}
+
+.blog-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.25rem;
+    flex: 1;
+}
+
+.blog-card__title {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    margin: 0;
+    color: var(--color-primary);
+}
+
+.blog-card__excerpt {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0;
+    color: #55554e;
+}
+
+.blog-card__meta {
+    margin-top: auto;
+    padding-top: 0.35rem;
+}
+
+/* Tarjeta oculta por el filtro de categoría */
+.blog-card[hidden],
+.blog-featured-section[hidden] {
+    display: none;
+}
+
+.blog-empty {
+    font-family: "Inconsolata", monospace;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 2rem 0 0;
+}
+
+/* Separación visual entre el contenido editorial y el CTA final. */
+.blog-latest + .landing-cta,
+.blog-related + .landing-cta {
+    margin-top: 5rem;
+}
+
+/* ---------------------------------------------------------
+   Página de artículo
+--------------------------------------------------------- */
+.blog-post-head__title {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.08;
+    letter-spacing: 0;
+    text-transform: none;
+    margin: 1rem 0 1.25rem;
+    color: var(--color-primary);
+    max-width: 24ch;
+}
+
+.blog-post-head__standfirst {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0 0 1.25rem;
+    color: #2a2a2a;
+}
+
+.blog-post-head__meta {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-post-figure {
+    margin: 0 0 3rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.blog-post-figure__img {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Cuerpo del artículo: columna angosta, medida de lectura cómoda */
+.blog-prose {
+    max-width: 68ch;
+    /* Alineado a la izquierda, debajo del título del artículo
+       (centrarlo lo desalineaba del H1). */
+    margin: 0;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: #2a2a2a;
+}
+
+.blog-prose h2 {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-primary);
+    margin: 2.75rem 0 1rem;
+}
+
+.blog-prose p {
+    margin: 0 0 1.35rem;
+}
+
+.blog-prose ul {
+    list-style: none;
+    margin: 0 0 1.35rem;
+    padding: 0;
+}
+
+.blog-prose li {
+    position: relative;
+    padding-left: 1.35rem;
+    margin-bottom: 0.6rem;
+}
+
+.blog-prose li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-primary);
+}
+
+.blog-prose a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.blog-prose strong {
+    font-weight: 500;
+}
+
+/* Nota provisoria mientras el contenido real no llegue.
+   Cuando se carguen los textos de Ramón, borrar los bloques
+   .blog-prose__placeholder del generador (no hace falta tocar esto). */
+.blog-prose__placeholder {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #6d5f28;
+    background: #eee7ce;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0 0 2rem;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .blog-featured__text {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-head__title {
+        max-width: none;
+    }
+
+    .blog-head__intro {
+        font-size: 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .blog-filter {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .blog-featured {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-featured__media {
+        aspect-ratio: 16 / 10;
+    }
+
+    .blog-featured__text {
+        padding: 1.5rem;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .blog-post-head__title {
+        max-width: none;
+    }
+
+    .blog-post-head__standfirst {
+        font-size: 1.05rem;
+    }
+
+    .blog-post-figure {
+        margin-bottom: 2rem;
+    }
+
+    .blog-prose {
+        font-size: 1rem;
+    }
+
+    .blog-latest + .landing-cta,
+    .blog-related + .landing-cta {
+        margin-top: 3.5rem;
+    }
+}
+
+/* Menos movimiento para quien lo pida */
+@media (prefers-reduced-motion: reduce) {
+
+    .blog-featured,
+    .blog-card,
+    .blog-featured__img,
+    .blog-card__img {
+        transition: none;
+    }
+
+    .blog-featured:hover,
+    .blog-card:hover {
+        transform: none;
+    }
+
+    .blog-featured:hover .blog-featured__img,
+    .blog-card:hover .blog-card__img {
+        transform: none;
+    }
+}
+
+/* ---------------------------------------------------------
+   Link BLOG del nav marcado como página actual.
+   Vive acá (y no en style.css) porque solo lo cargan las
+   páginas del blog: ninguna otra página del sitio tiene
+   estado "activo" en el nav.
+--------------------------------------------------------- */
+.site-nav__link[aria-current="page"] {
+    position: relative;
+}
+
+.site-nav__link[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    right: 0;
+    bottom: 0.15rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+    .site-nav__link[aria-current="page"]::after {
+        display: none;
+    }
+}

@@ -321,11 +321,11 @@ body.is-nav-open .nav-backdrop {
 
 .about-page__img {
     width: 100%;
-    height: auto;
-    /* clave */
+    height: 100%;
     display: block;
-    object-fit: contain;
-    /* opcional: no hace falta si height:auto, pero no molesta */
+    /* cover + ratio fijo en el contenedor: las fotos que rotan entran
+       en el mismo hueco sin mover el layout */
+    object-fit: cover;
 }
 
 
@@ -342,6 +342,51 @@ body.is-nav-open .nav-backdrop {
 }
 
 
+
+/* =========================
+   GALLERY — ROTACION CON MASCARA VERTICAL
+
+   Cada columna adopta el ratio REAL de la foto que tiene puesta, asi
+   ninguna foto se recorta nunca. Para que eso no mueva el layout, la
+   <figure> tiene altura fija — la de la foto mas alta del catalogo — y
+   la imagen se apoya arriba. Lo unico que varia es cuanto espacio vacio
+   queda debajo, que es fondo de pagina y no se ve.
+
+   Los ratios de aca son los del primer render; apenas termina de
+   precargar, el JS los pisa con las medidas reales de cada foto.
+========================= */
+.about-page__gallery-viewport {
+    align-items: start;
+}
+
+/* Solo en la grilla de 4 columnas: la <figure> se fija a la altura de la
+   foto mas alta del catalogo, para que la fila nunca cambie de alto.
+   En 2 o 1 columna esto dejaria un hueco enorme debajo de las fotos
+   anchas, asi que ahi la <figure> vuelve a seguir a su foto (y el JS
+   no rota: ver about-us-page.js). */
+@media (min-width: 769px) {
+    .about-page__gallery figure {
+        aspect-ratio: var(--gallery-tallest, 894 / 1196);
+    }
+}
+
+.about-page__slide-d .about-page__img-container { aspect-ratio: 1197 / 1425; }
+.about-page__slide-c .about-page__img-container { aspect-ratio: 1363 / 1400; }
+.about-page__slide-a .about-page__img-container { aspect-ratio: 894 / 1196; }
+.about-page__slide-b .about-page__img-container { aspect-ratio: 1363 / 1196; }
+
+/* La "mascara invisible": un clip-path que recorta desde abajo.
+   abierto  -> inset(0 0 0 0)    : foto entera visible
+   cerrado  -> inset(0 0 100% 0) : la mascara subio y tapo todo
+   Al volver a abrir, la foto se descubre de arriba hacia abajo. */
+.about-page__img-container {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 620ms cubic-bezier(0.72, 0, 0.24, 1);
+}
+
+.about-page__img-container.is-masked {
+    clip-path: inset(0 0 100% 0);
+}
 
 /* Reduced motion: igual funciona, solo sin smooth si querés */
 @media (prefers-reduced-motion: reduce) {
@@ -687,6 +732,11 @@ body.is-nav-open .nav-backdrop {
         transform: none;
         clip-path: none;
     }
+
+    .about-page__img-container {
+        transition: none;
+        clip-path: none;
+    }
 }
 
 /* (definición única, sin duplicados) */
@@ -976,5 +1026,124 @@ body.is-nav-open .nav-backdrop {
     .locations__panel {
         position: static;
         margin-top: 0.8rem;
+    }
+}
+
+
+/* =========================
+   LOCATIONS — layout en 2 columnas (texto + mapa)
+========================= */
+.locations__grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.locations__content {
+    min-width: 0;
+}
+
+.locations__media {
+    min-width: 0;
+}
+
+/* ---------------------------------------------------------
+   COMPONENTE MAPA DE ZONAS (area-map)
+--------------------------------------------------------- */
+.area-map {
+    position: relative;
+    width: 100%;
+}
+
+.area-map__canvas {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    /* gradiente de carga mientras MapLibre baja (grises de la paleta) */
+    background: linear-gradient(135deg, #9D9D9C 0%, #575756 48%, #3C3C3B 100%);
+    border: 1px solid var(--color-primary);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Controles de zoom (esquina sup. derecha del mapa) */
+.area-map__controls {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 2;
+}
+
+.area-map__btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1D1D1B;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.area-map__btn:hover { background: #fff; }
+.area-map__btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* Marker: punto + anillo con pulso + label */
+.area-map-marker {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area-map-marker__dot {
+    width: 9px;
+    height: 9px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.area-map-marker--entering .area-map-marker__dot { transform: scale(1); }
+
+.area-map-marker__ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 24px; height: 24px;
+    margin-top: -12px; margin-left: -12px;
+    border: 2px solid rgba(60, 91, 73, 0.5); /* --color-primary @50% */
+    border-radius: 50%;
+    animation: area-map-pulse 2s ease-out infinite;
+}
+
+@keyframes area-map-pulse {
+    0%   { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ocultar atribuciones de MapLibre dentro del canvas */
+.area-map__canvas .maplibregl-ctrl-bottom-left,
+.area-map__canvas .maplibregl-ctrl-bottom-right { display: none; }
+
+@media (max-width: 900px) {
+    .locations__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 }

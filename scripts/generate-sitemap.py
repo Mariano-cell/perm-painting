@@ -3,9 +3,13 @@
 Genera sitemap.xml y robots.txt.
 
 Incluye SOLO la estrategia nueva + páginas core:
-- 24 landings (servicio × zona)
-- 3 índices por zona (AREAS OF SERVICE)
+- 60 landings (servicio × zona)
+- 6 índices por zona (AREAS OF SERVICE)
+- el blog: /blog/ + un artículo por cada .html de la carpeta blog/
 - core: home, about-us, our-services, contact
+
+OJO: las URLs del blog salen de leer la carpeta blog/, así que correr
+generate-blog-pages.py ANTES que este script.
 
 NO incluye las 30 /contact/<slug> viejas (estrategia descartada): meterlas
 competiría con las landings nuevas por las mismas keywords (canibalización).
@@ -24,8 +28,9 @@ TODAY = date.today().isoformat()
 SERVICES = [
     "House Painters", "Interior Painting", "Exterior Painting", "Roof Painting",
     "Limewash Painting", "Deck Painting", "Kitchen Cabinet Painting", "Commercial Painters",
+    "Epoxy Floors", "Lead Paint Removal & Restoration",
 ]
-ZONES = ["Byron Bay", "Ballina", "Mullumbimby"]
+ZONES = ["Byron Bay", "Ballina", "Mullumbimby", "Kingscliff", "Tweed Heads", "Lismore"]
 
 
 def slugify(name: str) -> str:
@@ -59,7 +64,20 @@ def main() -> None:
     for z in ZONES:
         urls.append(url_entry(f"{DOMAIN}/{slugify(z)}", "0.8"))
 
-    # 24 landings (el contenido SEO principal: prioridad alta)
+    # Blog: el índice + un artículo por archivo generado en blog/.
+    # (La lista de artículos vive en generate-blog-pages.py; acá leemos el
+    # resultado en disco para no duplicar los datos en dos lados.)
+    blog_dir = ROOT / "blog"
+    if blog_dir.exists():
+        urls.append(url_entry(f"{DOMAIN}/blog/", "0.7", "weekly"))
+        for f in sorted(blog_dir.glob("*.html")):
+            if f.name == "index.html":
+                continue
+            urls.append(url_entry(f"{DOMAIN}/blog/{f.stem}", "0.6"))
+    else:
+        print("  ! no existe blog/ — corré antes: python3 scripts/generate-blog-pages.py")
+
+    # 60 landings (el contenido SEO principal: prioridad alta)
     for s in SERVICES:
         for z in ZONES:
             slug = f"{slugify(s)}-{slugify(z)}"

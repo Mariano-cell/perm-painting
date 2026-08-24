@@ -1,0 +1,44 @@
+                <!-- MODELO "HYPERLOCAL" (Ramón, ago 2026) — hero del índice de zona.
+                     Lo inserta template-area-shell.html en el hueco AREA_HERO.
+                     Sin formulario: texto + pills + badge de trabajos, después el
+                     bloque "Local knowledge" y un FAQ propio de la zona (reusa el
+                     componente .landing-faq de las landings de servicio). -->
+                <div class="area-local__head">
+
+                    <div class="area-local__main">
+                        <p class="landing-area__label">Areas of service &mdash; hyperlocal</p>
+
+                        <h1 id="area-index-title" class="area-index__title">{{HEADLINE}}</h1>
+
+                        <p class="area-index__intro">{{INTRO}}</p>
+
+                        <!-- Localidades de la zona (pills). Sin links: no tienen
+                             página propia. Si se les crea, pasar a <a>. -->
+                        <ul class="landing-area__pills" aria-label="Areas we serve around {{ZONE}}">
+{{AREA_PILLS}}
+                        </ul>
+                    </div>
+
+{{JOBS_BADGE}}
+                </div>
+
+                <!-- Local knowledge: qué nos encontramos habitualmente en la zona -->
+                <div class="area-local__knowledge">
+                    <h2 class="area-local__knowledge-title">Local knowledge</h2>
+                    <ul class="area-local__knowledge-list">
+{{LOCAL_KNOWLEDGE}}
+                    </ul>
+                </div>
+
+                <!-- FAQ de la zona (no de un servicio). Mismo componente que el
+                     FAQ de las landings; el mismo texto alimenta el schema. -->
+                <section class="landing-faq area-local__faq" aria-labelledby="area-local-faq-title">
+
+                    <p class="landing-faq__label">FAQ</p>
+                    <h2 id="area-local-faq-title" class="landing-faq__title">Local questions, answered</h2>
+
+                    <div class="landing-faq__list">
+{{AREA_FAQ}}
+                    </div>
+
+                </section>

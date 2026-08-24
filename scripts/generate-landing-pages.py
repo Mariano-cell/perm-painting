@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 """
-Genera las 24 landing pages SEO (8 servicios x 3 zonas).
+Genera las 60 landing pages SEO (10 servicios x 6 zonas).
 
 Estrategia nueva (jun 2026, marketing Ramón): una página estática por
 combinación servicio×zona, URL plana tipo /roof-painting-byron-bay.
 
 Fuente del molde: template-landing.html (placeholders {{...}}).
-Salida: <slug>.html en la raíz del proyecto (24 archivos).
+Salida: <slug>.html en la raíz del proyecto (60 archivos).
 
 Correr desde la raíz cada vez que se modifique el template o los datos:
 
@@ -14,9 +16,7 @@ Correr desde la raíz cada vez que se modifique el template o los datos:
 
 Las páginas generadas NO se editan a mano: se pisan al regenerar.
 
-PENDIENTES DEL CLIENTE (marcados con [PENDIENTE] / contenido provisorio):
-- meta descriptions de los 3 índices de zona: redactadas internamente
-  (AREA_META_DESCS); Ramón no mandó esas 3, reemplazar si las manda.
+Los pendientes de contenido y assets se centralizan en DEVOLUCION-RAMON.md.
 """
 
 import html as html_lib
@@ -34,17 +34,23 @@ DOMAIN = "https://permapainting.com.au"
 # DATOS
 # ---------------------------------------------------------------------------
 
-# Orden fijo de los 8 servicios. photo_dir = carpeta en assets/photos,
+# Orden fijo de los 10 servicios. photo_dir = carpeta en assets/photos,
 # prefix = prefijo de archivo (la galería usa <prefix>_001..004).
+# "hero" (opcional) = foto propia del servicio para el hero de la landing
+# (assets/photos/<hero>.jpg + .webp). Misma foto en las 3 zonas del servicio.
+# Si no está seteado, se usa la foto genérica landing_005 (comportamiento
+# histórico, compartida por todas las landings).
 SERVICES = [
-    {"name": "House Painters",          "photo_dir": "residential",       "prefix": "residential"},
-    {"name": "Interior Painting",       "photo_dir": "interior",          "prefix": "interior"},
-    {"name": "Exterior Painting",       "photo_dir": "exterior",          "prefix": "exterior"},
-    {"name": "Roof Painting",           "photo_dir": "roof",              "prefix": "roof"},
-    {"name": "Limewash Painting",       "photo_dir": "limewash",          "prefix": "limewash"},
-    {"name": "Deck Painting",           "photo_dir": "decks",             "prefix": "decks"},
-    {"name": "Kitchen Cabinet Painting","photo_dir": "kitchen-cabinets",  "prefix": "kc"},
-    {"name": "Commercial Painters",     "photo_dir": "commercial",        "prefix": "commercial"},
+    {"name": "House Painters",          "photo_dir": "residential",       "prefix": "residential",  "hero": "residential/residential-hero"},
+    {"name": "Interior Painting",       "photo_dir": "interior",          "prefix": "interior",     "hero": "interior/interior-hero"},
+    {"name": "Exterior Painting",       "photo_dir": "exterior",          "prefix": "exterior",     "hero": "exterior/exterior-hero"},
+    {"name": "Roof Painting",           "photo_dir": "roof",              "prefix": "roof",         "hero": "roof/roof-hero"},
+    {"name": "Limewash Painting",       "photo_dir": "limewash",          "prefix": "limewash",     "hero": "limewash/limewash-hero"},
+    {"name": "Deck Painting",           "photo_dir": "decks",             "prefix": "decks",        "hero": "decks/decks-hero"},
+    {"name": "Kitchen Cabinet Painting","photo_dir": "kitchen-cabinets",  "prefix": "kc",            "hero": "kitchen-cabinets/kc-hero"},
+    {"name": "Commercial Painters",     "photo_dir": "commercial",        "prefix": "commercial",   "hero": "commercial/commercial-hero"},
+    {"name": "Epoxy Floors",            "photo_dir": "epoxy",             "prefix": "epoxy"},
+    {"name": "Lead Paint Removal & Restoration", "photo_dir": "lead-paint", "prefix": "lead-paint"},
 ]
 
 ZONES = ["Byron Bay", "Ballina", "Mullumbimby"]
@@ -96,6 +102,8 @@ CTA_TEXTS = {
     "Deck Painting": "Tell us about your deck and we'll get back to you with a clear, no-obligation quote.",
     "Kitchen Cabinet Painting": "Tell us about your kitchen and we'll get back to you with a clear, no-obligation quote.",
     "Commercial Painters": "Tell us about your premises and we'll get back to you with a clear, no-obligation quote.",
+    "Epoxy Floors": "Tell us about your floor and we'll get back to you with a clear, no-obligation quote.",
+    "Lead Paint Removal & Restoration": "Tell us about the paintwork and we'll get back to you with a clear, no-obligation quote.",
 }
 
 # FAQ por (servicio, zona). Textos provistos por marketing (Ramón, jul 2026),
@@ -350,6 +358,652 @@ AREA_META_DESCS = {
 }
 
 # ---------------------------------------------------------------------------
+# ZONAS NUEVAS (ago 2026)
+#
+# Ramón pidió localidades nuevas con índices DISTINTOS al de las 3 viejas, y
+# manda un modelo de página distinto por zona. Todos comparten la misma
+# cáscara (template-area-shell.html: head, header, breadcrumb, grilla de
+# servicios, otras zonas) y solo cambia el hero, que sale de un parcial:
+#
+#   modelo "quote" -> template-area-hero-quote.html
+#                     texto + trust badges + formulario sticky + foto
+#   modelo "local" -> template-area-hero-local.html
+#                     texto + badge de trabajos + "Local knowledge" + FAQ
+#
+# Para sumar un modelo nuevo: un parcial más, su entrada en AREA_HERO_TEMPLATES
+# y su rama en generate_new_area_indexes(). La cáscara no se toca.
+#
+# Decisión (Mariano, ago 2026): Byron Bay / Ballina / Mullumbimby NO cambian;
+# siguen con template-area-index.html.
+#
+# OJO: estas zonas NO están en ZONES a propósito. Meterlas ahí regeneraría
+# las 24 landings existentes con crosslinks nuevos (y habría que propagar el
+# header). Cuando se decida sumarlas al dropdown "AREAS OF SERVICE" hay que
+# correr propagate-header.py y revisar los :nth-child de fadeDropIn en
+# style.css (están tuneados para 4 items de nav).
+NEW_ZONES = ["Kingscliff", "Tweed Heads", "Lismore"]
+
+AREA_HERO_TEMPLATES = {
+    "quote": "template-area-hero-quote.html",
+    "local": "template-area-hero-local.html",
+}
+
+# Íconos de los trust badges (paths sueltos; el stroke/fill lo pone el CSS).
+TRUST_ICONS = {
+    "shield": '<path d="M12 3l7 3v6c0 5-3.4 7.8-7 9-3.6-1.2-7-4-7-9V6z"/>',
+    "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+    "brush": '<path d="M14 3l7 7-8 8-7-7z"/><path d="M6 15l-3 6 6-3"/>',
+}
+
+# Datos por zona nueva.
+#   headline / intro / nearby / trust -> material entregado por Ramón.
+#   meta -> versión definitiva de "Info Nuevas Landings Perma - 20-8.md".
+#   photo -> PLACEHOLDER: hoy es una copia de exterior-hero. Cuando lleguen
+#            las fotos reales de la zona, pisar assets/photos/area-index/
+#            <slug>.jpg + .webp y regenerar.
+NEW_ZONE_DATA = {
+    "Kingscliff": {
+        "model": "quote",
+        "title": "Painters Kingscliff | Perma Painting",
+        "meta": "Painters in Kingscliff for beach houses and new builds across Salt Village, Casuarina and Cudgen. Salt-air rated finishes, free quotes, fully insured local crews.",
+        "headline": "Painting in Kingscliff and the Tweed Coast beaches",
+        "intro": "Kingscliff has grown fast, with new builds in the Salt precinct sitting alongside classic beach houses and a steady flow of holiday rental turnovers — get a free quote in under a minute.",
+        "nearby": ["Casuarina", "Salt Village", "Cudgen", "Chinderah"],
+        "photo": "assets/photos/area-index/kingscliff.jpg",
+        "photo_alt": "Recent painting job in Kingscliff",
+        "trust": [
+            ("shield", "Fully insured &amp; licensed crews"),
+            ("clock", "Reply within 24 hours"),
+            ("brush", "Salt-air rated finishes"),
+        ],
+    },
+
+    # Modelo "local": headline, intro, pills, local_knowledge y faqs son de
+    # Ramón (croquis D5). jobs_badge queda en None hasta que mande el número
+    # real de trabajos hechos en la zona: sin dato, el badge no se renderiza.
+    # El croquis traía además un testimonio firmado "Strata Committee Member";
+    # se sacó por decisión de Mariano (ago 2026).
+    "Tweed Heads": {
+        "model": "local",
+        "title": "Painters Tweed Heads | Perma Painting",
+        "meta": "Trusted painters in Tweed Heads for established homes, unit blocks and strata repaints. Free quotes, fully insured local crews on the NSW/QLD border.",
+        "headline": "Painters Tweed Heads &amp; the Border",
+        "intro": "Quality painting for established homes and businesses on the NSW/QLD border. Tweed Heads is one of the most established communities on the Tweed Coast, with a mix of long-standing family homes, unit blocks and local businesses.",
+        "nearby": ["Banora Point", "Terranora", "Bilambil", "Tweed Heads South"],
+        "jobs_badge": None,  # PENDIENTE: número real de trabajos en la zona
+        "local_knowledge": [
+            "Older weatherboard &amp; brick homes across established Tweed Heads streets",
+            "Unit block exteriors &amp; strata repaints near the river",
+            "Commercial fit-outs for local Tweed Heads businesses",
+            "Rendered homes bordering Banora Point &amp; Terranora",
+        ],
+        "faqs": [
+            ("Do you handle strata or unit block repaints?",
+             "Yes — we regularly quote strata and unit block exteriors around Tweed Heads, working with committees on scheduling and access."),
+            ("Can you match older weatherboard or rendered brick finishes?",
+             "Yes, matching existing finishes on established homes is one of our specialties in this area."),
+            ("Do you also service Banora Point and Terranora?",
+             "Yes, both are part of our regular Tweed Heads coverage."),
+        ],
+    },
+
+    # Segundo modelo "local" (croquis D4). Mismo criterio que Tweed Heads:
+    # jobs_badge en None hasta tener el número real, y sin el testimonio que
+    # traía el croquis ("Homeowner — South Lismore").
+    # OJO con el title: el croquis decía "House Painters Lismore", que chocaría
+    # con el <title> de la landing house-painters-lismore.html. Se usa
+    # "Painters Lismore", igual que las otras dos zonas nuevas.
+    "Lismore": {
+        "model": "local",
+        "title": "Painters Lismore | Perma Painting",
+        "meta": "Local painters in Lismore for heritage homes, storm and flood repairs, and Goonellabah properties. Free quotes, fully insured local crews.",
+        "headline": "House Painters Lismore &amp; Surrounds",
+        "intro": "Trusted interior &amp; exterior painting for Lismore homes and businesses. Perma Painting brings the same quality finish we're known for across Byron Bay, Ballina and Mullumbimby to Lismore and the surrounding Northern Rivers hinterland.",
+        "nearby": ["Goonellabah", "East Lismore", "North Lismore", "South Lismore"],
+        "jobs_badge": None,  # PENDIENTE: número real de trabajos en la zona
+        "local_knowledge": [
+            "Heritage homes in East Lismore &amp; Girards Hill",
+            "Storm &amp; flood-affected homes across North &amp; South Lismore",
+            "Established brick &amp; weatherboard homes in Goonellabah",
+            "Rural &amp; acreage properties toward Wyrallah",
+        ],
+        "faqs": [
+            ("Do you handle storm or flood damage repaints?",
+             "Yes — we regularly repaint homes across North and South Lismore affected by storm or flood damage, prepping surfaces properly before recoating."),
+            ("Can you match heritage colour schemes in East Lismore or Girards Hill?",
+             "Yes, we check heritage guidelines where they apply and match existing colour schemes on request."),
+            ("Do you also service Goonellabah?",
+             "Yes, Goonellabah is part of our regular Lismore coverage."),
+        ],
+    },
+}
+
+
+# ---------------------------------------------------------------------------
+# CONTENIDO DEFINITIVO DE RAMÓN (20 ago 2026)
+# 30 páginas de Kingscliff / Tweed Heads / Lismore + los dos servicios
+# nuevos en Byron Bay / Ballina / Mullumbimby.
+# ---------------------------------------------------------------------------
+
+INTROS.update({('House Painters', 'Kingscliff'): 'Kingscliff mixes new builds in the Salt precinct with classic beach houses along '
+                                   'Cudgen Creek and the coast, and every one of them needs paint that can handle '
+                                   'the salt air. Our Kingscliff crews prep and coat homes to hold their finish '
+                                   'through the coastal weather, not just look good on handover day.',
+ ('Interior Painting', 'Kingscliff'): "Whether it's a Salt Village townhouse or an older beach house near the "
+                                      'Kingscliff foreshore, interior painting here often means fitting around '
+                                      'holiday rental turnovers or young families settling in. We schedule around '
+                                      'your calendar and finish with minimal mess.',
+ ('Exterior Painting', 'Kingscliff'): "Exterior paint takes a beating this close to the water, and Kingscliff's mix "
+                                      'of weatherboard beach houses and rendered new builds each need a different '
+                                      'approach. We prep thoroughly for salt exposure so the finish actually lasts.',
+ ('Roof Painting', 'Kingscliff'): 'Coastal roofs around Kingscliff cop rust and fading faster than inland areas, '
+                                  'especially on older homes near the beach. A proper roof repaint protects the '
+                                  'metal underneath as well as lifting the street appeal.',
+ ('Limewash Painting', 'Kingscliff'): 'Limewash suits the relaxed coastal look a lot of Kingscliff and Casuarina '
+                                      "homeowners are after, especially on brick and render near the beach. It's a "
+                                      'finish we apply carefully to get that soft, textured result right.',
+ ('Deck Painting', 'Kingscliff'): 'Between salt air and constant sun, decks in Kingscliff and along Cudgen Creek '
+                                  'need coatings that can actually take the punishment. We prep and coat decks to '
+                                  'handle bare feet, beach sand and coastal weather.',
+ ('Kitchen Cabinet Painting', 'Kingscliff'): 'A lot of Kingscliff kitchens, especially in older beach houses, can be '
+                                             'transformed without a full renovation. We spray or hand-finish '
+                                             'cabinets on site for a durable result that suits either a classic '
+                                             'beach house or a newer Salt precinct build.',
+ ('Commercial Painters', 'Kingscliff'): 'From Salt precinct retail spaces to established Kingscliff businesses along '
+                                        'Marine Parade, we handle commercial jobs with minimal disruption to trade. '
+                                        'Scheduling works around your opening hours, not the other way around.',
+ ('Epoxy Floors', 'Kingscliff'): 'Epoxy flooring is a newer addition to what we offer at Perma Painting, bringing '
+                                 "the same attention to prep and finish we're known for across Kingscliff and the "
+                                 "Tweed Coast to garages, alfresco areas and commercial floors. It's a durable "
+                                 "option worth considering if you're renovating a Salt precinct build or upgrading "
+                                 'an older beach house.',
+ ('Lead Paint Removal & Restoration', 'Kingscliff'): 'Older beach houses around Kingscliff built before the 1970s '
+                                                     'can have lead-based paint under later coats, and it needs to '
+                                                     'be handled properly before any repaint. We follow safe removal '
+                                                     'and restoration practices so the job is done without '
+                                                     'unnecessary risk.',
+ ('House Painters', 'Tweed Heads'): 'Tweed Heads is one of the most established parts of the Tweed Coast, with older '
+                                    'weatherboard and brick homes sitting alongside unit blocks near the river. We '
+                                    "paint both with the same attention to prep, whether it's a single house or a "
+                                    'strata job.',
+ ('Interior Painting', 'Tweed Heads'): 'Interior jobs in Tweed Heads range from long-term family homes to units '
+                                       'being freshened up for sale or rent. We work cleanly and efficiently so '
+                                       "you're not out of your space longer than necessary.",
+ ('Exterior Painting', 'Tweed Heads'): 'Established homes around Tweed Heads often have older render or weatherboard '
+                                       'that needs proper prep before a repaint holds. We check for underlying '
+                                       'issues first so the new coat actually lasts.',
+ ('Roof Painting', 'Tweed Heads'): "A lot of Tweed Heads homes have roofs that haven't been touched in years, and "
+                                   'river-side properties in particular show wear faster. We repaint to protect the '
+                                   'roof, not just refresh the colour.',
+ ('Limewash Painting', 'Tweed Heads'): 'Limewash gives older brick homes around Tweed Heads a softer, more '
+                                       "contemporary look without a full render job. It's a finish that suits the "
+                                       "area's established brick housing stock well.",
+ ('Deck Painting', 'Tweed Heads'): 'Decks around Tweed Heads, especially those near the river, take a lot of '
+                                   'moisture and sun exposure. We coat and seal properly so the timber underneath is '
+                                   'protected, not just painted over.',
+ ('Kitchen Cabinet Painting', 'Tweed Heads'): 'A lot of Tweed Heads kitchens, particularly in older homes and units, '
+                                              'are solid but dated. Repainting the cabinets is a fast way to '
+                                              'modernise without a full renovation.',
+ ('Commercial Painters', 'Tweed Heads'): 'Tweed Heads has a solid base of local businesses along the main strip and '
+                                         'near the border, and we work around trading hours to get commercial jobs '
+                                         'done with minimal disruption. Strata approval and scheduling are handled '
+                                         'as part of the job.',
+ ('Epoxy Floors', 'Tweed Heads'): "We've recently added epoxy flooring to our services at Perma Painting, applying "
+                                  "it with the same care we bring to every paint job across Tweed Heads. It's a "
+                                  'strong option for garages, units with shared parking areas or commercial spaces '
+                                  'near the border.',
+ ('Lead Paint Removal & Restoration', 'Tweed Heads'): 'A lot of the established homes around Tweed Heads predate '
+                                                      'modern paint standards, which means lead-based paint is a '
+                                                      'real consideration before any repaint. We handle removal and '
+                                                      'restoration safely, then finish with a proper repaint.',
+ ('House Painters', 'Lismore'): "Lismore's mix of heritage homes in East Lismore and Girards Hill, flood-affected "
+                                'properties, and established homes in Goonellabah means every job needs a slightly '
+                                "different approach. We prep properly for each, whether it's heritage matching or "
+                                'storm damage repair.',
+ ('Interior Painting', 'Lismore'): 'Interior repaints in Lismore often follow flood repair work or simply refreshing '
+                                   'an older heritage home in Girards Hill. We work carefully around existing '
+                                   'features rather than painting over problems.',
+ ('Exterior Painting', 'Lismore'): 'Exterior homes across North and South Lismore have often taken a battering from '
+                                   "storms and flooding over the years, and Goonellabah's established brick and "
+                                   'weatherboard stock needs its own care. We prep thoroughly so the new coat '
+                                   'actually holds.',
+ ('Roof Painting', 'Lismore'): 'A lot of Lismore roofs, particularly on older homes in North and South Lismore, show '
+                               'rust and wear faster after years of storm exposure. We treat rust properly and coat '
+                               'for long-term protection.',
+ ('Limewash Painting', 'Lismore'): "Limewash suits Lismore's heritage brick homes particularly well, especially in "
+                                   'East Lismore and Girards Hill where a softer, period-appropriate finish is often '
+                                   "preferred over standard paint. It's a technique we apply carefully to get the "
+                                   'texture right.',
+ ('Deck Painting', 'Lismore'): "Decks on Lismore's older homes, particularly those that have seen flood or storm "
+                               'exposure, need proper assessment before recoating. We check the timber first, then '
+                               'coat for durability.',
+ ('Kitchen Cabinet Painting', 'Lismore'): 'Many Lismore kitchens, especially in older Goonellabah and heritage '
+                                          'homes, are solid but dated. Repainting cabinets is an affordable way to '
+                                          'update the space without a full renovation.',
+ ('Commercial Painters', 'Lismore'): "Lismore's CBD and surrounding business areas have faced their share of flood "
+                                     'recovery work over recent years, and we handle commercial repaints with that '
+                                     'history in mind. Scheduling works around your trading hours and any insurance '
+                                     'or repair timelines.',
+ ('Epoxy Floors', 'Lismore'): "Epoxy flooring is one of the newer services we've added at Perma Painting, and it's a "
+                              'particularly practical option for Lismore garages and sheds that have dealt with '
+                              'flood exposure over the years. It gives a durable, easy-to-clean surface that holds '
+                              'up better than bare concrete.',
+ ('Lead Paint Removal & Restoration', 'Lismore'): "Lead paint is a common issue in Lismore's heritage homes, "
+                                                  'particularly in East Lismore and Girards Hill, where older layers '
+                                                  'can sit beneath decades of repaints. We handle removal safely '
+                                                  'before restoring the surface, which matters especially where '
+                                                  'flood repairs have already disturbed old paintwork.',
+ ('Epoxy Floors', 'Byron Bay'): "We've recently added epoxy flooring to our services at Perma Painting, bringing it "
+                                "to Byron Bay alongside our core painting work. It's a practical option for garages, "
+                                'studios and the growing number of commercial and hospitality fit-outs around town.',
+ ('Lead Paint Removal & Restoration', 'Byron Bay'): 'Byron Bay has plenty of older cottages and heritage-character '
+                                                    'homes where lead-based paint can still be present under later '
+                                                    'coats. We handle removal and restoration safely before any '
+                                                    'repaint goes on.',
+ ('Epoxy Floors', 'Ballina'): "Epoxy flooring is a newer addition to what we offer at Perma Painting, and it's a "
+                              'solid option for Ballina garages, sheds and commercial spaces near the river. We '
+                              'apply it with the same prep standards we use on every paint job.',
+ ('Lead Paint Removal & Restoration', 'Ballina'): 'A number of established homes around Ballina predate modern paint '
+                                                  'standards, particularly closer to the town centre and river. We '
+                                                  'handle lead paint removal safely, then restore the surface ready '
+                                                  'for a proper repaint.',
+ ('Epoxy Floors', 'Mullumbimby'): "We've recently added epoxy flooring to our services at Perma Painting, and it "
+                                  "suits Mullumbimby's mix of older Queenslanders with garages and sheds underneath, "
+                                  "as well as the town's growing number of studio and commercial spaces. It's "
+                                  'applied with the same care as our painting work.',
+ ('Lead Paint Removal & Restoration', 'Mullumbimby'): "Mullumbimby's older Queenslanders and heritage-character "
+                                                      'homes are exactly the kind of properties where lead-based '
+                                                      'paint often turns up under later coats. We remove it safely '
+                                                      'and restore the surface before any repaint.'})
+
+META_DESCS.update({('House Painters', 'Kingscliff'): 'House painters in Kingscliff for new builds, beach houses and renovations. '
+                                   'Salt-air rated finishes, free quotes, fully insured local crews.',
+ ('Interior Painting', 'Kingscliff'): 'Interior painting in Kingscliff and Salt Village. Fast turnarounds for '
+                                      'holiday rentals and family homes, free quote in under a minute.',
+ ('Exterior Painting', 'Kingscliff'): 'Exterior house painting in Kingscliff. Salt-air rated coatings for '
+                                      'weatherboard and rendered homes, free quote, fully insured.',
+ ('Roof Painting', 'Kingscliff'): 'Roof painting in Kingscliff for coastal homes. Rust treatment and salt-air rated '
+                                  'coatings, free quote from a local crew.',
+ ('Limewash Painting', 'Kingscliff'): 'Limewash painting in Kingscliff for a coastal, textured finish on brick and '
+                                      'render. Free quote from an experienced local team.',
+ ('Deck Painting', 'Kingscliff'): 'Deck painting and staining in Kingscliff. Coastal-rated coatings built for salt '
+                                  'air and sun, free quote available.',
+ ('Kitchen Cabinet Painting', 'Kingscliff'): 'Kitchen cabinet painting in Kingscliff. Refresh your kitchen without a '
+                                             'full renovation, free quote from a local crew.',
+ ('Commercial Painters', 'Kingscliff'): 'Commercial painters in Kingscliff for retail, hospitality and office '
+                                        'spaces. Free quote, fully insured, flexible scheduling.',
+ ('Epoxy Floors', 'Kingscliff'): 'Epoxy flooring in Kingscliff from Perma Painting. Durable garage, alfresco and '
+                                 'commercial floor coatings, free quote from a trusted local team.',
+ ('Lead Paint Removal & Restoration', 'Kingscliff'): 'Lead paint removal and restoration in Kingscliff. Safe '
+                                                     'handling for older homes, free quote from an experienced local '
+                                                     'team.',
+ ('House Painters', 'Tweed Heads'): 'House painters in Tweed Heads for established homes and unit blocks. Free '
+                                    'quote, fully insured local crews.',
+ ('Interior Painting', 'Tweed Heads'): 'Interior painting in Tweed Heads for homes and units. Free quote, tidy work, '
+                                       'experienced local painters.',
+ ('Exterior Painting', 'Tweed Heads'): 'Exterior painting in Tweed Heads for older homes and rendered properties. '
+                                       'Free quote, thorough prep, fully insured.',
+ ('Roof Painting', 'Tweed Heads'): 'Roof painting in Tweed Heads for established homes. Rust treatment, proper prep, '
+                                   'free quote from a local crew.',
+ ('Limewash Painting', 'Tweed Heads'): 'Limewash painting in Tweed Heads for brick homes. A softer, textured finish, '
+                                       'free quote from an experienced team.',
+ ('Deck Painting', 'Tweed Heads'): 'Deck painting and staining in Tweed Heads. Moisture and sun-rated coatings, free '
+                                   'quote available.',
+ ('Kitchen Cabinet Painting', 'Tweed Heads'): 'Kitchen cabinet painting in Tweed Heads. Modernise your kitchen '
+                                              'without a renovation, free quote from a local crew.',
+ ('Commercial Painters', 'Tweed Heads'): 'Commercial painters in Tweed Heads for retail and office spaces. Free '
+                                         'quote, flexible scheduling, fully insured.',
+ ('Epoxy Floors', 'Tweed Heads'): 'Epoxy flooring in Tweed Heads from Perma Painting. Durable coatings for garages, '
+                                  'units and commercial floors, free quote available.',
+ ('Lead Paint Removal & Restoration', 'Tweed Heads'): 'Lead paint removal and restoration in Tweed Heads. Safe '
+                                                      'handling for older homes, free quote from a local crew.',
+ ('House Painters', 'Lismore'): 'House painters in Lismore for heritage homes, flood repairs and established '
+                                'properties. Free quote, fully insured local crews.',
+ ('Interior Painting', 'Lismore'): 'Interior painting in Lismore for heritage and flood-affected homes. Free quote, '
+                                   'careful local work.',
+ ('Exterior Painting', 'Lismore'): 'Exterior painting in Lismore for storm-affected and established homes. Thorough '
+                                   'prep, free quote, fully insured.',
+ ('Roof Painting', 'Lismore'): 'Roof painting in Lismore for storm-affected and established homes. Rust treatment, '
+                               'free quote from a local crew.',
+ ('Limewash Painting', 'Lismore'): 'Limewash painting in Lismore for heritage brick homes. Period-appropriate '
+                                   'finish, free quote from an experienced team.',
+ ('Deck Painting', 'Lismore'): 'Deck painting and staining in Lismore. Careful assessment for storm-affected timber, '
+                               'free quote available.',
+ ('Kitchen Cabinet Painting', 'Lismore'): 'Kitchen cabinet painting in Lismore. Update your kitchen without a '
+                                          'renovation, free quote from a local crew.',
+ ('Commercial Painters', 'Lismore'): 'Commercial painters in Lismore for retail, office and flood-recovery repaints. '
+                                     'Free quote, fully insured, flexible scheduling.',
+ ('Epoxy Floors', 'Lismore'): 'Epoxy flooring in Lismore from Perma Painting. Durable, flood-resistant garage and '
+                              'shed coatings, free quote from a local team.',
+ ('Lead Paint Removal & Restoration', 'Lismore'): 'Lead paint removal and restoration in Lismore for heritage homes. '
+                                                  'Safe handling, free quote from an experienced local team.',
+ ('Epoxy Floors', 'Byron Bay'): 'Epoxy flooring in Byron Bay from Perma Painting. Durable garage, studio and '
+                                'commercial floor coatings, free quote from a trusted local team.',
+ ('Lead Paint Removal & Restoration', 'Byron Bay'): 'Lead paint removal and restoration in Byron Bay. Safe handling '
+                                                    'for older and heritage-character homes, free quote from a local '
+                                                    'team.',
+ ('Epoxy Floors', 'Ballina'): 'Epoxy flooring in Ballina from Perma Painting. Durable garage, shed and commercial '
+                              'floor coatings, free quote from a local team.',
+ ('Lead Paint Removal & Restoration', 'Ballina'): 'Lead paint removal and restoration in Ballina. Safe handling for '
+                                                  'older homes, free quote from an experienced local team.',
+ ('Epoxy Floors', 'Mullumbimby'): 'Epoxy flooring in Mullumbimby from Perma Painting. Durable garage, studio and '
+                                  'commercial floor coatings, free quote from a local team.',
+ ('Lead Paint Removal & Restoration', 'Mullumbimby'): 'Lead paint removal and restoration in Mullumbimby for older '
+                                                      'Queenslanders and heritage homes. Free quote from a local '
+                                                      'team.'})
+
+FAQS.update({('House Painters', 'Kingscliff'): [('Do you paint new builds in the Salt precinct?',
+                                     'Yes, we regularly work on new homes in Salt Village and can coordinate '
+                                     'directly with builders on handover timing.'),
+                                    ('How do you handle salt air near the coast?',
+                                     'We use coatings rated for coastal exposure and pay extra attention to prep on '
+                                     'any home within a few streets of the beach.'),
+                                    ('Do you service Casuarina and Cudgen as well?',
+                                     'Yes, Casuarina, Cudgen, Bogangar and Pottsville are all part of our regular '
+                                     'Kingscliff coverage.')],
+ ('Interior Painting', 'Kingscliff'): [('Can you paint between holiday rental bookings?',
+                                        'Yes, we work with several Kingscliff rental owners and can schedule tight '
+                                        'turnarounds between guest stays.'),
+                                       ('Do you offer colour advice for new builds?',
+                                        'Yes, we can talk through colour schemes that suit the newer Salt precinct '
+                                        'builds or a more classic beach house feel.'),
+                                       ('How long does an average interior repaint take?',
+                                        'Most three to four bedroom homes in Kingscliff take two to three days '
+                                        'depending on prep needed.')],
+ ('Exterior Painting', 'Kingscliff'): [('Does salt air really affect how long paint lasts?',
+                                        'Yes, homes within a few streets of the beach need coatings and prep '
+                                        'specifically suited to coastal exposure or the paint fails early.'),
+                                       ('Do you paint rendered homes in Salt Village?',
+                                        'Yes, we regularly quote rendered exteriors on the newer builds in that '
+                                        'precinct.'),
+                                       ("What's the best time of year to repaint in Kingscliff?",
+                                        'We work year-round, though drier stretches make scheduling easier for '
+                                        'larger exterior jobs.')],
+ ('Roof Painting', 'Kingscliff'): [('Do you treat rust before painting?',
+                                    'Yes, rust treatment and proper prep is standard on every roof job, particularly '
+                                    'this close to the coast.'),
+                                   ('How often should a Kingscliff roof be repainted?',
+                                    'Coastal exposure generally means recoating every seven to ten years, sooner on '
+                                    'older colorbond roofs.'),
+                                   ('Can you match the roof colour to my Salt precinct build?',
+                                    'Yes, we can match or advise on colours that suit newer estate guidelines where '
+                                    'they apply.')],
+ ('Limewash Painting', 'Kingscliff'): [('What surfaces work best for limewash in Kingscliff?',
+                                        'Brick and render both take limewash well, which suits a lot of the beach '
+                                        'house exteriors around here.'),
+                                       ('Does limewash hold up to salt air?',
+                                        'Yes, when applied and sealed properly it performs well in coastal '
+                                        'conditions.'),
+                                       ('Can I see examples before committing?',
+                                        "Yes, we're happy to talk through recent limewash work in the area before "
+                                        'you decide.')],
+ ('Deck Painting', 'Kingscliff'): [('How often do coastal decks need recoating?',
+                                    'Generally every one to two years depending on sun exposure and foot traffic.'),
+                                   ('Do you stain as well as paint decks?',
+                                    'Yes, we offer both staining and solid coatings depending on the timber and look '
+                                    'you want.'),
+                                   ("Can you fix a deck that's already peeling?",
+                                    'Yes, we assess the existing coating and prep properly before recoating so it '
+                                    "doesn't just peel again.")],
+ ('Kitchen Cabinet Painting', 'Kingscliff'): [('Do you paint cabinets on site or take them away?',
+                                               'We generally work on site, which keeps disruption to your Kingscliff '
+                                               'home to a minimum.'),
+                                              ('What finish do you recommend for kitchens?',
+                                               "A durable, wipeable finish that holds up to daily use, we'll talk "
+                                               'you through options during the quote.'),
+                                              ('How long does a kitchen cabinet repaint take?',
+                                               'Most kitchens take two to three days including drying time between '
+                                               'coats.')],
+ ('Commercial Painters', 'Kingscliff'): [('Can you work outside trading hours?',
+                                          'Yes, we regularly schedule commercial jobs early morning, evenings or '
+                                          'weekends to avoid disrupting your business.'),
+                                         ('Do you handle strata-approved colour schemes?',
+                                          'Yes, we can work within body corporate or landlord colour requirements '
+                                          'where they apply.'),
+                                         ('Do you quote for new commercial fit-outs in Salt Village?',
+                                          'Yes, we work with several businesses opening in that precinct.')],
+ ('Epoxy Floors', 'Kingscliff'): [('Is epoxy flooring suitable for garages exposed to salt air?',
+                                   'Yes, once the concrete is properly prepped and sealed, epoxy holds up well in '
+                                   "coastal conditions like Kingscliff's."),
+                                  ('What areas of the home suit epoxy flooring?',
+                                   'Garages, alfresco spaces and workshops are common choices, and we can talk '
+                                   'through whether it suits your space during a quote.'),
+                                  ('Can I get pricing over the phone?',
+                                   'Every epoxy job is quoted individually based on floor size and condition, so '
+                                   "we'll arrange a proper assessment first.")],
+ ('Lead Paint Removal & Restoration', 'Kingscliff'): [('How do I know if my home has lead paint?',
+                                                       'Homes built before the 1970s are the main risk, and we can '
+                                                       'talk through testing options as part of the quote.'),
+                                                      ('Is lead paint removal safe to do myself?',
+                                                       "We'd recommend against it, disturbing lead paint without "
+                                                       'proper containment can create health risks, which is why we '
+                                                       'follow safe removal practices.'),
+                                                      ('Do you also handle the repaint after removal?',
+                                                       'Yes, restoration and repainting is part of the same process '
+                                                       'once the surface is safely prepped.')],
+ ('House Painters', 'Tweed Heads'): [('Do you work on older weatherboard homes?',
+                                      'Yes, matching and restoring older weatherboard finishes is common work for us '
+                                      'around Tweed Heads.'),
+                                     ('Can you quote for unit blocks near the river?',
+                                      'Yes, we regularly quote strata and unit exteriors in that area.'),
+                                     ('Do you service Banora Point and Terranora too?',
+                                      'Yes, both are part of our regular Tweed Heads coverage.')],
+ ('Interior Painting', 'Tweed Heads'): [('Do you paint units as well as houses?',
+                                         'Yes, we regularly repaint units around Tweed Heads, including for owners '
+                                         'preparing to sell or lease.'),
+                                        ('Can you match existing colours in an older home?',
+                                         'Yes, colour matching on established homes is something we do often in this '
+                                         'area.'),
+                                        ('How much notice do you need to book in?',
+                                         'Generally a couple of weeks, though we can sometimes fit in shorter notice '
+                                         'jobs depending on the season.')],
+ ('Exterior Painting', 'Tweed Heads'): [('My render has cracks, can you still paint over it?',
+                                         "We assess and repair render issues as part of the job so the paint doesn't "
+                                         'just fail again shortly after.'),
+                                        ('Do you paint unit block exteriors?',
+                                         'Yes, exterior strata work is common for us in Tweed Heads.'),
+                                        ('How long does an exterior repaint usually take?',
+                                         'Most standalone homes take three to five days depending on size and '
+                                         'condition.')],
+ ('Roof Painting', 'Tweed Heads'): [('How do I know if my roof needs painting or replacing?',
+                                     'We assess the roof during the quote and will tell you honestly if a repaint '
+                                     "isn't the right fix."),
+                                    ('Do you handle rust spots before coating?',
+                                     'Yes, rust treatment is standard prep on every roof job we do.'),
+                                    ('Can you paint tile roofs as well as metal?',
+                                     'Yes, we work with both tile and colorbond roofing.')],
+ ('Limewash Painting', 'Tweed Heads'): [('Does limewash work on older brick?',
+                                         "Yes, older brick actually takes limewash very well, and it's a popular "
+                                         'option for updating established Tweed Heads homes.'),
+                                        ('Is limewash a permanent finish?',
+                                         "It's durable but does weather naturally over time, which is part of its "
+                                         'character.'),
+                                        ('Can you show me examples locally?',
+                                         'Yes, we can talk through recent limewash jobs in the area before you '
+                                         'decide.')],
+ ('Deck Painting', 'Tweed Heads'): [('My deck is near the water, does that change how you paint it?',
+                                     'Yes, river-facing decks get extra attention to moisture protection during prep '
+                                     'and coating.'),
+                                    ('Do you repair timber before painting?',
+                                     'We flag any timber issues during the quote and can arrange repairs before '
+                                     'coating.'),
+                                    ('How long before I can use the deck again?',
+                                     'Usually one to two days after the final coat, weather depending.')],
+ ('Kitchen Cabinet Painting', 'Tweed Heads'): [('Can you paint laminate cabinets?',
+                                                'Yes, with the right prep and primer laminate cabinets take paint '
+                                                'well.'),
+                                               ('Do I need to empty the kitchen fully?',
+                                                "We'll ask you to clear the benches and cupboard contents, we handle "
+                                                'the rest.'),
+                                               ("What's the typical cost range?",
+                                                "It depends on the kitchen size and cabinet material, we'll give you "
+                                                'a clear quote after assessing it.')],
+ ('Commercial Painters', 'Tweed Heads'): [('Do you work with strata or body corporate approvals?',
+                                           "Yes, we're used to working within body corporate requirements for "
+                                           'commercial and unit block jobs.'),
+                                          ('Can you paint after hours?',
+                                           'Yes, we can schedule around your trading hours to avoid disrupting '
+                                           'business.'),
+                                          ('Do you handle larger commercial fit-outs?',
+                                           "Yes, get in touch with the scope and we'll put together a detailed "
+                                           'quote.')],
+ ('Epoxy Floors', 'Tweed Heads'): [('Can epoxy flooring handle moisture near the river?',
+                                    'Yes, properly applied epoxy is moisture resistant, which suits garages and '
+                                    'lower-level spaces closer to the water.'),
+                                   ('Do you do epoxy for strata or shared parking areas?',
+                                    'Yes, we can quote shared or strata-managed spaces, get in touch with the '
+                                    'details.'),
+                                   ('How long does epoxy flooring take to cure?',
+                                    "Cure times vary depending on the product and floor condition, we'll walk you "
+                                    'through timing at the quote stage.')],
+ ('Lead Paint Removal & Restoration', 'Tweed Heads'): [('Which Tweed Heads homes are most likely to have lead paint?',
+                                                        'Generally homes built before the 1970s, which is common '
+                                                        "among the area's older established housing."),
+                                                       ('What does the removal process involve?',
+                                                        'Safe containment and removal of the old paint layer before '
+                                                        'any surface prep or repainting begins.'),
+                                                       ('Can you also do the repaint afterwards?',
+                                                        'Yes, restoration and repainting are handled as part of the '
+                                                        'same job.')],
+ ('House Painters', 'Lismore'): [('Do you handle flood-damaged homes?',
+                                  'Yes, we regularly repaint homes affected by flood or storm damage across Lismore, '
+                                  'prepping surfaces properly first.'),
+                                 ('Can you match heritage colours in East Lismore?',
+                                  'Yes, we check heritage guidelines where they apply and match existing schemes on '
+                                  'request.'),
+                                 ('Do you service Goonellabah as well?',
+                                  'Yes, Goonellabah is part of our regular Lismore coverage.')],
+ ('Interior Painting', 'Lismore'): [('Can you paint over walls affected by past water damage?',
+                                     "We check for underlying moisture issues first, we don't just paint over a "
+                                     'problem that will resurface.'),
+                                    ('Do you work on heritage interiors?',
+                                     "Yes, we're careful with original features like skirtings and cornices in older "
+                                     'East Lismore and Girards Hill homes.'),
+                                    ('How soon can you start after a flood clean-up?',
+                                     'Once surfaces are properly dried and repaired we can schedule in, timing '
+                                     'depends on the extent of the damage.')],
+ ('Exterior Painting', 'Lismore'): [('Do you repair damage before painting the exterior?',
+                                     'Yes, we assess and repair any storm or flood-related damage as part of the '
+                                     'job.'),
+                                    ('Can you match weatherboard finishes in Goonellabah?',
+                                     'Yes, matching existing weatherboard and brick finishes is common work for us '
+                                     'in that area.'),
+                                    ('How long does an exterior job typically take?',
+                                     'Most homes take three to five days depending on size and prep needed.')],
+ ('Roof Painting', 'Lismore'): [('Do you treat rust on older roofs?',
+                                 'Yes, rust treatment and proper prep is standard on every roof job we quote.'),
+                                ('Can a roof repaint help after storm damage?',
+                                 "A repaint protects the metal once any structural damage has been fixed, we'll "
+                                 'advise honestly if repairs are needed first.'),
+                                ('Do you service acreage properties toward Wyrallah?',
+                                 'Yes, rural and acreage properties in that area are part of our regular coverage.')],
+ ('Limewash Painting', 'Lismore'): [('Is limewash suitable for heritage-listed homes?',
+                                     'In many cases yes, though we always recommend checking any heritage '
+                                     'requirements first, which we can help with.'),
+                                    ("Does limewash suit East Lismore's older brick homes?",
+                                     "Yes, it's a popular choice there for a softer, more traditional look."),
+                                    ('How does limewash hold up over time?',
+                                     'It weathers naturally, which is part of the appeal, and can be refreshed as '
+                                     'needed.')],
+ ('Deck Painting', 'Lismore'): [('Can you assess flood-damaged decking?',
+                                 'Yes, we check timber condition first and will advise honestly if repairs are '
+                                 'needed before painting.'),
+                                ('Do you offer staining as well as solid paint finishes?',
+                                 "Yes, we offer both depending on the timber and the look you're after."),
+                                ('How often should Lismore decks be recoated?',
+                                 'Generally every one to two years, though exposure and past water damage can '
+                                 'shorten that.')],
+ ('Kitchen Cabinet Painting', 'Lismore'): [('Can you paint older timber cabinets?',
+                                            "Yes, older solid timber cabinets, common in Lismore's established "
+                                            'homes, take paint particularly well.'),
+                                           ('Do you work around flood-related kitchen repairs?',
+                                            'Yes, if cabinets have been replaced or repaired after flood damage we '
+                                            'can paint once everything is properly dry and prepped.'),
+                                           ('How long does a typical kitchen take?',
+                                            'Most kitchens take two to three days including drying time between '
+                                            'coats.')],
+ ('Commercial Painters', 'Lismore'): [('Do you handle flood-recovery commercial repaints?',
+                                       "Yes, we've worked with several Lismore businesses on repaints as part of "
+                                       'their flood recovery.'),
+                                      ('Can you work with insurance assessors or timelines?',
+                                       'Yes, we can coordinate scheduling around insurance or repair processes where '
+                                       'needed.'),
+                                      ('Do you work outside business hours?',
+                                       'Yes, we can schedule early mornings, evenings or weekends to minimise '
+                                       'disruption to trade.')],
+ ('Epoxy Floors', 'Lismore'): [('Is epoxy flooring suitable for flood-affected garages?',
+                                "It's a durable option once the floor is properly assessed and prepped, we can "
+                                'advise honestly during the quote.'),
+                               ('How long does an epoxy floor typically last?',
+                                'A well-applied epoxy floor generally lasts eight to ten years before recoating is '
+                                'needed, depending on use.'),
+                               ('Can epoxy be applied over an existing concrete floor?',
+                                'In most cases yes, subject to an assessment of the current surface condition.')],
+ ('Lead Paint Removal & Restoration', 'Lismore'): [('Is lead paint common in East Lismore and Girards Hill?',
+                                                    'Yes, older homes in those areas were often built before the '
+                                                    '1970s, when lead-based paint was standard.'),
+                                                   ('Does flood damage make lead paint more of a risk?',
+                                                    "Water damage can disturb old paint layers, so it's worth having "
+                                                    'it assessed as part of any flood-related repair work.'),
+                                                   ('Do you handle both removal and the final repaint?',
+                                                    'Yes, we manage the full process from safe removal through to '
+                                                    'restoration and repainting.')],
+ ('Epoxy Floors', 'Byron Bay'): [('Does epoxy suit older concrete garages?',
+                                  "Yes, older concrete can usually be prepped for epoxy, we'll assess the surface as "
+                                  'part of the quote.'),
+                                 ('Do you do epoxy for commercial or hospitality spaces?',
+                                  'Yes, we quote retail, studio and hospitality floors as well as residential '
+                                  'garages.'),
+                                 ('Can I get a price without a site visit?',
+                                  "Every epoxy job depends on floor size and condition, so we'll need to assess it "
+                                  'properly before quoting.')],
+ ('Lead Paint Removal & Restoration', 'Byron Bay'): [('Which Byron Bay homes are most likely to have lead paint?',
+                                                      'Generally older cottages and heritage-character homes built '
+                                                      'before the 1970s.'),
+                                                     ('Is it safe to sand or scrape old paint myself?',
+                                                      "We'd recommend against it, disturbing lead paint without "
+                                                      'proper containment carries health risks.'),
+                                                     ('Do you handle the repaint after removal?',
+                                                      'Yes, restoration and repainting are part of the same job once '
+                                                      'the surface is safely prepped.')],
+ ('Epoxy Floors', 'Ballina'): [('How durable is epoxy compared to a painted floor?',
+                                'Epoxy is significantly more durable and easier to clean than a standard painted '
+                                'concrete floor, which is why it suits garages and sheds.'),
+                               ('Is epoxy suitable for sheds as well as garages?',
+                                "Yes, it's a durable option for both, we can assess your space as part of the "
+                                'quote.'),
+                               ('How long does the floor need to cure before use?',
+                                "Cure times depend on the product and conditions, we'll talk you through timing at "
+                                'the quote stage.')],
+ ('Lead Paint Removal & Restoration', 'Ballina'): [('How do I know if my Ballina home might have lead paint?',
+                                                    'Homes built before the 1970s are the main risk, we can talk '
+                                                    'through testing options during the quote.'),
+                                                   ('What does the removal process involve?',
+                                                    'Safe containment and removal of the old paint layer before any '
+                                                    'surface prep or repainting begins.'),
+                                                   ('Can you do the repaint straight after?',
+                                                    'Yes, restoration and repainting are handled as part of the same '
+                                                    'job.')],
+ ('Epoxy Floors', 'Mullumbimby'): [('Can epoxy flooring handle high foot traffic in a workshop?',
+                                    "Yes, it's a popular choice for workshops and studios because it holds up well "
+                                    'to regular use.'),
+                                   ('Does epoxy suit the space under a Queenslander-style home?',
+                                    'Yes, those under-house areas are a common spot for epoxy flooring, we can '
+                                    'assess yours during the quote.'),
+                                   ('Do you handle commercial floors in the Mullumbimby CBD?',
+                                    'Yes, we quote retail and studio spaces as well as residential jobs.')],
+ ('Lead Paint Removal & Restoration', 'Mullumbimby'): [("Are Mullumbimby's Queenslanders likely to have lead paint?",
+                                                        'Many were built before the 1970s, when lead-based paint was '
+                                                        "standard, so it's worth having checked."),
+                                                       ('Is DIY removal a bad idea?',
+                                                        'Yes, disturbing lead paint without proper containment can '
+                                                        'create health risks, which is why we handle it safely.'),
+                                                       ('Do you also do the restoration and repaint?',
+                                                        "Yes, that's part of the same process once the surface is "
+                                                        'safely prepped.')]})
+
+
+# ---------------------------------------------------------------------------
 # HELPERS
 # ---------------------------------------------------------------------------
 
@@ -367,8 +1021,22 @@ def webp_src(src: str) -> str:
     return re.sub(r"\.(jpe?g|png)$", ".webp", src, flags=re.IGNORECASE)
 
 
+def available_fallback(src: str) -> str:
+    """Devuelve el raster pedido o su WebP equivalente si el JPG fue retirado."""
+    if (ROOT / src).exists():
+        return src
+    webp = webp_src(src)
+    if (ROOT / webp).exists():
+        return webp
+    raise FileNotFoundError(f"No existe el asset ni su WebP: {src}")
+
+
 @lru_cache(maxsize=None)
 def image_dimensions(src: str) -> tuple[int, int]:
+    # La migración a WebP retiró varios JPG. Medimos el formato que realmente
+    # existe y available_fallback() evita que el HTML apunte a archivos ausentes.
+    src = available_fallback(src)
+
     # macOS: sips. Fallback (Linux/otros): Pillow, si está instalado.
     try:
         output = subprocess.check_output(
@@ -393,25 +1061,27 @@ def gallery_html(service: dict, zone: str) -> str:
     """4 figuras con fotos del servicio. Alt text incluye la zona."""
     prefix = service["prefix"]
     pdir = service["photo_dir"]
-    sl = service["name"].lower()
+    sl = html_lib.escape(service["name"].lower())
+    zone_html = html_lib.escape(zone)
     # alt variados por foto, todos con la zona
     alts = [
-        f"{sl} in {zone}",
-        f"{sl} project in {zone}",
-        f"{sl} work in {zone}",
-        f"professional {sl} in {zone}",
+        f"{sl} in {zone_html}",
+        f"{sl} project in {zone_html}",
+        f"{sl} work in {zone_html}",
+        f"professional {sl} in {zone_html}",
     ]
     delays = ["0s", "0.12s", "0.24s", "0.36s"]
     rows = []
     for i in range(4):
         n = f"{i+1:03d}"
         src = f"assets/photos/{pdir}/{prefix}_{n}.jpg"
+        fallback = available_fallback(src)
         width, height = image_dimensions(src)
         rows.append(
             f'                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: {delays[i]}">\n'
             f'                    <picture class="landing-gallery__picture">\n'
             f'                        <source srcset="{webp_src(src)}" type="image/webp">\n'
-            f'                        <img src="{src}" alt="{alts[i]}"\n'
+            f'                        <img src="{fallback}" alt="{alts[i]}"\n'
             f'                            class="landing-gallery__img" width="{width}" height="{height}" loading="lazy" decoding="async">\n'
             f'                    </picture>\n'
             f'                </figure>'
@@ -419,8 +1089,81 @@ def gallery_html(service: dict, zone: str) -> str:
     return "\n\n".join(rows)
 
 
+_GENERIC_HERO_PRELOAD = (
+    '    <link rel="preload" as="image" type="image/webp" fetchpriority="high"\n'
+    '        href="assets/photos/landing-hero/landing_005-600.webp"\n'
+    '        imagesrcset="assets/photos/landing-hero/landing_005-600.webp 600w, assets/photos/landing-hero/landing_005-720.webp 720w, assets/photos/landing-hero/landing_005-900.webp 900w, assets/photos/landing-hero/landing_005.webp 1296w"\n'
+    '        imagesizes="(max-width: 768px) calc(100vw - 2.4rem), 50vw">'
+)
+
+
+def hero_preload_html(service: dict) -> str:
+    """<link rel=preload> del hero. Foto propia del servicio si hay "hero",
+    si no la genérica landing_005 (comportamiento histórico)."""
+    hero = service.get("hero")
+    if not hero:
+        return _GENERIC_HERO_PRELOAD
+    webp = f"assets/photos/{hero}.webp"
+    return (
+        '    <link rel="preload" as="image" type="image/webp" fetchpriority="high"\n'
+        f'        href="{webp}">'
+    )
+
+
+def hero_picture_html(service: dict, zone: str) -> str:
+    """Bloque .landing-hero__right. Foto propia del servicio si hay "hero",
+    si no la genérica landing_005 (comportamiento histórico, sin cambios)."""
+    sl = html_lib.escape(service["name"].lower())
+    alt = f"{sl} in {html_lib.escape(zone)}"
+    hero = service.get("hero")
+
+    if not hero:
+        return (
+            '                <div class="landing-hero__right">\n'
+            '                    <div class="hero__right--photo-container">\n'
+            '                        <picture class="hero__right--photo-picture">\n'
+            '                            <source\n'
+            '                                srcset="assets/photos/landing-hero/landing_005-600.webp 600w, assets/photos/landing-hero/landing_005-720.webp 720w, assets/photos/landing-hero/landing_005-900.webp 900w, assets/photos/landing-hero/landing_005.webp 1296w"\n'
+            '                                sizes="(max-width: 768px) calc(100vw - 2.4rem), 50vw" type="image/webp">\n'
+            f'                            <img src="assets/photos/landing-hero/landing_005.jpg" alt="{alt}"\n'
+            '                                srcset="assets/photos/landing-hero/landing_005-600.jpg 600w, assets/photos/landing-hero/landing_005-720.jpg 720w, assets/photos/landing-hero/landing_005-900.jpg 900w, assets/photos/landing-hero/landing_005.jpg 1296w"\n'
+            '                                sizes="(max-width: 768px) calc(100vw - 2.4rem), 50vw" class="hero__right--photo"\n'
+            '                                width="1296" height="1296" fetchpriority="high">\n'
+            '                        </picture>\n'
+            '                    </div>\n'
+            '                </div>'
+        )
+
+    jpg = f"assets/photos/{hero}.jpg"
+    webp = f"assets/photos/{hero}.webp"
+    fallback = available_fallback(jpg)
+    width, height = image_dimensions(jpg)
+    return (
+        '                <div class="landing-hero__right">\n'
+        '                    <div class="hero__right--photo-container">\n'
+        '                        <picture class="hero__right--photo-picture">\n'
+        f'                            <source srcset="{webp}" type="image/webp">\n'
+        f'                            <img src="{fallback}" alt="{alt}" class="hero__right--photo"\n'
+        f'                                width="{width}" height="{height}" fetchpriority="high">\n'
+        '                        </picture>\n'
+        '                    </div>\n'
+        '                </div>'
+    )
+
+
+def nearby_of(zone: str) -> list[str]:
+    """Localidades cercanas. Las zonas viejas viven en NEARBY; las nuevas
+    (NEW_ZONES) traen su lista dentro de NEW_ZONE_DATA."""
+    if zone in NEARBY:
+        return NEARBY[zone]
+    return NEW_ZONE_DATA[zone]["nearby"]
+
+
 def pills_html(zone: str) -> str:
-    rows = [f'                    <li class="landing-area__pill">{loc}</li>' for loc in NEARBY[zone]]
+    rows = [
+        f'                    <li class="landing-area__pill">{html_lib.escape(loc)}</li>'
+        for loc in nearby_of(zone)
+    ]
     return "\n".join(rows)
 
 
@@ -428,8 +1171,8 @@ def faq_html(service: str, zone: str) -> str:
     """details/summary nativo. FAQ propio de cada (servicio, zona)."""
     items = []
     for q, a in FAQS[(service, zone)]:
-        q = q.format(zone=zone)
-        a = a.format(zone=zone)
+        q = html_lib.escape(q.format(zone=zone))
+        a = html_lib.escape(a.format(zone=zone))
         items.append(
             f'                    <details class="landing-faq__item">\n'
             f'                        <summary class="landing-faq__question">{q}</summary>\n'
@@ -442,7 +1185,7 @@ def faq_html(service: str, zone: str) -> str:
 
 
 def crosslinks_services_html(zone: str, current_service: str) -> str:
-    """Los otros 7 servicios de la misma zona."""
+    """Los otros servicios de la misma zona."""
     rows = []
     for s in SERVICES:
         if s["name"] == current_service:
@@ -450,14 +1193,14 @@ def crosslinks_services_html(zone: str, current_service: str) -> str:
         slug = page_slug(s["name"], zone)
         rows.append(
             f'                        <li><a class="landing-links__link" href="{slug}.html">'
-            f'<span>{s["name"]}</span>'
+            f'<span>{html_lib.escape(s["name"])}</span>'
             f'<span class="landing-links__arrow" aria-hidden="true">→</span></a></li>'
         )
     return "\n".join(rows)
 
 
 def crosslinks_zones_html(service: str, current_zone: str) -> str:
-    """El mismo servicio en las otras 2 zonas."""
+    """El mismo servicio en las otras zonas de su grupo de publicación."""
     rows = []
     for z in ZONES:
         if z == current_zone:
@@ -465,7 +1208,7 @@ def crosslinks_zones_html(service: str, current_zone: str) -> str:
         slug = page_slug(service, z)
         rows.append(
             f'                        <li><a class="landing-links__link" href="{slug}.html">'
-            f'<span>{service} in {z}</span>'
+            f'<span>{html_lib.escape(service)} in {html_lib.escape(z)}</span>'
             f'<span class="landing-links__arrow" aria-hidden="true">→</span></a></li>'
         )
     return "\n".join(rows)
@@ -500,54 +1243,96 @@ def schema_faq(service: str, zone: str) -> str:
 # MAIN
 # ---------------------------------------------------------------------------
 
+def render_landing(template: str, service: dict, zone: str) -> tuple[str, str]:
+    """Devuelve (slug, html) de una landing de servicio.
+    La usan tanto las 24 de siempre como las de las zonas nuevas: mismo
+    template-landing.html, mismos datos, solo cambia quién la llama."""
+    sname = service["name"]
+    sname_html = html_lib.escape(sname)
+    zone_html = html_lib.escape(zone)
+    slug = page_slug(sname, zone)
+    intro = INTROS[(sname, zone)]
+
+    page = template
+    replacements = {
+        "{{META_TITLE}}": f"{sname_html} in {zone_html} | Perma Painting",
+        "{{META_DESCRIPTION}}": html_lib.escape(META_DESCS[(sname, zone)], quote=True),
+        "{{DOMAIN}}": DOMAIN,
+        "{{SLUG}}": slug,
+        "{{HERO_PRELOAD}}": hero_preload_html(service),
+        "{{HERO_PICTURE}}": hero_picture_html(service, zone),
+        "{{SERVICE}}": sname_html,
+        "{{SERVICE_LOWER}}": html_lib.escape(sname.lower()),
+        # "Roof Painting" -> "Roof painting" (solo 1ra letra mayúscula)
+        "{{SERVICE_LOWER_CAP}}": html_lib.escape(sname[0] + sname[1:].lower()),
+        "{{ZONE}}": zone_html,
+        "{{INTRO}}": html_lib.escape(intro),
+        "{{CTA_TEXT}}": html_lib.escape(CTA_TEXTS[sname]),
+        "{{GALLERY}}": gallery_html(service, zone),
+        "{{PILLS}}": pills_html(zone),
+        "{{FAQ}}": faq_html(sname, zone),
+        "{{CROSSLINKS_SERVICES}}": crosslinks_services_html(zone, sname),
+        "{{CROSSLINKS_ZONES}}": crosslinks_zones_html(sname, zone),
+        "{{SCHEMA_BREADCRUMB}}": schema_breadcrumb(sname, zone, slug),
+        "{{SCHEMA_FAQ}}": schema_faq(sname, zone),
+    }
+    for k, v in replacements.items():
+        page = page.replace(k, v)
+
+    return slug, page
+
+
 def main() -> None:
     template = TEMPLATE.read_text(encoding="utf-8")
     count = 0
 
     for service in SERVICES:
-        sname = service["name"]
         for zone in ZONES:
-            slug = page_slug(sname, zone)
-            intro = INTROS[(sname, zone)]
-
-            page = template
-            replacements = {
-                "{{META_TITLE}}": f"{sname} in {zone} | Perma Painting",
-                "{{META_DESCRIPTION}}": META_DESCS[(sname, zone)],
-                "{{DOMAIN}}": DOMAIN,
-                "{{SLUG}}": slug,
-                "{{SERVICE}}": sname,
-                "{{SERVICE_LOWER}}": sname.lower(),
-                # "Roof Painting" -> "Roof painting" (solo 1ra letra mayúscula)
-                "{{SERVICE_LOWER_CAP}}": sname[0] + sname[1:].lower(),
-                "{{ZONE}}": zone,
-                "{{INTRO}}": intro,
-                "{{CTA_TEXT}}": CTA_TEXTS[sname],
-                "{{GALLERY}}": gallery_html(service, zone),
-                "{{PILLS}}": pills_html(zone),
-                "{{FAQ}}": faq_html(sname, zone),
-                "{{CROSSLINKS_SERVICES}}": crosslinks_services_html(zone, sname),
-                "{{CROSSLINKS_ZONES}}": crosslinks_zones_html(sname, zone),
-                "{{SCHEMA_BREADCRUMB}}": schema_breadcrumb(sname, zone, slug),
-                "{{SCHEMA_FAQ}}": schema_faq(sname, zone),
-            }
-            for k, v in replacements.items():
-                page = page.replace(k, v)
-
+            slug, page = render_landing(template, service, zone)
             (ROOT / f"{slug}.html").write_text(page, encoding="utf-8")
             count += 1
             print(f"  ✓ {slug}.html")
 
-    print(f"\n{count} landing pages generadas en la raíz del proyecto.")
-    if count != 24:
-        raise SystemExit(f"ERROR: se esperaban 24 páginas, se generaron {count}")
+    expected = len(SERVICES) * len(ZONES)
+    print(f"\n{count} landing pages de zonas originales generadas.")
+    if count != expected:
+        raise SystemExit(f"ERROR: se esperaban {expected} páginas, se generaron {count}")
+
+    generate_new_zone_landings()
 
     generate_area_indexes()
+    generate_new_area_indexes()
 
 
 # ---------------------------------------------------------------------------
+# LANDINGS DE SERVICIO DE LAS ZONAS NUEVAS
+# Mismo template y misma función de render que las zonas originales: lo único
+# distinto es la lista de zonas. Se generan aparte para no meter NEW_ZONES
+# dentro de ZONES (eso cambiaría los crosslinks de las 24 páginas viejas).
+# ---------------------------------------------------------------------------
+
+def generate_new_zone_landings() -> None:
+    if not NEW_ZONES:
+        return
+
+    template = TEMPLATE.read_text(encoding="utf-8")
+    count = 0
+
+    for service in SERVICES:
+        for zone in NEW_ZONES:
+            slug, page = render_landing(template, service, zone)
+            (ROOT / f"{slug}.html").write_text(page, encoding="utf-8")
+            count += 1
+            print(f"  ✓ {slug}.html")
+
+    expected = len(SERVICES) * len(NEW_ZONES)
+    print(f"{count} landings de zonas nuevas generadas.")
+    if count != expected:
+        raise SystemExit(f"ERROR: se esperaban {expected} páginas, se generaron {count}")
+
+# ---------------------------------------------------------------------------
 # ÍNDICES POR ZONA (AREAS OF SERVICE)
-# Página simple por zona: solo título + links a los 8 servicios de esa zona.
+# Página simple por zona: solo título + links a los 10 servicios de esa zona.
 # Sin contenido propio para no canibalizar las landings.
 # El header/footer se extraen del template-landing (ya tienen el nav nuevo)
 # para mantener una sola fuente de verdad.
@@ -584,13 +1369,13 @@ def generate_area_indexes() -> None:
     for zone in ZONES:
         slug = slugify(zone)
 
-        # links a los 8 servicios de esta zona
+        # links a los 10 servicios de esta zona
         rows = []
         for s in SERVICES:
             s_slug = page_slug(s["name"], zone)
             rows.append(
                 f'                        <li><a class="landing-links__link" href="{s_slug}.html">'
-                f'<span>{s["name"]}</span>'
+                f'<span>{html_lib.escape(s["name"])}</span>'
                 f'<span class="landing-links__arrow" aria-hidden="true">→</span></a></li>'
             )
         service_links = "\n".join(rows)
@@ -634,13 +1419,14 @@ def generate_area_indexes() -> None:
             area_map_script = AREA_MAP_SCRIPT
         else:
             src = f"assets/photos/area-index/{slug}.jpg"
+            fallback = available_fallback(src)
             width, height = image_dimensions(src)
             area_map_html = (
                 '                <div class="area-index__head-media">\n'
                 '                    <div class="area-index__photo-container">\n'
                 f'                        <picture class="area-index__photo-picture">\n'
                 f'                            <source srcset="{webp_src(src)}" type="image/webp">\n'
-                f'                            <img src="{src}"\n'
+                f'                            <img src="{fallback}"\n'
                 f'                                alt="Painting work in {zone}" class="area-index__photo" width="{width}" height="{height}">\n'
                 f'                        </picture>\n'
                 '                    </div>\n'
@@ -666,6 +1452,192 @@ def generate_area_indexes() -> None:
         print(f"  ✓ {slug}.html (índice de zona)")
 
     print("3 índices por zona generados.")
+
+
+
+# ---------------------------------------------------------------------------
+# ÍNDICES DE ZONA — ZONAS NUEVAS
+# Cáscara común (template-area-shell.html) + un hero por modelo. El
+# header/footer salen del template-landing, mismo criterio que
+# generate_area_indexes(), para tener una sola fuente de verdad.
+# ---------------------------------------------------------------------------
+
+def jobs_badge_html(zone: str, number: str | None) -> str:
+    """Badge circular con los trabajos hechos en la zona (modelo "local").
+    Sin número no se renderiza: no inventamos la cifra."""
+    if not number:
+        return ""
+    return (
+        '                    <div class="area-local__badge">\n'
+        f'                        <span class="area-local__badge-num">{number}</span>\n'
+        f'                        <span class="area-local__badge-label">Jobs completed in {zone}</span>\n'
+        '                    </div>\n'
+    )
+
+
+_PIN_ICON = (
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+    '<path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/>'
+    '<circle cx="12" cy="9" r="2.3"/></svg>'
+)
+
+
+def local_knowledge_html(items: list[str]) -> str:
+    return "\n".join(
+        f'                        <li class="area-local__knowledge-item">{_PIN_ICON}<span>{item}</span></li>'
+        for item in items
+    )
+
+
+def area_faq_html(faqs: list[tuple[str, str]]) -> str:
+    """FAQ de una ZONA (no de un servicio). Mismo markup que faq_html()."""
+    items = []
+    for q, a in faqs:
+        items.append(
+            f'                        <details class="landing-faq__item">\n'
+            f'                            <summary class="landing-faq__question">{q}</summary>\n'
+            f'                            <div class="landing-faq__answer">\n'
+            f'                                <p>{a}</p>\n'
+            f'                            </div>\n'
+            f'                        </details>'
+        )
+    return "\n\n".join(items)
+
+
+def schema_area_faq_block(faqs: list[tuple[str, str]]) -> str:
+    """Bloque <script> con el schema FAQPage, o vacío si la zona no tiene FAQ.
+    Usa el mismo texto visible, así no se desincronizan."""
+    if not faqs:
+        return ""
+    main = [
+        {"@type": "Question", "name": q,
+         "acceptedAnswer": {"@type": "Answer", "text": a}}
+        for q, a in faqs
+    ]
+    data = json.dumps(
+        {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": main},
+        indent=8, ensure_ascii=False,
+    )
+    return (
+        "\n    <!-- Schema: FAQPage (reusa el texto visible del FAQ de la zona) -->\n"
+        "    <script type=\"application/ld+json\">\n"
+        f"{data}\n"
+        "    </script>"
+    )
+
+
+def generate_new_area_indexes() -> None:
+    if not NEW_ZONES:
+        return
+
+    landing = TEMPLATE.read_text(encoding="utf-8")
+    header = _extract('<header class="site-header"', "</header>", landing)
+    footer = _extract('<footer class="site-footer"', "</footer>", landing)
+
+    shell = (ROOT / "template-area-shell.html").read_text(encoding="utf-8")
+
+    for zone in NEW_ZONES:
+        data = NEW_ZONE_DATA[zone]
+        model = data["model"]
+        slug = slugify(zone)
+
+        hero = (ROOT / AREA_HERO_TEMPLATES[model]).read_text(encoding="utf-8")
+        page = shell.replace("{{AREA_HERO}}", hero.rstrip("\n"))
+
+        # links a los 10 servicios de esta zona
+        service_links = "\n".join(
+            f'                        <li><a class="landing-links__link" href="{page_slug(s["name"], zone)}.html">'
+            f'<span>{html_lib.escape(s["name"])}</span>'
+            f'<span class="landing-links__arrow" aria-hidden="true">→</span></a></li>'
+            for s in SERVICES
+        )
+
+        # localidades de la zona como pills (la zona primero)
+        area_pills = "\n".join(
+            f'                            <li class="landing-area__pill">{loc}</li>'
+            for loc in [zone] + data["nearby"]
+        )
+
+        # otras zonas: las 3 viejas + las otras nuevas
+        other_zone_links = "\n".join(
+            f'                            <a class="area-index__zone-btn" href="{slugify(z)}.html">'
+            f'<span>{z}</span>'
+            f'<span class="area-index__zone-btn-arrow" aria-hidden="true">→</span></a>'
+            for z in ZONES + [n for n in NEW_ZONES if n != zone]
+        )
+
+        breadcrumb = json.dumps({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{DOMAIN}/"},
+                {"@type": "ListItem", "position": 2, "name": zone},
+            ],
+        }, indent=8, ensure_ascii=False)
+
+        replacements = {
+            "{{HEADER}}": header,
+            "{{FOOTER}}": footer,
+            "{{META_TITLE}}": data["title"],
+            "{{META_DESCRIPTION}}": data["meta"],
+            "{{HEADLINE}}": data["headline"],
+            "{{INTRO}}": data["intro"],
+            "{{AREA_PILLS}}": area_pills,
+            "{{SERVICE_LINKS}}": service_links,
+            "{{OTHER_ZONE_LINKS}}": other_zone_links,
+            "{{SCHEMA_BREADCRUMB}}": breadcrumb,
+            "{{SCHEMA_FAQ_BLOCK}}": schema_area_faq_block(data.get("faqs", [])),
+            "{{ZONE}}": zone,
+            "{{SLUG}}": slug,
+            "{{DOMAIN}}": DOMAIN,
+        }
+
+        if model == "quote":
+            src = data["photo"]
+            fallback = available_fallback(src)
+            width, height = image_dimensions(src)
+            replacements.update({
+                "{{TRUST_ITEMS}}": "\n".join(
+                    '                            <li class="area-quote__trust-item">\n'
+                    '                                <span class="area-quote__trust-icon">'
+                    f'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">{TRUST_ICONS[icon]}</svg></span>\n'
+                    f'                                <span class="area-quote__trust-label">{label}</span>\n'
+                    '                            </li>'
+                    for icon, label in data["trust"]
+                ),
+                "{{SERVICE_OPTIONS}}": "\n".join(
+                    f'                                        <option>{html_lib.escape(s["name"])}</option>' for s in SERVICES
+                ),
+                "{{PHOTO}}": (
+                    '                    <figure class="area-quote__photo">\n'
+                    '                        <picture class="area-quote__photo-picture">\n'
+                    f'                            <source srcset="{webp_src(src)}" type="image/webp">\n'
+                    f'                            <img src="{fallback}" alt="{data["photo_alt"]}"\n'
+                    f'                                class="area-quote__photo-img" width="{width}" height="{height}"\n'
+                    '                                loading="lazy" decoding="async">\n'
+                    '                        </picture>\n'
+                    '                    </figure>'
+                ),
+            })
+        elif model == "local":
+            replacements.update({
+                "{{JOBS_BADGE}}": jobs_badge_html(zone, data.get("jobs_badge")),
+                "{{LOCAL_KNOWLEDGE}}": local_knowledge_html(data["local_knowledge"]),
+                "{{AREA_FAQ}}": area_faq_html(data["faqs"]),
+            })
+        else:
+            raise SystemExit(f"ERROR: modelo desconocido '{model}' en {zone}")
+
+        for k, v in replacements.items():
+            page = page.replace(k, v)
+
+        if "{{" in page:
+            raise SystemExit(f"ERROR: quedaron placeholders sin reemplazar en {slug}.html")
+
+        (ROOT / f"{slug}.html").write_text(page, encoding="utf-8")
+        print(f"  ✓ {slug}.html (índice de zona — modelo {model})")
+
+    print(f"{len(NEW_ZONES)} índice(s) de zona nuevos generados.")
 
 
 if __name__ == "__main__":

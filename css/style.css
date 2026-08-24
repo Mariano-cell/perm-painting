@@ -400,6 +400,11 @@ body.page-leave .site-header {
     animation-delay: 480ms;
 }
 
+.site-nav__item:nth-child(5) .site-nav__link,
+.site-nav__item:nth-child(5) > .site-nav__link-row {
+    animation-delay: 600ms;
+}
+
 .site-header.is-compact .site-nav__link,
 .site-header.is-compact .site-nav__link-row {
     animation: none;

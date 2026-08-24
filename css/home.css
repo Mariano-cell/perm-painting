@@ -451,6 +451,49 @@
     object-fit: cover;
 }
 
+/* ---------- OUR SERVICES: hover en las portadas ----------
+   Zoom in de la foto dentro de su marco (el contenedor ya tiene
+   overflow: hidden) y el titulo abre un poco el letter-spacing.
+   El transform va sobre .our-services__picture para no pisar la
+   transicion de clip-path del .os-reveal. Solo con mouse. */
+
+.our-services__picture {
+    transform-origin: center;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.our-services__item-title {
+    transition:
+        letter-spacing 0.4s ease,
+        opacity 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .our-services__item-link:hover .our-services__picture,
+    .our-services__item-link:focus-visible .our-services__picture {
+        transform: scale(1.06);
+    }
+
+    .our-services__item-link:hover .our-services__item-title,
+    .our-services__item-link:focus-visible .our-services__item-title {
+        letter-spacing: 0.06em;
+        opacity: 0.75;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .our-services__picture,
+    .our-services__item-title {
+        transition: none;
+    }
+
+    .our-services__item-link:hover .our-services__picture {
+        transform: none;
+    }
+}
+
 .our-services__section-title {
     display: inline-flex;
 }
@@ -669,10 +712,10 @@
 
 .os-reveal {
     opacity: 0;
-    clip-path: inset(0 0 100% 0 round 8px);
+    clip-path: inset(0 0 50% 0 round 8px);
     transition:
-        opacity 0.9s ease-out,
-        clip-path 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.54s ease-out,
+        clip-path 1.8s ease-out;
     transition-delay: var(--reveal-delay, 0s);
     will-change: clip-path, opacity;
 }

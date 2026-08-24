@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function () {
+            var loaded = false;
+
+            var loadGtm = function () {
+                if (loaded) return;
+                loaded = true;
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != "dataLayer" ? "&l=" + l : "";
+                    j.async = true;
+                    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
+            };
+
+            // Carga en la primera interacción del usuario…
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
+                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            });
+
+            // …o como máximo 5s después del load (visitas sin interacción).
+            window.addEventListener("load", function () {
+                setTimeout(loadGtm, 5000);
+            }, { once: true });
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="css/footer.css">
+    </noscript>
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+        href="assets/photos/kitchen-cabinets/kc-hero.webp">
+
+    <title>Kitchen Cabinet Painting in Tweed Heads | Perma Painting</title>
+
+    <meta name="description" content="Kitchen cabinet painting in Tweed Heads. Modernise your kitchen without a renovation, free quote from a local crew.">
+
+    <link rel="canonical" href="https://permapainting.com.au/kitchen-cabinet-painting-tweed-heads">
+
+    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+                {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://permapainting.com.au/"
+                },
+                {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Kitchen Cabinet Painting",
+                        "item": "https://permapainting.com.au/kitchen-cabinet-painting-tweed-heads"
+                },
+                {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Tweed Heads"
+                }
+        ]
+}
+    </script>
+
+    <!-- Schema: FAQPage (reusa el texto visible del FAQ, sección 7).
+         OJO: contenido PROVISORIO — actualizar si cambian las preguntas/respuestas. -->
+    <script type="application/ld+json">
+{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+                {
+                        "@type": "Question",
+                        "name": "Can you paint laminate cabinets?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Yes, with the right prep and primer laminate cabinets take paint well."
+                        }
+                },
+                {
+                        "@type": "Question",
+                        "name": "Do I need to empty the kitchen fully?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "We'll ask you to clear the benches and cupboard contents, we handle the rest."
+                        }
+                },
+                {
+                        "@type": "Question",
+                        "name": "What's the typical cost range?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "It depends on the kitchen size and cabinet material, we'll give you a clear quote after assessing it."
+                        }
+                }
+        ]
+}
+    </script>
+</head>
+
+<body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <header class="site-header" aria-label="Header">
+        <div class="site-header__inner">
+
+            <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
+                <img src="assets/isotipo/perma-grande/primario/iso1-verde.webp"
+                    srcset="assets/isotipo/perma-grande/primario/iso1-verde-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-verde-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-verde.webp 1299w"
+                    sizes="(max-width: 768px) 202px, 264px" alt="Perma Painting"
+                    class="site-header__logo-img-green">
+                <img src="assets/isotipo/perma-grande/primario/iso1-negro.webp"
+                    srcset="assets/isotipo/perma-grande/primario/iso1-negro-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-negro-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-negro.webp 1299w"
+                    sizes="(max-width: 768px) 202px, 264px" alt=""
+                    class="site-header__logo-img-black">
+            </a>
+
+            <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
+                aria-expanded="false">
+                <div class="site-header__toggle-icon-container">
+                    <img src="assets/iconos/hamburguer-close/icons8-menú-100.png" class="site-header__toggle-icon"
+                        alt="" aria-hidden="true" width="50" height="50">
+                </div>
+
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+                <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item"><a class="site-nav__link" href="about-us.html">ABOUT US</a></li>
+
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle services menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="house-painters-byron-bay.html">Residential</a></li>
+                                <li><a class="site-nav__dropdown-link" href="interior-painting-byron-bay.html">Interior</a></li>
+                                <li><a class="site-nav__dropdown-link" href="exterior-painting-byron-bay.html">Exterior</a></li>
+                                <li><a class="site-nav__dropdown-link" href="commercial-painters-byron-bay.html">Commercial</a></li>
+                                <li><a class="site-nav__dropdown-link" href="roof-painting-byron-bay.html">Roof</a></li>
+                                <li><a class="site-nav__dropdown-link" href="limewash-painting-byron-bay.html">Limewash</a></li>
+                                <li><a class="site-nav__dropdown-link" href="deck-painting-byron-bay.html">Decks</a></li>
+                                <li><a class="site-nav__dropdown-link" href="kitchen-cabinet-painting-byron-bay.html">Kitchen Cabinets</a></li>
+                                <li><a class="site-nav__dropdown-link" href="epoxy-floors-byron-bay.html">Epoxy Floors</a></li>
+                                <li><a class="site-nav__dropdown-link" href="lead-paint-removal-restoration-byron-bay.html">Lead Paint Removal &amp; Restoration</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="site-nav__item"><a class="site-nav__link" href="blog/">BLOG</a></li>
+
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="byron-bay.html">AREAS OF SERVICE</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle areas menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="byron-bay.html">Byron Bay</a></li>
+                                <li><a class="site-nav__dropdown-link" href="ballina.html">Ballina</a></li>
+                                <li><a class="site-nav__dropdown-link" href="mullumbimby.html">Mullumbimby</a></li>
+                                <li><a class="site-nav__dropdown-link" href="kingscliff.html">Kingscliff</a></li>
+                                <li><a class="site-nav__dropdown-link" href="tweed-heads.html">Tweed Heads</a></li>
+                                <li><a class="site-nav__dropdown-link" href="lismore.html">Lismore</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
+                                href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main class="landing">
+        <div class="landing__inner">
+
+            <!-- ============================================================
+                 SECCIÓN 1 — Breadcrumb (Home / Servicio / Zona)
+            ============================================================ -->
+            <nav class="landing-breadcrumb" aria-label="Breadcrumb">
+                <ol class="landing-breadcrumb__list">
+                    <li class="landing-breadcrumb__item">
+                        <a class="landing-breadcrumb__link" href="index.html">Home</a>
+                    </li>
+                    <li class="landing-breadcrumb__item">
+                        <a class="landing-breadcrumb__link" href="kitchen-cabinet-painting-tweed-heads.html">Kitchen Cabinet Painting</a>
+                    </li>
+                    <li class="landing-breadcrumb__item">
+                        <span class="landing-breadcrumb__current" aria-current="page">Tweed Heads</span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- ============================================================
+                 SECCIÓN 2+3 — Hero de la landing
+                 Izquierda (0.6): H1 + intro + 2 botones
+                 Derecha (0.4): imagen del servicio
+            ============================================================ -->
+            <section class="landing-hero" aria-labelledby="landing-hero-title">
+
+                <div class="landing-hero__left">
+
+                    <h1 id="landing-hero-title" class="landing-hero__title">Kitchen Cabinet Painting in Tweed Heads</h1>
+
+                    <p class="landing-hero__intro">A lot of Tweed Heads kitchens, particularly in older homes and units, are solid but dated. Repainting the cabinets is a fast way to modernise without a full renovation.</p>
+
+                    <div class="landing-hero__actions">
+
+                        <a class="landing-hero__cta btn" href="contact.html" aria-label="REQUEST FREE QUOTE">
+                            <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">REQUEST FREE QUOTE</span><span class="btn-slot-row">REQUEST FREE QUOTE</span></span></span>
+                            <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                                class="landing-hero__cta-icon btn-icon-rotate">
+                        </a>
+
+                        <a class="landing-hero__cta btn" href="tel:+61433526530" aria-label="CALL NOW">
+                            <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">CALL NOW</span><span class="btn-slot-row">CALL NOW</span></span></span>
+                            <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                                class="landing-hero__cta-icon btn-icon-rotate">
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="landing-hero__right">
+                    <div class="hero__right--photo-container">
+                        <picture class="hero__right--photo-picture">
+                            <source srcset="assets/photos/kitchen-cabinets/kc-hero.webp" type="image/webp">
+                            <img src="assets/photos/kitchen-cabinets/kc-hero.jpg" alt="kitchen cabinet painting in Tweed Heads" class="hero__right--photo"
+                                width="1200" height="1443" fetchpriority="high">
+                        </picture>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+                 SECCIÓN "WHY PERMA" — clon de .why-perma del home
+                 (mismas clases; estilos copiados a landing.css).
+            ============================================================ -->
+            <section class="why-perma">
+
+                <div class="why-perma__main-grid">
+                    <h2 class="why-perma__section-title reveal"><img
+                            src="assets/iconos/icons8-punto-y-final-ios-17-glyph/icons8-punto-y-final-60.webp" alt=""
+                            class="why-perma__section-title--img" width="60" height="60">WHY PERMA PAINTING</h2>
+                    <div class="why-perma__text-container reveal" style="--reveal-delay: 0.1s">
+                        <p class="why-perma__text">We take a long-term view of painting. <br>
+                            Materials, methods and timing matter. <br>
+                            So does their impact.</p>
+                    </div>
+
+                    <div class="why-perma__reasons-marquee reveal" style="--reveal-delay: 0.15s" aria-label="Perma values">
+
+                        <div class="why-perma__reasons-track">
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/LONG-TERM.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">LONG-TERM THINKING</h3>
+                            </div>
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/Corrosion-Proof.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">LOW-TOX MATERIALS</h3>
+                            </div>
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/Rust-resistant.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">CAREFUL SURFACE <br>PREPARATION</h3>
+                            </div>
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/Fire-rated.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">REDUCED WASTE</h3>
+                            </div>
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/Stone-Aesthetic.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">RELIABLE TIMELINES</h3>
+                            </div>
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/Sustainable.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">SUSTAINABLE</h3>
+                            </div>
+
+                            <div class="why-perma__reason-item">
+                                <div class="why-perma__reason-icon-container">
+                                    <img src="assets/iconos/about-us-icons/Heat-resistant.svg" alt=""
+                                        class="why-perma__reason-icon" width="88" height="88">
+                                </div>
+                                <h3 class="why-perma__reason-title">HEAT RESISTANCE</h3>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <a class="why-perma__CTA-button btn reveal" href="contact.html" aria-label="GET IN TOUCH">
+                        <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">GET IN TOUCH</span><span class="btn-slot-row">GET IN TOUCH</span></span></span>
+                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                            class="why-perma__CTA-button--img btn-icon-rotate">
+                    </a>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+                 SECCIÓN 4 — Galería (4 fotos del servicio)
+            ============================================================ -->
+            <section class="landing-gallery" aria-label="Kitchen Cabinet Painting projects in Tweed Heads">
+                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: 0s">
+                    <picture class="landing-gallery__picture">
+                        <source srcset="assets/photos/kitchen-cabinets/kc_001.webp" type="image/webp">
+                        <img src="assets/photos/kitchen-cabinets/kc_001.jpg" alt="kitchen cabinet painting in Tweed Heads"
+                            class="landing-gallery__img" width="533" height="800" loading="lazy" decoding="async">
+                    </picture>
+                </figure>
+
+                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: 0.12s">
+                    <picture class="landing-gallery__picture">
+                        <source srcset="assets/photos/kitchen-cabinets/kc_002.webp" type="image/webp">
+                        <img src="assets/photos/kitchen-cabinets/kc_002.jpg" alt="kitchen cabinet painting project in Tweed Heads"
+                            class="landing-gallery__img" width="1199" height="1810" loading="lazy" decoding="async">
+                    </picture>
+                </figure>
+
+                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: 0.24s">
+                    <picture class="landing-gallery__picture">
+                        <source srcset="assets/photos/kitchen-cabinets/kc_003.webp" type="image/webp">
+                        <img src="assets/photos/kitchen-cabinets/kc_003.jpg" alt="kitchen cabinet painting work in Tweed Heads"
+                            class="landing-gallery__img" width="1200" height="1443" loading="lazy" decoding="async">
+                    </picture>
+                </figure>
+
+                <figure class="landing-gallery__card os-reveal" style="--reveal-delay: 0.36s">
+                    <picture class="landing-gallery__picture">
+                        <source srcset="assets/photos/kitchen-cabinets/kc_004.webp" type="image/webp">
+                        <img src="assets/photos/kitchen-cabinets/kc_004.jpg" alt="professional kitchen cabinet painting in Tweed Heads"
+                            class="landing-gallery__img" width="1199" height="1545" loading="lazy" decoding="async">
+                    </picture>
+                </figure>
+            </section>
+
+            <!-- ============================================================
+                 SECCIÓN 5 — Service area (párrafo + pills de localidades)
+            ============================================================ -->
+            <section class="landing-area" aria-labelledby="landing-area-title">
+
+                <p class="landing-area__label">SERVICE AREA</p>
+
+                <h2 id="landing-area-title" class="landing-area__title">Painting Tweed Heads and the surrounding area</h2>
+
+                <p class="landing-area__text">Based in Byron Bay, we cover Tweed Heads and the nearby coastal and
+                    hinterland communities. If you're just outside Tweed Heads, chances are we work in your area too —
+                    including:</p>
+
+                <ul class="landing-area__pills" aria-label="Nearby areas we serve">
+                    <li class="landing-area__pill">Banora Point</li>
+                    <li class="landing-area__pill">Terranora</li>
+                    <li class="landing-area__pill">Bilambil</li>
+                    <li class="landing-area__pill">Tweed Heads South</li>
+                </ul>
+
+                <!-- Subsección — Crosslinks (linking interno SEO)
+                     7 servicios de la misma zona + mismo servicio en las
+                     otras 2 zonas. URLs planas reales. -->
+                <div class="landing-links" aria-labelledby="landing-links-title">
+
+                    <h3 id="landing-links-title" class="landing-links__title">Other services and areas</h3>
+
+                    <div class="landing-links__group">
+                        <h4 class="landing-links__subtitle">More services in Tweed Heads</h4>
+                        <ul class="landing-links__grid">
+                        <li><a class="landing-links__link" href="house-painters-tweed-heads.html"><span>House Painters</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="interior-painting-tweed-heads.html"><span>Interior Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="exterior-painting-tweed-heads.html"><span>Exterior Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="roof-painting-tweed-heads.html"><span>Roof Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="limewash-painting-tweed-heads.html"><span>Limewash Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="deck-painting-tweed-heads.html"><span>Deck Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="commercial-painters-tweed-heads.html"><span>Commercial Painters</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="epoxy-floors-tweed-heads.html"><span>Epoxy Floors</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="lead-paint-removal-restoration-tweed-heads.html"><span>Lead Paint Removal &amp; Restoration</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="landing-links__group">
+                        <h4 class="landing-links__subtitle">Kitchen cabinet painting in other areas</h4>
+                        <ul class="landing-links__grid">
+                        <li><a class="landing-links__link" href="kitchen-cabinet-painting-byron-bay.html"><span>Kitchen Cabinet Painting in Byron Bay</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="kitchen-cabinet-painting-ballina.html"><span>Kitchen Cabinet Painting in Ballina</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="kitchen-cabinet-painting-mullumbimby.html"><span>Kitchen Cabinet Painting in Mullumbimby</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+                 SECCIÓN 6 — Reviews (widget en vivo)
+                 Mismo bloque que el home: main.js -> loadReviews()
+            ============================================================ -->
+            <section class="testimonials landing-reviews" aria-label="Client reviews">
+                <h2 class="reveal">WHAT OUR CLIENTS SAY</h2>
+                <div id="reviews-container" class="reveal" style="--reveal-delay: 0.1s">Loading reviews...</div>
+
+                <div class="testimonials__footer reveal">
+                    <a class="btn testimonials__cta"
+                        href="https://search.google.com/local/reviews?placeid=ChIJvRmc7caPkGsRkzqug2m9w58" target="_blank"
+                        rel="noopener noreferrer">
+                        <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">VIEW ALL ON GOOGLE</span><span class="btn-slot-row">VIEW ALL ON GOOGLE</span></span></span>
+                        <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                            class="hero__CTA-button--icon btn-icon-rotate">
+                    </a>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 SECCIÓN 7 — FAQ (details/summary nativo)
+                 OJO: contenido PROVISORIO (inventado). El cliente debe
+                 revisar/reemplazar. Mismo texto alimenta el schema FAQPage.
+            ============================================================ -->
+            <section class="landing-faq" aria-labelledby="landing-faq-title">
+
+                <p class="landing-faq__label">FAQ</p>
+                <h2 id="landing-faq-title" class="landing-faq__title">Kitchen cabinet painting in Tweed Heads — common questions</h2>
+
+                <div class="landing-faq__list">
+                    <details class="landing-faq__item">
+                        <summary class="landing-faq__question">Can you paint laminate cabinets?</summary>
+                        <div class="landing-faq__answer">
+                            <p>Yes, with the right prep and primer laminate cabinets take paint well.</p>
+                        </div>
+                    </details>
+
+                    <details class="landing-faq__item">
+                        <summary class="landing-faq__question">Do I need to empty the kitchen fully?</summary>
+                        <div class="landing-faq__answer">
+                            <p>We&#x27;ll ask you to clear the benches and cupboard contents, we handle the rest.</p>
+                        </div>
+                    </details>
+
+                    <details class="landing-faq__item">
+                        <summary class="landing-faq__question">What&#x27;s the typical cost range?</summary>
+                        <div class="landing-faq__answer">
+                            <p>It depends on the kitchen size and cabinet material, we&#x27;ll give you a clear quote after assessing it.</p>
+                        </div>
+                    </details>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+                 SECCIÓN 9 — CTA final
+            ============================================================ -->
+            <section class="landing-cta" aria-labelledby="landing-cta-title">
+                <h2 id="landing-cta-title" class="landing-cta__title">Get a free quote in Tweed Heads</h2>
+                <p class="landing-cta__text">Tell us about your kitchen and we&#x27;ll get back to you with a clear, no-obligation quote.</p>
+
+                <a class="landing-cta__button btn" href="contact.html" aria-label="GET IN TOUCH">
+                    <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">GET IN TOUCH</span><span class="btn-slot-row">GET IN TOUCH</span></span></span>
+                    <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                        class="landing-cta__button-icon btn-icon-rotate">
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ============================================================
+         SECCIÓN 10 — Footer estándar del sitio
+    ============================================================ -->
+    <footer class="site-footer" aria-label="Footer">
+
+        <!-- MOBILE FOOTER -->
+        <div class="site-footer__mobile" aria-label="Footer mobile layout">
+
+            <div class="site-footer__mobile-info">
+                <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
+                <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
+                <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
+
+                <a class="site-footer__item"
+                    href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
+                <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+
+            <div class="site-footer__mobile-main">
+                <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
+                    <img class="site-footer__logo-img site-footer__logo-img--mobile"
+                        src="assets/isotipo/p-painting/ppainting-verde-cropped.webp" alt="Perma Painting logo"
+                        width="240" height="240" loading="lazy" />
+                </a>
+
+                <nav class="site-footer__mobile-links" aria-label="Footer navigation mobile">
+                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                </nav>
+            </div>
+
+        </div>
+
+
+        <div class="site-footer__inner">
+
+            <!-- ROW 1 -->
+            <div class="site-footer__row site-footer__row--top">
+
+                <div class="site-footer__col site-footer__col--logo">
+                    <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
+                        <img class="site-footer__logo-img" src="assets/isotipo/p-painting/ppainting-verde-cropped.webp"
+                            alt="Perma Painting logo" width="120" height="120" loading="lazy" />
+                    </a>
+                </div>
+
+                <nav class="site-footer__col site-footer__col--links" aria-label="Footer navigation">
+                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                </nav>
+
+                <div class="site-footer__col site-footer__col--contact" aria-label="Contact information">
+                    <a class="site-footer__item"
+                        href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
+                    <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                    <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+                </div>
+
+                <div class="site-footer__col site-footer__col--licenses" aria-label="Business details">
+                    <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
+                    <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
+                    <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="site-footer__row site-footer__row--bottom">
+                <p class="site-footer__meta">PERMA Painting &copy; 2026</p>
+
+                <div class="site-footer__badge" aria-label="NSW Fair Trading">
+                    <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
+                </div>
+
+                <p class="site-footer__credit">SITE BY <br>MARIANO RICHARDS</p>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/main.js?v=20260824" defer></script>
+
+</body>
+
+</html>

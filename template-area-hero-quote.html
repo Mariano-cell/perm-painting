@@ -1,0 +1,88 @@
+                <!-- MODELO "QUICK QUOTE" (Ramón, ago 2026) — hero del índice de zona.
+                     Lo inserta template-area-shell.html en el hueco AREA_HERO.
+                     Columna izq: texto + pills + trust badges. Columna der:
+                     formulario sticky. Debajo del formulario, la foto de la zona. -->
+                <div class="area-quote__head">
+
+                    <div class="area-quote__main">
+                        <p class="landing-area__label">Areas of service &mdash; quick quote</p>
+
+                        <h1 id="area-index-title" class="area-index__title">{{HEADLINE}}</h1>
+
+                        <p class="area-index__intro">{{INTRO}}</p>
+
+                        <!-- Localidades de la zona (pills). Sin links: no tienen
+                             página propia. Si se les crea, pasar a <a>. -->
+                        <ul class="landing-area__pills" aria-label="Areas we serve around {{ZONE}}">
+{{AREA_PILLS}}
+                        </ul>
+
+                        <ul class="area-quote__trust">
+{{TRUST_ITEMS}}
+                        </ul>
+                    </div>
+
+                    <aside class="area-quote__aside">
+                        <form class="area-quote__form" name="contact" method="post" action="/thanks.html"
+                            data-netlify="true" netlify-honeypot="bot-field">
+
+                            <input type="hidden" name="form-name" value="contact">
+                            <input type="hidden" name="source" value="{{ZONE}} — quick quote">
+
+                            <p class="area-quote__honeypot">
+                                <label>Don&rsquo;t fill this out: <input name="bot-field"></label>
+                            </p>
+
+                            <span class="area-quote__form-tag">Free quote</span>
+                            <h2 class="area-quote__form-title">Get a quote for {{ZONE}}</h2>
+                            <p class="area-quote__form-sub">Takes about 40 seconds. No obligation.</p>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-name">Name</label>
+                                <input class="area-quote__input" type="text" id="quote-name" name="name"
+                                    placeholder="Your name" autocomplete="name" required>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-suburb">Suburb</label>
+                                <input class="area-quote__input" type="text" id="quote-suburb" name="suburb"
+                                    value="{{ZONE}}" required>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-service">Service</label>
+                                <div class="area-quote__select-wrap">
+                                    <select class="area-quote__input area-quote__select" id="quote-service"
+                                        name="service">
+{{SERVICE_OPTIONS}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-contact">Phone or email</label>
+                                <input class="area-quote__input" type="text" id="quote-contact" name="phone-or-email"
+                                    placeholder="Best way to reach you" required>
+                            </div>
+
+                            <button class="area-quote__submit btn" type="submit">
+                                <span class="btn-slot-mask"><span class="btn-slot-track"><span
+                                            class="btn-slot-row">SEND MY REQUEST</span><span
+                                            class="btn-slot-row">SEND MY REQUEST</span></span></span>
+                                <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" width="24" height="24"
+                                    class="area-quote__submit-icon btn-icon-rotate">
+                            </button>
+
+                            <p class="area-quote__form-foot">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M8.5 12.5l2.3 2.3L16 10" />
+                                </svg>
+                                No spam. We only call about your quote.
+                            </p>
+                        </form>
+                    </aside>
+
+{{PHOTO}}
+
+                </div>

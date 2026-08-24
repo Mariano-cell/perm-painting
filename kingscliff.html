@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function () {
+            var loaded = false;
+
+            var loadGtm = function () {
+                if (loaded) return;
+                loaded = true;
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != "dataLayer" ? "&l=" + l : "";
+                    j.async = true;
+                    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
+            };
+
+            // Carga en la primera interacción del usuario…
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
+                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            });
+
+            // …o como máximo 5s después del load (visitas sin interacción).
+            window.addEventListener("load", function () {
+                setTimeout(loadGtm, 5000);
+            }, { once: true });
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="css/footer.css">
+    </noscript>
+
+    <title>Painters Kingscliff | Perma Painting</title>
+
+    <meta name="description" content="Painters in Kingscliff for beach houses and new builds across Salt Village, Casuarina and Cudgen. Salt-air rated finishes, free quotes, fully insured local crews.">
+
+    <link rel="canonical" href="https://permapainting.com.au/kingscliff">
+
+    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+                {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://permapainting.com.au/"
+                },
+                {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Kingscliff"
+                }
+        ]
+}
+    </script>
+
+</head>
+
+<body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+<header class="site-header" aria-label="Header">
+        <div class="site-header__inner">
+
+            <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
+                <img src="assets/isotipo/perma-grande/primario/iso1-verde.webp"
+                    srcset="assets/isotipo/perma-grande/primario/iso1-verde-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-verde-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-verde.webp 1299w"
+                    sizes="(max-width: 768px) 202px, 264px" alt="Perma Painting"
+                    class="site-header__logo-img-green">
+                <img src="assets/isotipo/perma-grande/primario/iso1-negro.webp"
+                    srcset="assets/isotipo/perma-grande/primario/iso1-negro-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-negro-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-negro.webp 1299w"
+                    sizes="(max-width: 768px) 202px, 264px" alt=""
+                    class="site-header__logo-img-black">
+            </a>
+
+            <button class="site-header__toggle" type="button" aria-label="Open menu" aria-controls="site-nav"
+                aria-expanded="false">
+                <div class="site-header__toggle-icon-container">
+                    <img src="assets/iconos/hamburguer-close/icons8-menú-100.png" class="site-header__toggle-icon"
+                        alt="" aria-hidden="true" width="50" height="50">
+                </div>
+
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+                <span class="site-header__toggle-line" aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+                <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item"><a class="site-nav__link" href="about-us.html">ABOUT US</a></li>
+
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle services menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="house-painters-byron-bay.html">Residential</a></li>
+                                <li><a class="site-nav__dropdown-link" href="interior-painting-byron-bay.html">Interior</a></li>
+                                <li><a class="site-nav__dropdown-link" href="exterior-painting-byron-bay.html">Exterior</a></li>
+                                <li><a class="site-nav__dropdown-link" href="commercial-painters-byron-bay.html">Commercial</a></li>
+                                <li><a class="site-nav__dropdown-link" href="roof-painting-byron-bay.html">Roof</a></li>
+                                <li><a class="site-nav__dropdown-link" href="limewash-painting-byron-bay.html">Limewash</a></li>
+                                <li><a class="site-nav__dropdown-link" href="deck-painting-byron-bay.html">Decks</a></li>
+                                <li><a class="site-nav__dropdown-link" href="kitchen-cabinet-painting-byron-bay.html">Kitchen Cabinets</a></li>
+                                <li><a class="site-nav__dropdown-link" href="epoxy-floors-byron-bay.html">Epoxy Floors</a></li>
+                                <li><a class="site-nav__dropdown-link" href="lead-paint-removal-restoration-byron-bay.html">Lead Paint Removal &amp; Restoration</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="site-nav__item"><a class="site-nav__link" href="blog/">BLOG</a></li>
+
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="byron-bay.html">AREAS OF SERVICE</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle areas menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="byron-bay.html">Byron Bay</a></li>
+                                <li><a class="site-nav__dropdown-link" href="ballina.html">Ballina</a></li>
+                                <li><a class="site-nav__dropdown-link" href="mullumbimby.html">Mullumbimby</a></li>
+                                <li><a class="site-nav__dropdown-link" href="kingscliff.html">Kingscliff</a></li>
+                                <li><a class="site-nav__dropdown-link" href="tweed-heads.html">Tweed Heads</a></li>
+                                <li><a class="site-nav__dropdown-link" href="lismore.html">Lismore</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
+                                href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main class="landing">
+        <div class="landing__inner">
+
+            <!-- Breadcrumb -->
+            <nav class="landing-breadcrumb" aria-label="Breadcrumb">
+                <ol class="landing-breadcrumb__list">
+                    <li class="landing-breadcrumb__item">
+                        <a class="landing-breadcrumb__link" href="index.html">Home</a>
+                    </li>
+                    <li class="landing-breadcrumb__item">
+                        <span class="landing-breadcrumb__current" aria-current="page">Kingscliff</span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Índice de zona de las ZONAS NUEVAS (ago 2026).
+                 Esta cáscara es común a todos los modelos de Ramón; lo único
+                 que cambia es el hero, que sale de template-area-hero-<modelo>.html
+                 y se inserta abajo. Las 3 zonas viejas NO usan este archivo:
+                 siguen con template-area-index.html. -->
+            <section class="area-index" aria-labelledby="area-index-title">
+
+                <!-- MODELO "QUICK QUOTE" (Ramón, ago 2026) — hero del índice de zona.
+                     Lo inserta template-area-shell.html en el hueco AREA_HERO.
+                     Columna izq: texto + pills + trust badges. Columna der:
+                     formulario sticky. Debajo del formulario, la foto de la zona. -->
+                <div class="area-quote__head">
+
+                    <div class="area-quote__main">
+                        <p class="landing-area__label">Areas of service &mdash; quick quote</p>
+
+                        <h1 id="area-index-title" class="area-index__title">Painting in Kingscliff and the Tweed Coast beaches</h1>
+
+                        <p class="area-index__intro">Kingscliff has grown fast, with new builds in the Salt precinct sitting alongside classic beach houses and a steady flow of holiday rental turnovers — get a free quote in under a minute.</p>
+
+                        <!-- Localidades de la zona (pills). Sin links: no tienen
+                             página propia. Si se les crea, pasar a <a>. -->
+                        <ul class="landing-area__pills" aria-label="Areas we serve around Kingscliff">
+                            <li class="landing-area__pill">Kingscliff</li>
+                            <li class="landing-area__pill">Casuarina</li>
+                            <li class="landing-area__pill">Salt Village</li>
+                            <li class="landing-area__pill">Cudgen</li>
+                            <li class="landing-area__pill">Chinderah</li>
+                        </ul>
+
+                        <ul class="area-quote__trust">
+                            <li class="area-quote__trust-item">
+                                <span class="area-quote__trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v6c0 5-3.4 7.8-7 9-3.6-1.2-7-4-7-9V6z"/></svg></span>
+                                <span class="area-quote__trust-label">Fully insured &amp; licensed crews</span>
+                            </li>
+                            <li class="area-quote__trust-item">
+                                <span class="area-quote__trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+                                <span class="area-quote__trust-label">Reply within 24 hours</span>
+                            </li>
+                            <li class="area-quote__trust-item">
+                                <span class="area-quote__trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 3l7 7-8 8-7-7z"/><path d="M6 15l-3 6 6-3"/></svg></span>
+                                <span class="area-quote__trust-label">Salt-air rated finishes</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <aside class="area-quote__aside">
+                        <form class="area-quote__form" name="contact" method="post" action="/thanks.html"
+                            data-netlify="true" netlify-honeypot="bot-field">
+
+                            <input type="hidden" name="form-name" value="contact">
+                            <input type="hidden" name="source" value="Kingscliff — quick quote">
+
+                            <p class="area-quote__honeypot">
+                                <label>Don&rsquo;t fill this out: <input name="bot-field"></label>
+                            </p>
+
+                            <span class="area-quote__form-tag">Free quote</span>
+                            <h2 class="area-quote__form-title">Get a quote for Kingscliff</h2>
+                            <p class="area-quote__form-sub">Takes about 40 seconds. No obligation.</p>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-name">Name</label>
+                                <input class="area-quote__input" type="text" id="quote-name" name="name"
+                                    placeholder="Your name" autocomplete="name" required>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-suburb">Suburb</label>
+                                <input class="area-quote__input" type="text" id="quote-suburb" name="suburb"
+                                    value="Kingscliff" required>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-service">Service</label>
+                                <div class="area-quote__select-wrap">
+                                    <select class="area-quote__input area-quote__select" id="quote-service"
+                                        name="service">
+                                        <option>House Painters</option>
+                                        <option>Interior Painting</option>
+                                        <option>Exterior Painting</option>
+                                        <option>Roof Painting</option>
+                                        <option>Limewash Painting</option>
+                                        <option>Deck Painting</option>
+                                        <option>Kitchen Cabinet Painting</option>
+                                        <option>Commercial Painters</option>
+                                        <option>Epoxy Floors</option>
+                                        <option>Lead Paint Removal &amp; Restoration</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-contact">Phone or email</label>
+                                <input class="area-quote__input" type="text" id="quote-contact" name="phone-or-email"
+                                    placeholder="Best way to reach you" required>
+                            </div>
+
+                            <button class="area-quote__submit btn" type="submit">
+                                <span class="btn-slot-mask"><span class="btn-slot-track"><span
+                                            class="btn-slot-row">SEND MY REQUEST</span><span
+                                            class="btn-slot-row">SEND MY REQUEST</span></span></span>
+                                <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" width="24" height="24"
+                                    class="area-quote__submit-icon btn-icon-rotate">
+                            </button>
+
+                            <p class="area-quote__form-foot">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M8.5 12.5l2.3 2.3L16 10" />
+                                </svg>
+                                No spam. We only call about your quote.
+                            </p>
+                        </form>
+                    </aside>
+
+                    <figure class="area-quote__photo">
+                        <picture class="area-quote__photo-picture">
+                            <source srcset="assets/photos/area-index/kingscliff.webp" type="image/webp">
+                            <img src="assets/photos/area-index/kingscliff.jpg" alt="Recent painting job in Kingscliff"
+                                class="area-quote__photo-img" width="1024" height="683"
+                                loading="lazy" decoding="async">
+                        </picture>
+                    </figure>
+
+                </div>
+
+                <!-- Servicios de la zona -->
+                <div class="landing-links">
+                    <h2 class="landing-links__title">Our painting services in Kingscliff</h2>
+                    <ul class="landing-links__grid">
+                        <li><a class="landing-links__link" href="house-painters-kingscliff.html"><span>House Painters</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="interior-painting-kingscliff.html"><span>Interior Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="exterior-painting-kingscliff.html"><span>Exterior Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="roof-painting-kingscliff.html"><span>Roof Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="limewash-painting-kingscliff.html"><span>Limewash Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="deck-painting-kingscliff.html"><span>Deck Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="kitchen-cabinet-painting-kingscliff.html"><span>Kitchen Cabinet Painting</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="commercial-painters-kingscliff.html"><span>Commercial Painters</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="epoxy-floors-kingscliff.html"><span>Epoxy Floors</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                        <li><a class="landing-links__link" href="lead-paint-removal-restoration-kingscliff.html"><span>Lead Paint Removal &amp; Restoration</span><span class="landing-links__arrow" aria-hidden="true">→</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Otras zonas principales -->
+                <div class="area-index__other-zones"
+                    style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgb(210, 210, 210);">
+                    <p class="area-index__zones-label">Explore other areas:</p>
+                    <div class="area-index__zones" aria-label="Other service areas">
+                            <a class="area-index__zone-btn" href="byron-bay.html"><span>Byron Bay</span><span class="area-index__zone-btn-arrow" aria-hidden="true">→</span></a>
+                            <a class="area-index__zone-btn" href="ballina.html"><span>Ballina</span><span class="area-index__zone-btn-arrow" aria-hidden="true">→</span></a>
+                            <a class="area-index__zone-btn" href="mullumbimby.html"><span>Mullumbimby</span><span class="area-index__zone-btn-arrow" aria-hidden="true">→</span></a>
+                            <a class="area-index__zone-btn" href="tweed-heads.html"><span>Tweed Heads</span><span class="area-index__zone-btn-arrow" aria-hidden="true">→</span></a>
+                            <a class="area-index__zone-btn" href="lismore.html"><span>Lismore</span><span class="area-index__zone-btn-arrow" aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+<footer class="site-footer" aria-label="Footer">
+
+        <!-- MOBILE FOOTER -->
+        <div class="site-footer__mobile" aria-label="Footer mobile layout">
+
+            <div class="site-footer__mobile-info">
+                <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
+                <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
+                <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
+
+                <a class="site-footer__item"
+                    href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
+                <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+
+            <div class="site-footer__mobile-main">
+                <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
+                    <img class="site-footer__logo-img site-footer__logo-img--mobile"
+                        src="assets/isotipo/p-painting/ppainting-verde-cropped.webp" alt="Perma Painting logo"
+                        width="240" height="240" loading="lazy" />
+                </a>
+
+                <nav class="site-footer__mobile-links" aria-label="Footer navigation mobile">
+                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                </nav>
+            </div>
+
+        </div>
+
+
+        <div class="site-footer__inner">
+
+            <!-- ROW 1 -->
+            <div class="site-footer__row site-footer__row--top">
+
+                <div class="site-footer__col site-footer__col--logo">
+                    <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
+                        <img class="site-footer__logo-img" src="assets/isotipo/p-painting/ppainting-verde-cropped.webp"
+                            alt="Perma Painting logo" width="120" height="120" loading="lazy" />
+                    </a>
+                </div>
+
+                <nav class="site-footer__col site-footer__col--links" aria-label="Footer navigation">
+                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                </nav>
+
+                <div class="site-footer__col site-footer__col--contact" aria-label="Contact information">
+                    <a class="site-footer__item"
+                        href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
+                    <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                    <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+                </div>
+
+                <div class="site-footer__col site-footer__col--licenses" aria-label="Business details">
+                    <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
+                    <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
+                    <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="site-footer__row site-footer__row--bottom">
+                <p class="site-footer__meta">PERMA Painting &copy; 2026</p>
+
+                <div class="site-footer__badge" aria-label="NSW Fair Trading">
+                    <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
+                </div>
+
+                <p class="site-footer__credit">SITE BY <br>MARIANO RICHARDS</p>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/main.js?v=20260824" defer></script>
+
+</body>
+
+</html>

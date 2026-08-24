@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function () {
+            var loaded = false;
+
+            var loadGtm = function () {
+                if (loaded) return;
+                loaded = true;
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != "dataLayer" ? "&l=" + l : "";
+                    j.async = true;
+                    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
+            };
+
+            // Carga en la primera interacción del usuario…
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
+                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            });
+
+            // …o como máximo 5s después del load (visitas sin interacción).
+            window.addEventListener("load", function () {
+                setTimeout(loadGtm, 5000);
+            }, { once: true });
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- OJO: rutas ABSOLUTAS. Estas páginas viven en /blog/, no en la raíz. -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/blog.css?v=20260824-2">
+    <link rel="stylesheet" href="/css/footer.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+
+    <title>{{META_TITLE}}</title>
+
+    <meta name="description" content="{{META_DESCRIPTION}}">
+
+    <link rel="canonical" href="{{DOMAIN}}/blog/">
+
+    <link rel="icon" type="image/png" href="/assets/isotipo/p/p-verde.png">
+
+    <!-- Schema: Blog + BreadcrumbList -->
+    <script type="application/ld+json">
+{{SCHEMA_BLOG}}
+    </script>
+</head>
+
+<body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+{{HEADER}}
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main class="landing blog">
+        <div class="landing__inner">
+
+            <!-- Breadcrumb -->
+            <nav class="landing-breadcrumb" aria-label="Breadcrumb">
+                <ol class="landing-breadcrumb__list">
+                    <li class="landing-breadcrumb__item">
+                        <a class="landing-breadcrumb__link" href="/">Home</a>
+                    </li>
+                    <li class="landing-breadcrumb__item">
+                        <span class="landing-breadcrumb__current" aria-current="page">Blog</span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Cabecera + filtros por categoría -->
+            <section class="blog-head" aria-labelledby="blog-title">
+                <p class="landing-area__label">Painting tips and local guides</p>
+                <h1 id="blog-title" class="blog-head__title">Painting advice for Byron Bay and the Northern
+                    Rivers</h1>
+                <p class="blog-head__intro">{{INTRO}}</p>
+
+                <div class="blog-filters" role="group" aria-label="Filter articles by category">
+{{FILTERS}}
+                </div>
+            </section>
+
+            <!-- Artículo destacado -->
+            <section class="blog-featured-section" aria-labelledby="blog-featured-title" data-blog-featured
+                data-category="{{FEATURED_CATEGORY_SLUG}}">
+                <p class="landing-area__label" id="blog-featured-title">Featured</p>
+{{FEATURED}}
+            </section>
+
+            <!-- Resto de artículos -->
+            <section class="blog-latest" aria-labelledby="blog-latest-title">
+                <p class="landing-area__label" id="blog-latest-title">Latest</p>
+
+                <ul class="blog-grid">
+{{CARDS}}
+                </ul>
+
+                <p class="blog-empty" data-blog-empty hidden>No articles in this category yet — check back soon.</p>
+            </section>
+
+            <!-- CTA final (mismo bloque que las landings) -->
+            <section class="landing-cta" aria-labelledby="blog-cta-title">
+                <h2 id="blog-cta-title" class="landing-cta__title">Get a free quote in Byron Bay</h2>
+                <p class="landing-cta__text">Planning a job after reading? Tell us what you have in mind and we'll come
+                    back with a clear, no-obligation quote.</p>
+
+                <a class="landing-cta__button btn" href="/contact.html" aria-label="GET IN TOUCH">
+                    <span class="btn-slot-mask"><span class="btn-slot-track"><span
+                                class="btn-slot-row">GET IN TOUCH</span><span
+                                class="btn-slot-row">GET IN TOUCH</span></span></span>
+                    <img src="/assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                        class="landing-cta__button-icon btn-icon-rotate">
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+{{FOOTER}}
+
+    <script src="/js/main.js?v=20260824" defer></script>
+    <script src="/js/blog.js" defer></script>
+
+</body>
+
+</html>

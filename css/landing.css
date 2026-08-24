@@ -4,21 +4,39 @@
 ========================================================= */
 
 /* El header es fixed; empujamos el contenido para que el
-   breadcrumb no quede tapado. */
+   breadcrumb no quede tapado.
+
+   La canaleta lateral (1.8rem) vive ACA, fuera del max-width,
+   igual que en our-services/contact/home. Es la misma medida que
+   el padding de .site-header__inner, asi el contenido queda
+   alineado con el logo. No moverla a .landing__inner: ahi quedaria
+   DENTRO del max-width y achicaria el ancho util del contenido. */
 .landing {
     padding-top: 120px;
+    padding-inline: 1.8rem;
+}
+
+/* En tablet el resto del sitio (home, our-services) baja la canaleta
+   a 1.2rem aunque el header se quede en 1.8rem. Las landings copian
+   ese comportamiento para no desalinearse con las paginas hermanas. */
+@media (max-width: 1024px) {
+    .landing {
+        padding-inline: 1.2rem;
+    }
 }
 
 @media (max-width: 768px) {
     .landing {
         padding-top: 100px;
+        /* el header tambien baja a 1rem en mobile */
+        padding-inline: 1rem;
     }
 }
 
 .landing__inner {
+    width: 100%;
     max-width: var(--container-max);
-    margin: 0 auto;
-    padding-inline: 1rem;
+    margin-inline: auto;
 }
 
 /* Línea fina gris entre secciones (como en el home).
@@ -152,8 +170,9 @@
     flex-shrink: 0;
 }
 
-/* Imagen derecha: clon exacto de .hero__right--photo del home
-   (misma imagen, mismo container 1/1, misma animación de barrido).
+/* Imagen derecha: foto propia por servicio, cada una con su proporción
+   original (sin recortar ni deformar) — el container ya NO fuerza 1/1,
+   se ajusta a la proporción real de cada foto vía width/height del <img>.
    Reglas copiadas de home.css porque la landing no carga home.css. */
 .landing-hero__right {
     display: flex;
@@ -161,7 +180,6 @@
 }
 
 .hero__right--photo-container {
-    aspect-ratio: 1 / 1;
     width: min(900px, 100%);
     border-radius: 12px;
     overflow: hidden;
@@ -170,12 +188,11 @@
 .hero__right--photo-picture {
     display: block;
     width: 100%;
-    height: 100%;
 }
 
 .hero__right--photo {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
 
     opacity: 0;
@@ -236,7 +253,7 @@
    SECCIÓN "WHY PERMA" — clon de home.css
    Reglas copiadas tal cual (la landing no carga home.css).
    Único cambio: el main-grid no lleva padding lateral propio
-   porque ya lo aporta .landing__inner.
+   porque ya lo aporta .landing.
 --------------------------------------------------------- */
 .why-perma__section-title {
     display: inline-flex;
@@ -404,10 +421,10 @@
    agrega .is-visible al entrar al viewport. */
 .os-reveal {
     opacity: 0;
-    clip-path: inset(0 0 100% 0 round 8px);
+    clip-path: inset(0 0 50% 0 round 8px);
     transition:
-        opacity 0.9s ease-out,
-        clip-path 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.54s ease-out,
+        clip-path 1.8s ease-out;
     transition-delay: var(--reveal-delay, 0s);
     will-change: clip-path, opacity;
 }
@@ -535,10 +552,10 @@
    Reglas copiadas de home.css (.testimonials, .review-card...)
    porque la landing no carga home.css. main.js -> loadReviews()
    rellena #reviews-container. Padding lateral neutralizado: ya
-   lo aporta .landing__inner.
+   lo aporta .landing.
 --------------------------------------------------------- */
 .landing-reviews.testimonials {
-    /* sin padding lateral (lo da .landing__inner) ni border-top */
+    /* sin padding lateral (lo da .landing) ni border-top */
     padding: 1rem 0 0;
     border-top: 0;
     margin-bottom: 5rem;
@@ -1208,3 +1225,523 @@
 /* ocultar atribuciones de MapLibre dentro del canvas */
 .area-map__canvas .maplibregl-ctrl-bottom-left,
 .area-map__canvas .maplibregl-ctrl-bottom-right { display: none; }
+
+/* ---------------------------------------------------------
+   AREA-QUOTE — índice de zona con formulario (zonas nuevas)
+   Formato pedido por Ramón (ago 2026). SOLO lo usan las zonas
+   listadas en QUOTE_ZONES del generador; las 3 zonas viejas
+   siguen con .area-index (template-area-index.html).
+
+   Layout desktop (igual al croquis):
+     col izq fila 1 -> texto + pills + trust
+     col der (2 filas) -> formulario sticky
+     col izq fila 2 -> foto de la zona
+   Mobile: se apila texto -> formulario -> foto (el form primero
+   a propósito: es el objetivo de la página).
+--------------------------------------------------------- */
+.area-quote__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+    grid-template-rows: auto auto;
+    column-gap: 3rem;
+    align-items: start;
+}
+
+.area-quote__main {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+}
+
+/* El h1 reusa .area-index__title; acá lo acotamos para que corte en 2-3
+   líneas y no barra todo el ancho de la columna izquierda. */
+.area-quote__main .area-index__title {
+    max-width: 22ch;
+}
+
+.area-quote__aside {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: 120px;
+}
+
+/* --- Trust badges (3 items con círculo + label) --- */
+.area-quote__trust {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    max-width: 46rem;
+}
+
+.area-quote__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.area-quote__trust-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--color-primary);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area-quote__trust-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.area-quote__trust-label {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* --- Foto de la zona (fila 2 de la columna izquierda) --- */
+.area-quote__photo {
+    grid-column: 1;
+    grid-row: 2;
+
+    margin: 2.5rem 0 0;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.area-quote__photo-picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.area-quote__photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Formulario --- */
+.area-quote__form {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 14px;
+    background-color: rgb(243, 242, 237);
+    padding: 1.9rem 1.6rem 1.6rem;
+}
+
+/* honeypot de Netlify: nunca visible */
+.area-quote__honeypot {
+    display: none;
+}
+
+.area-quote__form-tag {
+    align-self: flex-start;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    background-color: var(--color-primary);
+    color: rgb(230, 229, 224);
+
+    margin-bottom: 1.1rem;
+}
+
+.area-quote__form-title {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 1.8vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-primary);
+    margin: 0 0 0.4rem;
+}
+
+.area-quote__form-sub {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0 0 1.6rem;
+}
+
+.area-quote__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.15rem;
+}
+
+.area-quote__label {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* Inputs "underline", mismo lenguaje que el form de contact */
+.area-quote__input {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    color: inherit;
+
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgb(186, 186, 186);
+    border-radius: 0;
+
+    padding: 0.5rem 0;
+    outline: none;
+
+    transition: border-bottom-color 0.25s ease;
+}
+
+.area-quote__input::placeholder {
+    color: rgba(0, 0, 0, 0.35);
+}
+
+.area-quote__input:focus {
+    border-bottom-color: var(--color-primary);
+}
+
+.area-quote__select-wrap {
+    position: relative;
+}
+
+.area-quote__select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 1.75rem;
+    cursor: pointer;
+}
+
+.area-quote__select-wrap::after {
+    content: "";
+    position: absolute;
+    right: 0.35rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    margin-top: -7px;
+
+    border-right: 1.5px solid var(--color-primary);
+    border-bottom: 1.5px solid var(--color-primary);
+    transform: rotate(45deg);
+
+    pointer-events: none;
+}
+
+.area-quote__submit {
+    width: 100%;
+    margin-top: 0.9rem;
+    padding: 0.95rem 1.2rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: inherit;
+    cursor: pointer;
+}
+
+.area-quote__submit-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.area-quote__form-foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.55);
+    text-align: center;
+
+    margin: 1.1rem 0 0;
+}
+
+.area-quote__form-foot svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* --- Tablet: el form se achica pero sigue al lado --- */
+@media (max-width: 1200px) {
+    .area-quote__head {
+        column-gap: 2rem;
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    }
+
+    .area-quote__trust {
+        gap: 1.1rem;
+    }
+
+    .area-quote__trust-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .area-quote__trust-label {
+        font-size: 0.88rem;
+    }
+}
+
+/* --- Mobile: una columna, form antes que la foto --- */
+@media (max-width: 980px) {
+    .area-quote__head {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        row-gap: 2.5rem;
+    }
+
+    .area-quote__main,
+    .area-quote__aside,
+    .area-quote__photo {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .area-quote__aside {
+        position: static;
+    }
+
+    .area-quote__photo {
+        margin-top: 0;
+        aspect-ratio: 4 / 3;
+    }
+
+    /* los 3 trust badges pasan a filas apiladas */
+    .area-quote__trust {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .area-quote__trust-label {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .area-quote__form {
+        padding: 1.5rem 1.2rem 1.3rem;
+    }
+
+    .area-quote__trust-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .area-quote__trust-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .area-quote__photo {
+        aspect-ratio: 3 / 2;
+    }
+}
+
+/* ---------------------------------------------------------
+   AREA-LOCAL — índice de zona, modelo "hyperlocal"
+   Segundo modelo de Ramón (ago 2026). Sin formulario: el peso
+   lo llevan el badge de trabajos, el bloque "Local knowledge"
+   y un FAQ propio de la zona (reusa .landing-faq tal cual).
+   Comparte cáscara con .area-quote: ver template-area-shell.html.
+--------------------------------------------------------- */
+.area-local__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.area-local__main {
+    min-width: 0;
+}
+
+.area-local__main .area-index__title {
+    max-width: 22ch;
+}
+
+/* Badge circular con la cantidad de trabajos hechos en la zona */
+.area-local__badge {
+    flex-shrink: 0;
+
+    width: 160px;
+    height: 160px;
+    border: 1px solid var(--color-primary);
+    border-radius: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+}
+
+.area-local__badge-num {
+    font-family: "Inconsolata", monospace;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--color-primary);
+}
+
+.area-local__badge-label {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.35;
+    color: rgba(0, 0, 0, 0.55);
+    margin-top: 0.6rem;
+}
+
+/* Bloque "Local knowledge" */
+.area-local__knowledge {
+    /* card, no una banda a todo lo ancho: con items cortos, 1560px de
+       contenedor dejaban las 2 columnas demasiado separadas. */
+    max-width: 1100px;
+
+    margin-top: 3.5rem;
+    padding: 2rem;
+
+    background-color: rgb(243, 242, 237);
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 12px;
+}
+
+/* Mismo tratamiento que .landing-area__label (punto + mono en mayúsculas) */
+.area-local__knowledge-title {
+    margin: 0 0 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.area-local__knowledge-title::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(1px);
+}
+
+.area-local__knowledge-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.area-local__knowledge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2a2a2a;
+}
+
+.area-local__knowledge-item svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 0.2rem;
+
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* El FAQ de la zona: separado del bloque de arriba, pegado a la grilla de
+   servicios que viene después (esa ya trae su propio margin-top). */
+.area-local__faq {
+    margin-top: 3.5rem;
+    margin-bottom: 0;
+}
+
+@media (max-width: 980px) {
+    .area-local__head {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .area-local__knowledge {
+        margin-top: 2.5rem;
+        padding: 1.5rem;
+    }
+
+    .area-local__knowledge-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .area-local__badge {
+        width: 140px;
+        height: 140px;
+    }
+
+    .area-local__badge-num {
+        font-size: 2rem;
+    }
+
+    .area-local__knowledge {
+        padding: 1.25rem;
+    }
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function () {
+            var loaded = false;
+
+            var loadGtm = function () {
+                if (loaded) return;
+                loaded = true;
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != "dataLayer" ? "&l=" + l : "";
+                    j.async = true;
+                    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
+            };
+
+            // Carga en la primera interacción del usuario…
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
+                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            });
+
+            // …o como máximo 5s después del load (visitas sin interacción).
+            window.addEventListener("load", function () {
+                setTimeout(loadGtm, 5000);
+            }, { once: true });
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="css/footer.css">
+    </noscript>
+
+    <title>{{META_TITLE}}</title>
+
+    <meta name="description" content="{{META_DESCRIPTION}}">
+
+    <link rel="canonical" href="{{DOMAIN}}/{{SLUG}}">
+
+    <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+{{SCHEMA_BREADCRUMB}}
+    </script>
+</head>
+
+<body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+{{HEADER}}
+
+    <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
+
+    <main class="landing">
+        <div class="landing__inner">
+
+            <!-- Breadcrumb -->
+            <nav class="landing-breadcrumb" aria-label="Breadcrumb">
+                <ol class="landing-breadcrumb__list">
+                    <li class="landing-breadcrumb__item">
+                        <a class="landing-breadcrumb__link" href="index.html">Home</a>
+                    </li>
+                    <li class="landing-breadcrumb__item">
+                        <span class="landing-breadcrumb__current" aria-current="page">{{ZONE}}</span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Índice de zona, FORMATO QUICK QUOTE (zonas nuevas, ago 2026).
+                 A diferencia de template-area-index.html, este trae formulario
+                 propio en la columna derecha + trust badges + foto de la zona. -->
+            <section class="area-quote" aria-labelledby="area-quote-title">
+
+                <div class="area-quote__head">
+
+                    <div class="area-quote__main">
+                        <p class="landing-area__label">Areas of service &mdash; quick quote</p>
+
+                        <h1 id="area-quote-title" class="area-index__title">{{HEADLINE}}</h1>
+
+                        <p class="area-index__intro">{{INTRO}}</p>
+
+                        <!-- Localidades de la zona (pills). Sin links: no tienen
+                             página propia. Si se les crea, pasar a <a>. -->
+                        <ul class="landing-area__pills" aria-label="Areas we serve around {{ZONE}}">
+{{AREA_PILLS}}
+                        </ul>
+
+                        <ul class="area-quote__trust">
+{{TRUST_ITEMS}}
+                        </ul>
+                    </div>
+
+                    <aside class="area-quote__aside">
+                        <form class="area-quote__form" name="contact" method="post" action="/thanks.html"
+                            data-netlify="true" netlify-honeypot="bot-field">
+
+                            <input type="hidden" name="form-name" value="contact">
+                            <input type="hidden" name="source" value="{{ZONE}} — quick quote">
+
+                            <p class="area-quote__honeypot">
+                                <label>Don&rsquo;t fill this out: <input name="bot-field"></label>
+                            </p>
+
+                            <span class="area-quote__form-tag">Free quote</span>
+                            <h2 class="area-quote__form-title">Get a quote for {{ZONE}}</h2>
+                            <p class="area-quote__form-sub">Takes about 40 seconds. No obligation.</p>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-name">Name</label>
+                                <input class="area-quote__input" type="text" id="quote-name" name="name"
+                                    placeholder="Your name" autocomplete="name" required>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-suburb">Suburb</label>
+                                <input class="area-quote__input" type="text" id="quote-suburb" name="suburb"
+                                    value="{{ZONE}}" required>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-service">Service</label>
+                                <div class="area-quote__select-wrap">
+                                    <select class="area-quote__input area-quote__select" id="quote-service"
+                                        name="service">
+{{SERVICE_OPTIONS}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="area-quote__field">
+                                <label class="area-quote__label" for="quote-contact">Phone or email</label>
+                                <input class="area-quote__input" type="text" id="quote-contact" name="phone-or-email"
+                                    placeholder="Best way to reach you" required>
+                            </div>
+
+                            <button class="area-quote__submit btn" type="submit">
+                                <span class="btn-slot-mask"><span class="btn-slot-track"><span
+                                            class="btn-slot-row">SEND MY REQUEST</span><span
+                                            class="btn-slot-row">SEND MY REQUEST</span></span></span>
+                                <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt="" width="24" height="24"
+                                    class="area-quote__submit-icon btn-icon-rotate">
+                            </button>
+
+                            <p class="area-quote__form-foot">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M8.5 12.5l2.3 2.3L16 10" />
+                                </svg>
+                                No spam. We only call about your quote.
+                            </p>
+                        </form>
+                    </aside>
+
+{{PHOTO}}
+
+                </div>
+
+                <!-- Servicios de la zona -->
+                <div class="landing-links">
+                    <h2 class="landing-links__title">Our painting services in {{ZONE}}</h2>
+                    <ul class="landing-links__grid">
+{{SERVICE_LINKS}}
+                    </ul>
+                </div>
+
+                <!-- Otras zonas principales -->
+                <div class="area-index__other-zones"
+                    style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgb(210, 210, 210);">
+                    <p class="area-index__zones-label">Explore other areas:</p>
+                    <div class="area-index__zones" aria-label="Other service areas">
+{{OTHER_ZONE_LINKS}}
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+{{FOOTER}}
+
+    <script src="js/main.js" defer></script>
+
+</body>
+
+</html>
