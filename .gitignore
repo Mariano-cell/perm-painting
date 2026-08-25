@@ -20,3 +20,6 @@ ehthumbs.db
 
 # cache de los scripts de python
 __pycache__/
+
+# Fuente local de la imagen; el sitio usa el WebP optimizado.
+assets/photos/interior/interior_001.png

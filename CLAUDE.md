@@ -30,7 +30,8 @@ páginas de la raíz. Ojo con esto si se edita algo a mano.
 - `template-blog-index.html` / `template-blog-article.html` — los moldes.
 - `css/blog.css` — estilos propios. Las páginas del blog cargan
   `style.css + landing.css + blog.css + footer.css`: **landing.css se reusa a propósito**
-  (breadcrumb, `.landing__inner`, `.landing-area__label`, `.landing-cta`) para no duplicar reglas.
+  (`.landing__inner`, `.landing-area__label`, `.landing-cta`) para no duplicar reglas. El
+  breadcrumb compartido vive en `style.css`, porque también lo usan las páginas core.
 - `js/blog.js` — filtro por categoría, en el cliente. Las tarjetas están todas en el HTML
   (bien para SEO) y solo se esconden las que no matchean. Soporta `/blog/#exterior`.
 
@@ -83,6 +84,9 @@ OUR SERVICES / CONTACT). Como el footer se edita a mano archivo por archivo, se 
 - `scripts/generate-sitemap.py` — genera `sitemap.xml` + `robots.txt`.
 - `scripts/propagate-header.py` — propaga el header nuevo (con dropdowns) a las páginas que NO genera el script (index, about-us, our-services, contact.html y las 30 `contact/<slug>`).
 - `css/landing.css` — estilos propios de las landings/índices (las páginas viejas NO lo cargan; por eso varias reglas de home.css están copiadas acá: `.os-reveal`, `.why-perma`, `.hero__right--photo`, testimonials).
+- `css/style.css` — contiene el componente global `.landing-breadcrumb`. Todas las páginas
+  públicas salvo la home lo renderizan; `contact.html` es la fuente para las 30 páginas
+  locales, cuyo generador suma la localidad como último nivel.
 - CSS de los dropdowns del header: en `css/style.css` (lo cargan todas las páginas). JS del toggle mobile: en `js/main.js`.
 
 **Las 60 landings + 6 índices se generan, NO se editan a mano** (se pisan al regenerar). Correr tras cambiar template o datos:

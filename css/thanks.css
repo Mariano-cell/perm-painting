@@ -25,6 +25,10 @@
     padding-top: 1.8rem;
 }
 
+.thanks .landing-breadcrumb {
+    margin-bottom: 0;
+}
+
 .thanks__title {
     margin: 0;
 

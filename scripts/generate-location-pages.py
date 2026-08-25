@@ -137,6 +137,13 @@ def main() -> None:
             f'<h2 class="contact-form__title text-animate-in">{h2}</h2>',
         )
         page = page.replace(
+            '<span class="landing-breadcrumb__current" aria-current="page">Contact us</span>',
+            '<a class="landing-breadcrumb__link" href="/contact.html">Contact us</a>\n'
+            '                        </li>\n'
+            '                        <li class="landing-breadcrumb__item">\n'
+            f'                            <span class="landing-breadcrumb__current" aria-current="page">{loc}</span>',
+        )
+        page = page.replace(
             '<label for="message" class="contact-form__label-text">Write your message here</label>',
             f'<label for="message" class="contact-form__label-text">{label}</label>',
         )
