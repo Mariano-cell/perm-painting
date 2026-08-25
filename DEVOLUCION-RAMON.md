@@ -24,24 +24,6 @@ Documento de seguimiento para la tanda de landings recibida el 20 de agosto de 2
 - Confirmar que **“free quote in under a minute”** significa completar el formulario en menos de un minuto y no recibir una cotización final en ese plazo.
 - Verificar que los plazos orientativos de obra y curado presentes en las FAQ coincidan con la operatoria real antes de usarlos en campañas pagas.
 
-## Copy a validar — hub `/service-areas` (ago 2026)
-
-Se sumó una página general de cobertura, `/service-areas`, que organiza las seis zonas y
-reemplaza al dropdown "Areas of Service" del header. El texto es **provisorio**, redactado
-internamente a partir de las localidades que ya estaban cargadas. Pedir a Ramón:
-
-- **H1:** hoy dice "Painting services across the Northern Rivers and Tweed Coast".
-- **Meta description** de la página, general y sin priorizar una ciudad.
-- **Las seis descripciones de zona** (una o dos líneas cada una). Son deliberadamente
-  geográficas: no afirman cantidad de trabajos, antigüedad ni cobertura específica de
-  calles, para no publicar nada sin validar.
-- **Texto del CTA final:** "Not sure if we cover your street?".
-
-La página **no** intenta posicionar para keywords locales tipo "painters Ballina": esas
-siguen siendo de las landings locales. Si Ramón quiere cambiar ese criterio, conviene
-discutirlo antes de tocar el texto, porque es la misma decisión que motivó el noindex de
-las viejas `/contact/<localidad>`.
-
 ## Decisiones ya aplicadas
 
 - Se usó la última versión de contenido enviada el 20 de agosto para los 36 casos nuevos.

@@ -50,8 +50,8 @@
 
     <!-- OJO: rutas ABSOLUTAS. Estas páginas viven en /blog/, no en la raíz. -->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/landing.css?v=20260824-2">
-    <link rel="stylesheet" href="/css/blog.css?v=20260824-3">
+    <link rel="stylesheet" href="/css/landing.css?v=20260825-1">
+    <link rel="stylesheet" href="/css/blog.css?v=20260825-1">
     <link rel="stylesheet" href="/css/footer.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="/css/footer.css">
@@ -191,7 +191,20 @@
 
                         <li class="site-nav__item"><a class="site-nav__link" href="/blog/" aria-current="page">BLOG</a></li>
 
-                        <li class="site-nav__item"><a class="site-nav__link" href="/service-areas.html">SERVICE AREAS</a></li>
+                        <li class="site-nav__item site-nav__item--has-dropdown">
+                            <span class="site-nav__link-row">
+                                <a class="site-nav__link" href="/byron-bay.html">AREAS OF SERVICE</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle areas menu" aria-expanded="false">▾</button>
+                            </span>
+                            <ul class="site-nav__dropdown">
+                                <li><a class="site-nav__dropdown-link" href="/byron-bay.html">Byron Bay</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/ballina.html">Ballina</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/mullumbimby.html">Mullumbimby</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/kingscliff.html">Kingscliff</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/tweed-heads.html">Tweed Heads</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/lismore.html">Lismore</a></li>
+                            </ul>
+                        </li>
 
                         <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
                                 href="/contact.html">CONTACT</a></li>

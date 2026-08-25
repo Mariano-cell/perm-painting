@@ -73,8 +73,11 @@
 }
 
 .landing-hero__title {
+    /* Mismos atributos tipográficos que .why-perma__text de la home.
+       La única excepción intencional es la alineación a la izquierda. */
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
+    display: block;
     font-size: clamp(2rem, 4vw, 3.2rem);
     font-weight: 400;
     font-style: normal;
@@ -82,8 +85,9 @@
     letter-spacing: normal;
     text-align: left;
     max-width: 30ch;
-    margin: 0;
-    color: var(--color-primary);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #000;
 }
 
 .landing-hero__intro {

@@ -17,7 +17,7 @@ Existe `js/demo-scroll.js`, "desconectado" a propósito (ninguna página lo carg
 
 ## Blog (ago 2026)
 
-Pedido de Ramón. Es un link más del nav, entre OUR SERVICES y SERVICE AREAS.
+Pedido de Ramón. Es un link más del nav, entre OUR SERVICES y AREAS OF SERVICE.
 
 **URLs:** `/blog/` (índice) y `/blog/<slug>` (artículos). Viven en la carpeta `blog/`,
 así que **usan rutas ABSOLUTAS** (`/css/...`, `/assets/...`), a diferencia de las
@@ -95,81 +95,16 @@ python3 scripts/generate-landing-pages.py
 python3 scripts/generate-sitemap.py
 ```
 
-**Header (ago 2026):** un solo dropdown, OUR SERVICES (10 servicios → su página en Byron Bay, la zona principal). Desktop abre por hover; mobile por tap en `.site-nav__caret`. El dropdown de 6 zonas **ya no existe**: fue reemplazado por `SERVICE AREAS`, un link simple al hub `/service-areas` (ver más abajo). Los 5 items de nivel superior son ABOUT US · OUR SERVICES · BLOG · SERVICE AREAS · CONTACT, en ese orden, así que los `:nth-child(1..5)` de la cascada `fadeDropIn` en `css/style.css` **no cambian**. Está en todas las páginas, con rutas relativas en raíz y absolutas en `contact/` y `blog/`.
-
-**Fuentes del header (son dos, hay que mantenerlas iguales):**
-- `template-landing.html` → de ahí lo extraen con `_extract()` el generador de landings, el de índices de zona, el del hub y el del blog.
-- `build_nav()` en `scripts/propagate-header.py` → arma las variantes relativa y absoluta para el resto.
-
-Tras cambiar el nav: correr `generate-landing-pages.py`, `generate-blog-pages.py` y después `propagate-header.py` (su glob `REL_PAGES` pisa todo `.html` de la raíz que tenga el nav, incluidas las generadas).
+**Header con dropdowns:** OUR SERVICES (10 servicios → su página en Byron Bay, la zona principal) y AREAS OF SERVICE (6 zonas → su índice). Desktop abre por hover; mobile por tap en `.site-nav__caret`. Está en todas las páginas, con rutas relativas en raíz y absolutas en `contact/` y `blog/`. La cascada `fadeDropIn` tiene 5 items de nivel superior; sumar servicios o zonas dentro de los dropdowns no requiere nuevos `:nth-child`.
 
 **Índices por zona:** los tres originales conservan su modelo simple; Kingscliff usa el modelo `quote` y Tweed Heads/Lismore el modelo `local`. Todos enlazan los 10 servicios.
 
-**sitemap.xml:** incluye 60 landings, 6 índices, el hub `/service-areas`, core y blog (79 URLs con los 7 artículos actuales). NO incluye las 30 `/contact/<slug>` viejas.
+**sitemap.xml:** incluye 60 landings, 6 índices, core y blog (78 URLs con los 7 artículos actuales). NO incluye las 30 `/contact/<slug>` viejas.
 
 **PENDIENTES DEL CLIENTE (marcados en el código como provisorios/placeholder):**
 - ~~24 meta descriptions~~ → HECHO (jul 2026): cargadas en `META_DESCS` del generador con los textos de Ramón. Las 3 de los índices de zona las redactamos internamente (`AREA_META_DESCS`); si Ramón manda las suyas, reemplazar ahí.
 - ~~FAQs (3 por servicio, inventadas)~~ → HECHO (ago 2026): cargadas las de Ramón (PDF "Nuevas FAQ 27_7") en `FAQS` dentro de `generate-landing-pages.py`. **Cambió la estructura del dict:** antes estaba indexado por servicio (las 3 zonas compartían preguntas, con placeholder `{zone}`); ahora la llave es `(servicio, zona)` — mismo patrón que `META_DESCS` — porque las FAQs son únicas por página. Son 74 Q/A: 3 por página salvo interior y exterior de Ballina, que tienen 4 (así las mandó Ramón; el HTML y el CSS soportan N items sin tocar nada). El mismo dict alimenta el HTML visible y el schema FAQPage, así que editar ahí los mantiene en sync.
 - Fotos: por ahora las primeras 4 de cada carpeta de servicio; mismas 3 fotos por servicio en las 3 zonas (alt text cambia la zona).
-
-### HUB DE COBERTURA `/service-areas` (ago 2026)
-
-**Por qué existe.** "AREAS OF SERVICE" era un dropdown de 6 zonas en el nivel superior
-del nav: el header terminaba siendo un mapa de landings y la geografía competía con las
-acciones principales. Ahora hay una página que centraliza eso y el nav tiene un link
-simple.
-
-**La jerarquía es de tres niveles, y cada uno tiene UNA responsabilidad:**
-
-```
-/service-areas            elegir REGIÓN
-  └── /ballina            elegir SERVICIO dentro de Ballina
-        └── /exterior-painting-ballina    la landing comercial
-```
-
-**El hub NO pelea keywords locales.** No intenta posicionar para "painters Ballina":
-eso es de la landing local. Se posiciona como página general de cobertura y su función
-es distribuir autoridad. Mismo criterio anti-canibalización que llevó a noindexar las
-viejas `/contact/<slug>`, a dejar los índices de zona sin contenido propio y a titular
-Lismore como "Painters Lismore".
-
-**Archivos:**
-- `template-service-areas.html` — el molde. Head, header/footer por placeholder,
-  breadcrumb, label, H1, intro, grilla de tarjetas y CTA.
-- `generate_service_areas_page()` en `scripts/generate-landing-pages.py` — la genera.
-  Los datos están arriba de la función: `SERVICE_AREA_ORDER` (el orden de las 6 zonas)
-  y `SERVICE_AREA_BLURBS` (la descripción de cada una).
-- `css/service-areas.css` — SOLO la grilla de tarjetas (`.sa-grid` / `.sa-card`), que es
-  la única composición que no existía. Breadcrumb, label, título, intro y CTA se reusan
-  de `style.css` y `landing.css`.
-
-**`service-areas.html` se genera, NO se edita a mano.**
-
-**`SERVICE_AREA_ORDER` es una lista aparte a propósito**: no toca `ZONES` ni `NEW_ZONES`.
-Unificarlas cambiaría los crosslinks de las 30 landings de las zonas originales
-(`crosslinks_zones_html()` itera solo sobre `ZONES`).
-
-**Sin JS y sin mapa.** Las tarjetas son anchors HTML normales. El prototipo
-`prototypes/service-areas-atlas` (mapa de suburbios con datos de NSW Spatial Services)
-es un experimento aislado de Mariano y **no** forma parte de esta página; si algún día se
-integra, se evalúa aparte.
-
-**Breadcrumb de los 6 índices de zona:** pasó a ser `Home → Service Areas → <Zona>`, en el
-HTML visible y en el schema `BreadcrumbList`. Se tocaron `template-area-index.html` y
-`template-area-shell.html` más el schema en las dos funciones que generan índices.
-**El breadcrumb de las 60 landings NO se tocó**: sigue siendo `Home → Servicio → Zona`,
-que es deliberado (el servicio es la keyword).
-
-**Sección "Where We Work" en la home** (`index.html`, entre `our-services` y `why-perma`):
-6 links directos a los índices de zona + un link secundario al hub. Antes de esto la home
-no linkeaba ninguna zona fuera del nav. Los estilos están al final de `css/home.css`; se
-bumpeó el cache-buster a `home.css?v=9`. **`index.html` se edita a mano** (no lo genera
-ningún script), salvo el nav, que lo pisa `propagate-header.py`.
-
-**Copy PROVISORIO:** el H1, la meta description y las 6 descripciones de zona las
-redactamos internamente a partir de las localidades que ya estaban en `NEARBY` /
-`NEW_ZONE_DATA`. Son geográficas a propósito: sin cifras ni afirmaciones que haya que
-validar. Anotado en `DEVOLUCION-RAMON.md` para que Ramón mande las definitivas.
 
 ### ZONAS NUEVAS (ago 2026) — cáscara + un hero por modelo
 
@@ -217,6 +152,14 @@ template-area-shell.html          cáscara: head, header, breadcrumb,
 - **Los testimonios de los croquis no se publicaron** ("Strata Committee Member — Tweed Heads", "Homeowner — South Lismore"): decisión de Mariano, no se publica un testimonio que no sea real. Si llegan reviews reales de esas zonas, el lugar natural es el widget de reviews que ya usan las landings, no un texto hardcodeado.
 - **Title de Lismore:** el croquis decía "House Painters Lismore | Perma Painting", que chocaría con el `<title>` de `house-painters-lismore.html`. El índice usa "Painters Lismore", igual que las otras dos zonas nuevas.
 - Las tres zonas nuevas ya están en el dropdown "AREAS OF SERVICE" y en `sitemap.xml`.
+
+### Hub `/service-areas` (ago 2026)
+
+- `service-areas.html` es una página core estática; no la genera `generate-landing-pages.py`.
+- `css/service-areas.css` contiene su hero, el mapa integrado y la grilla de seis zonas.
+- El hero distribuye el bloque editorial completo (label, título y párrafo) a la izquierda y el mapa a la derecha.
+- El mapa reutiliza la lógica y los datos del prototipo en `prototypes/service-areas-atlas/`; si esos archivos se mueven, actualizar los tres `<script>` del final de `service-areas.html`.
+- `scripts/generate-sitemap.py` incluye `/service-areas` como página core.
 
 ### Assets temporales pendientes de reemplazo
 

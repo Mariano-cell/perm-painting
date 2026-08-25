@@ -7,7 +7,6 @@
     <script>
         (function () {
             var loaded = false;
-
             var loadGtm = function () {
                 if (loaded) return;
                 loaded = true;
@@ -23,12 +22,9 @@
                 })(window, document, "script", "dataLayer", "GTM-NPJJRLZB");
             };
 
-            // Carga en la primera interacción del usuario…
-            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (t) {
-                window.addEventListener(t, loadGtm, { passive: true, once: true });
+            ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (type) {
+                window.addEventListener(type, loadGtm, { passive: true, once: true });
             });
-
-            // …o como máximo 5s después del load (visitas sin interacción).
             window.addEventListener("load", function () {
                 setTimeout(loadGtm, 5000);
             }, { once: true });
@@ -40,16 +36,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&amp;family=Montserrat:wght@400..500&amp;display=swap"
         rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
         <link
-            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&family=Montserrat:wght@400..500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..700&amp;family=Montserrat:wght@400..500&amp;display=swap"
             rel="stylesheet">
     </noscript>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
     <link rel="stylesheet" href="css/service-areas.css">
     <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
     <noscript>
@@ -57,47 +54,41 @@
     </noscript>
 
     <title>Service Areas | Perma Painting</title>
-
     <meta name="description"
         content="Perma Painting is based in Byron Bay and works across the Northern Rivers and Tweed Coast. See the six areas we cover and the painting services available in each.">
-
     <link rel="canonical" href="https://permapainting.com.au/service-areas">
-
     <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
 
-    <!-- Schema: BreadcrumbList -->
     <script type="application/ld+json">
 {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-                {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "name": "Home",
-                        "item": "https://permapainting.com.au/"
-                },
-                {
-                        "@type": "ListItem",
-                        "position": 2,
-                        "name": "Service Areas"
-                }
-        ]
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://permapainting.com.au/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Service Areas"
+        }
+    ]
 }
     </script>
 </head>
 
 <body>
-
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPJJRLZB" height="0" width="0"
             style="display:none;visibility:hidden"></iframe>
     </noscript>
 
-<header class="site-header" aria-label="Header">
+    <header class="site-header" aria-label="Header">
         <div class="site-header__inner">
-
-            <a class="site-header__logo" href="index.html" aria-label="Go to homepage">
+            <a aria-label="Go to homepage" class="site-header__logo" href="/">
                 <img src="assets/isotipo/perma-grande/primario/iso1-verde.webp"
                     srcset="assets/isotipo/perma-grande/primario/iso1-verde-404.webp 404w, assets/isotipo/perma-grande/primario/iso1-verde-810.webp 810w, assets/isotipo/perma-grande/primario/iso1-verde.webp 1299w"
                     sizes="(max-width: 768px) 202px, 264px" alt="Perma Painting"
@@ -114,7 +105,6 @@
                     <img src="assets/iconos/hamburguer-close/icons8-menú-100.png" class="site-header__toggle-icon"
                         alt="" aria-hidden="true" width="50" height="50">
                 </div>
-
                 <span class="site-header__toggle-line" aria-hidden="true"></span>
                 <span class="site-header__toggle-line" aria-hidden="true"></span>
             </button>
@@ -122,37 +112,34 @@
             <nav class="site-nav" id="site-nav" aria-label="Main navigation">
                 <div class="site-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
                     <ul class="site-nav__list">
-                        <li class="site-nav__item"><a class="site-nav__link" href="about-us.html">ABOUT US</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="/about-us">ABOUT US</a></li>
 
                         <li class="site-nav__item site-nav__item--has-dropdown">
                             <span class="site-nav__link-row">
-                                <a class="site-nav__link" href="our-services.html">OUR SERVICES</a>
-                                <button class="site-nav__caret" type="button" aria-label="Toggle services menu" aria-expanded="false">▾</button>
+                                <a class="site-nav__link" href="/our-services">OUR SERVICES</a>
+                                <button class="site-nav__caret" type="button" aria-label="Toggle services menu"
+                                    aria-expanded="false">▾</button>
                             </span>
                             <ul class="site-nav__dropdown">
-                                <li><a class="site-nav__dropdown-link" href="house-painters-byron-bay.html">Residential</a></li>
-                                <li><a class="site-nav__dropdown-link" href="interior-painting-byron-bay.html">Interior</a></li>
-                                <li><a class="site-nav__dropdown-link" href="exterior-painting-byron-bay.html">Exterior</a></li>
-                                <li><a class="site-nav__dropdown-link" href="commercial-painters-byron-bay.html">Commercial</a></li>
-                                <li><a class="site-nav__dropdown-link" href="roof-painting-byron-bay.html">Roof</a></li>
-                                <li><a class="site-nav__dropdown-link" href="limewash-painting-byron-bay.html">Limewash</a></li>
-                                <li><a class="site-nav__dropdown-link" href="deck-painting-byron-bay.html">Decks</a></li>
-                                <li><a class="site-nav__dropdown-link" href="kitchen-cabinet-painting-byron-bay.html">Kitchen Cabinets</a></li>
-                                <li><a class="site-nav__dropdown-link" href="epoxy-floors-byron-bay.html">Epoxy Floors</a></li>
-                                <li><a class="site-nav__dropdown-link" href="lead-paint-removal-restoration-byron-bay.html">Lead Paint Removal &amp; Restoration</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/house-painters-byron-bay">Residential</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/interior-painting-byron-bay">Interior</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/exterior-painting-byron-bay">Exterior</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/commercial-painters-byron-bay">Commercial</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/roof-painting-byron-bay">Roof</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/limewash-painting-byron-bay">Limewash</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/deck-painting-byron-bay">Decks</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/kitchen-cabinet-painting-byron-bay">Kitchen Cabinets</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/epoxy-floors-byron-bay">Epoxy Floors</a></li>
+                                <li><a class="site-nav__dropdown-link" href="/lead-paint-removal-restoration-byron-bay">Lead Paint Removal &amp; Restoration</a></li>
                             </ul>
                         </li>
 
-                        <li class="site-nav__item"><a class="site-nav__link" href="blog/">BLOG</a></li>
-
-                        <li class="site-nav__item"><a class="site-nav__link" href="service-areas.html">SERVICE AREAS</a></li>
-
-                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
-                                href="contact.html">CONTACT</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="/blog/">BLOG</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="/service-areas">SERVICE AREAS</a></li>
+                        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta" href="/contact">CONTACT</a></li>
                     </ul>
                 </div>
             </nav>
-
         </div>
     </header>
 
@@ -160,12 +147,10 @@
 
     <main class="landing">
         <div class="landing__inner">
-
-            <!-- Breadcrumb -->
             <nav class="landing-breadcrumb" aria-label="Breadcrumb">
                 <ol class="landing-breadcrumb__list">
                     <li class="landing-breadcrumb__item">
-                        <a class="landing-breadcrumb__link" href="index.html">Home</a>
+                        <a class="landing-breadcrumb__link" href="/">Home</a>
                     </li>
                     <li class="landing-breadcrumb__item">
                         <span class="landing-breadcrumb__current" aria-current="page">Service Areas</span>
@@ -173,72 +158,126 @@
                 </ol>
             </nav>
 
-            <!-- Hub de cobertura geográfica.
-                 Responsabilidad: elegir REGIÓN. No lista los 10 servicios de cada
-                 zona (eso es el índice de zona) ni pelea keywords locales
-                 ("painters Ballina" es de la landing local). Solo distribuye. -->
             <section class="service-areas" aria-labelledby="service-areas-title">
+                <div class="service-areas__hero">
+                    <div class="service-areas__copy">
+                        <p class="landing-area__label">WHERE WE WORK</p>
 
-                <p class="landing-area__label">WHERE WE WORK</p>
+                        <h1 id="service-areas-title" class="why-perma__text service-areas__title">Painting services across the Northern
+                            Rivers and Tweed Coast</h1>
 
-                <h1 id="service-areas-title" class="area-index__title">Painting services across the Northern Rivers and
-                    Tweed Coast</h1>
+                        <p class="area-index__intro">Perma Painting is based in Byron Bay and works across six main
+                            areas of the Northern Rivers and the Tweed Coast. Pick the one closest to you to see the
+                            painting services we offer there.</p>
+                    </div>
 
-                <p class="area-index__intro">Perma Painting is based in Byron Bay and works across six main areas of the
-                    Northern Rivers and the Tweed Coast. Pick the one closest to you to see the painting services we
-                    offer there.</p>
+                    <div class="service-areas__visual">
+                        <div class="service-atlas service-areas__atlas" data-service-atlas
+                            aria-label="Perma Painting service areas" aria-describedby="service-areas-map-caption">
+                            <div class="service-atlas__layout">
+                            <div class="atlas-stage">
+                                <div class="atlas-map-card">
+                                    <div class="atlas-map" id="service-areas-map" data-atlas-map role="img"
+                                        aria-label="Interactive grey map of Australia and the Northern Rivers highlighting Perma Painting service localities"></div>
+
+                                    <div class="atlas-map-loader" data-map-loader>
+                                        <span></span>
+                                        <p>Loading the grey map of Australia…</p>
+                                    </div>
+
+                                    <aside class="atlas-directory" aria-label="Service locality directory"
+                                        aria-hidden="true" inert>
+                                        <div class="atlas-search">
+                                            <div class="atlas-search__field">
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <circle cx="11" cy="11" r="6.5"></circle>
+                                                    <path d="m16 16 4.2 4.2"></path>
+                                                </svg>
+                                                <input id="atlas-search-input" data-atlas-search type="search"
+                                                    aria-label="Find a locality" placeholder="Find a locality"
+                                                    autocomplete="off" spellcheck="false">
+                                            </div>
+                                        </div>
+
+                                        <div class="atlas-directory__list" data-region-list></div>
+                                        <p class="atlas-directory__empty" data-empty-state hidden>No matching place in
+                                            this coverage list.</p>
+                                    </aside>
+                                </div>
+                            </div>
+                        </div>
+
+                            <noscript>
+                                <p class="service-atlas__noscript">This exploratory map needs JavaScript to render its
+                                    local data.</p>
+                            </noscript>
+                        </div>
+
+                        <p class="service-areas__atlas-caption" id="service-areas-map-caption">Map of all service areas
+                            covered by Perma Painting.</p>
+                    </div>
+                </div>
 
                 <ul class="sa-grid">
                     <li>
-                        <a class="sa-card" href="byron-bay.html">
+                        <a class="sa-card" href="/byron-bay">
                             <h2 class="sa-card__name">Byron Bay</h2>
-                            <p class="sa-card__desc">Our home base — the town centre, the surrounding beaches and out into the hinterland.</p>
+                            <p class="sa-card__desc">Our home base — the town centre, the surrounding beaches and out
+                                into the hinterland.</p>
                             <p class="sa-card__nearby">Suffolk Park · Brunswick Heads · Bangalow · Lennox Head</p>
-                            <span class="sa-card__cta">Explore services in Byron Bay<span class="sa-card__arrow" aria-hidden="true">→</span></span>
+                            <span class="sa-card__cta">Explore services in Byron Bay<span class="sa-card__arrow"
+                                    aria-hidden="true">→</span></span>
                         </a>
                     </li>
                     <li>
-                        <a class="sa-card" href="ballina.html">
+                        <a class="sa-card" href="/ballina">
                             <h2 class="sa-card__name">Ballina</h2>
-                            <p class="sa-card__desc">The Richmond River area, from the Ballina town centre out to the coast.</p>
+                            <p class="sa-card__desc">The Richmond River area, from the Ballina town centre out to the
+                                coast.</p>
                             <p class="sa-card__nearby">East Ballina · South Ballina · Lennox Head · Wardell</p>
-                            <span class="sa-card__cta">Explore services in Ballina<span class="sa-card__arrow" aria-hidden="true">→</span></span>
+                            <span class="sa-card__cta">Explore services in Ballina<span class="sa-card__arrow"
+                                    aria-hidden="true">→</span></span>
                         </a>
                     </li>
                     <li>
-                        <a class="sa-card" href="mullumbimby.html">
+                        <a class="sa-card" href="/mullumbimby">
                             <h2 class="sa-card__name">Mullumbimby</h2>
-                            <p class="sa-card__desc">The hinterland town and the coastal villages just north of Byron Bay.</p>
+                            <p class="sa-card__desc">The hinterland town and the coastal villages just north of Byron
+                                Bay.</p>
                             <p class="sa-card__nearby">Brunswick Heads · Ocean Shores · Federal · Myocum</p>
-                            <span class="sa-card__cta">Explore services in Mullumbimby<span class="sa-card__arrow" aria-hidden="true">→</span></span>
+                            <span class="sa-card__cta">Explore services in Mullumbimby<span class="sa-card__arrow"
+                                    aria-hidden="true">→</span></span>
                         </a>
                     </li>
                     <li>
-                        <a class="sa-card" href="kingscliff.html">
+                        <a class="sa-card" href="/kingscliff">
                             <h2 class="sa-card__name">Kingscliff</h2>
                             <p class="sa-card__desc">The Tweed Coast beaches and the farmland just behind them.</p>
                             <p class="sa-card__nearby">Casuarina · Salt Village · Cudgen · Chinderah</p>
-                            <span class="sa-card__cta">Explore services in Kingscliff<span class="sa-card__arrow" aria-hidden="true">→</span></span>
+                            <span class="sa-card__cta">Explore services in Kingscliff<span class="sa-card__arrow"
+                                    aria-hidden="true">→</span></span>
                         </a>
                     </li>
                     <li>
-                        <a class="sa-card" href="tweed-heads.html">
+                        <a class="sa-card" href="/tweed-heads">
                             <h2 class="sa-card__name">Tweed Heads</h2>
                             <p class="sa-card__desc">The NSW–QLD border area, from the coast back to the ridge.</p>
                             <p class="sa-card__nearby">Banora Point · Terranora · Bilambil · Tweed Heads South</p>
-                            <span class="sa-card__cta">Explore services in Tweed Heads<span class="sa-card__arrow" aria-hidden="true">→</span></span>
+                            <span class="sa-card__cta">Explore services in Tweed Heads<span class="sa-card__arrow"
+                                    aria-hidden="true">→</span></span>
                         </a>
                     </li>
                     <li>
-                        <a class="sa-card" href="lismore.html">
+                        <a class="sa-card" href="/lismore">
                             <h2 class="sa-card__name">Lismore</h2>
-                            <p class="sa-card__desc">The inland hub of the Northern Rivers and the suburbs around it.</p>
+                            <p class="sa-card__desc">The inland hub of the Northern Rivers and the suburbs around it.
+                            </p>
                             <p class="sa-card__nearby">Goonellabah · East Lismore · North Lismore · South Lismore</p>
-                            <span class="sa-card__cta">Explore services in Lismore<span class="sa-card__arrow" aria-hidden="true">→</span></span>
+                            <span class="sa-card__cta">Explore services in Lismore<span class="sa-card__arrow"
+                                    aria-hidden="true">→</span></span>
                         </a>
                     </li>
                 </ul>
-
             </section>
 
             <section class="landing-cta" aria-labelledby="service-areas-cta-title">
@@ -246,74 +285,67 @@
                 <p class="landing-cta__text">Tell us where you are and what you need painted. We'll let you know if
                     you're in our patch and send through a free quote.</p>
 
-                <a class="landing-cta__button btn" href="contact.html" aria-label="GET IN TOUCH">
-                    <span class="btn-slot-mask"><span class="btn-slot-track"><span
-                                class="btn-slot-row">GET IN TOUCH</span><span
-                                class="btn-slot-row">GET IN TOUCH</span></span></span>
+                <a aria-label="GET IN TOUCH" class="landing-cta__button btn" href="/contact">
+                    <span class="btn-slot-mask"><span class="btn-slot-track"><span class="btn-slot-row">GET IN
+                                TOUCH</span><span class="btn-slot-row">GET IN TOUCH</span></span></span>
                     <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
                         class="landing-cta__button-icon btn-icon-rotate">
                 </a>
             </section>
-
         </div>
     </main>
 
-<footer class="site-footer" aria-label="Footer">
-
-        <!-- MOBILE FOOTER -->
+    <footer class="site-footer" aria-label="Footer">
         <div class="site-footer__mobile" aria-label="Footer mobile layout">
-
             <div class="site-footer__mobile-info">
                 <p class="site-footer__item">Byron&nbsp;&nbsp;Bay,&nbsp;&nbsp;NSW.</p>
                 <p class="site-footer__item">License&nbsp;&nbsp;number:&nbsp;&nbsp;477691C</p>
                 <p class="site-footer__item">ABN:&nbsp;&nbsp;37449591410</p>
-
                 <a class="site-footer__item"
                     href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
                 <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
-                <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+                <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank"
+                    rel="noopener">Instagram</a>
             </div>
 
             <div class="site-footer__mobile-main">
-                <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
+                <a aria-label="Go to homepage" class="site-footer__logo" href="/">
                     <img class="site-footer__logo-img site-footer__logo-img--mobile"
                         src="assets/isotipo/p-painting/ppainting-verde-cropped.webp" alt="Perma Painting logo"
-                        width="240" height="240" loading="lazy" />
+                        width="240" height="240" loading="lazy">
                 </a>
 
                 <nav class="site-footer__mobile-links" aria-label="Footer navigation mobile">
-                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
-                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
-                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                    <a class="site-footer__item" href="/about-us">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/our-services">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="/contact">CONTACT</a>
                 </nav>
             </div>
-
         </div>
 
-
         <div class="site-footer__inner">
-
-            <!-- ROW 1 -->
             <div class="site-footer__row site-footer__row--top">
-
                 <div class="site-footer__col site-footer__col--logo">
-                    <a class="site-footer__logo" href="index.html" aria-label="Go to homepage">
-                        <img class="site-footer__logo-img" src="assets/isotipo/p-painting/ppainting-verde-cropped.webp"
-                            alt="Perma Painting logo" width="120" height="120" loading="lazy" />
+                    <a aria-label="Go to homepage" class="site-footer__logo" href="/">
+                        <img class="site-footer__logo-img"
+                            src="assets/isotipo/p-painting/ppainting-verde-cropped.webp" alt="Perma Painting logo"
+                            width="120" height="120" loading="lazy">
                     </a>
                 </div>
 
                 <nav class="site-footer__col site-footer__col--links" aria-label="Footer navigation">
-                    <a class="site-footer__item" href="about-us.html">ABOUT&nbsp;&nbsp;US</a>
-                    <a class="site-footer__item" href="our-services.html">OUR&nbsp;&nbsp;SERVICES</a>
-                    <a class="site-footer__item" href="contact.html">CONTACT</a>
+                    <a class="site-footer__item" href="/about-us">ABOUT&nbsp;&nbsp;US</a>
+                    <a class="site-footer__item" href="/our-services">OUR&nbsp;&nbsp;SERVICES</a>
+                    <a class="site-footer__item" href="/contact">CONTACT</a>
                 </nav>
 
                 <div class="site-footer__col site-footer__col--contact" aria-label="Contact information">
                     <a class="site-footer__item"
                         href="tel:+61433526530">+61&nbsp;&nbsp;433&nbsp;&nbsp;526&nbsp;&nbsp;530</a>
-                    <a class="site-footer__item" href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
-                    <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank" rel="noopener">Instagram</a>
+                    <a class="site-footer__item"
+                        href="mailto:info@permapainting.com.au">info@permapainting.com.au</a>
+                    <a class="site-footer__item" href="https://www.instagram.com/permapainting/" target="_blank"
+                        rel="noopener">Instagram</a>
                 </div>
 
                 <div class="site-footer__col site-footer__col--licenses" aria-label="Business details">
@@ -323,24 +355,21 @@
                 </div>
             </div>
 
-            <!-- ROW 2 -->
             <div class="site-footer__row site-footer__row--bottom">
                 <p class="site-footer__meta">PERMA Painting &copy; 2026</p>
-
                 <div class="site-footer__badge" aria-label="NSW Fair Trading">
                     <img class="site-footer__badge-img" src="assets/logos-empresas/nsw-government.svg"
-                        alt="NSW Fair Trading" width="600" height="265" loading="lazy" />
+                        alt="NSW Fair Trading" width="600" height="265" loading="lazy">
                 </div>
-
                 <p class="site-footer__credit">SITE BY <br>MARIANO RICHARDS</p>
             </div>
-
         </div>
-
     </footer>
 
+    <script src="prototypes/service-areas-atlas/assets/service-areas-data.js" defer></script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+    <script src="prototypes/service-areas-atlas/service-areas-atlas.js" defer></script>
     <script src="js/main.js?v=20260824" defer></script>
-
 </body>
 
 </html>

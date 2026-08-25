@@ -11,8 +11,11 @@
    Cabecera del índice
 --------------------------------------------------------- */
 .blog-head__title {
+    /* Mismos atributos tipográficos que .why-perma__text de la home.
+       La única excepción intencional es la alineación a la izquierda. */
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
+    display: block;
     font-weight: 400;
     font-style: normal;
     font-size: clamp(2rem, 4vw, 3.2rem);
@@ -20,9 +23,10 @@
     letter-spacing: normal;
     text-transform: none;
     text-align: left;
-    margin: 0 0 1.25rem;
-    color: var(--color-primary);
     max-width: 30ch;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #000;
 }
 
 .blog-head__intro {
