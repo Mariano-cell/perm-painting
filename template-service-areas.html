@@ -50,16 +50,18 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/service-areas.css">
     <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="css/footer.css">
     </noscript>
 
-    <title>Painting Services in {{ZONE}} | Perma Painting</title>
+    <title>Service Areas | Perma Painting</title>
 
-    <meta name="description" content="{{META_DESCRIPTION}}">
+    <meta name="description"
+        content="Perma Painting is based in Byron Bay and works across the Northern Rivers and Tweed Coast. See the six areas we cover and the painting services available in each.">
 
-    <link rel="canonical" href="{{DOMAIN}}/{{SLUG}}">
+    <link rel="canonical" href="{{DOMAIN}}/service-areas">
 
     <link rel="icon" type="image/png" href="assets/isotipo/p/p-verde.png">
 
@@ -90,55 +92,44 @@
                         <a class="landing-breadcrumb__link" href="index.html">Home</a>
                     </li>
                     <li class="landing-breadcrumb__item">
-                        <a class="landing-breadcrumb__link" href="service-areas.html">Service Areas</a>
-                    </li>
-                    <li class="landing-breadcrumb__item">
-                        <span class="landing-breadcrumb__current" aria-current="page">{{ZONE}}</span>
+                        <span class="landing-breadcrumb__current" aria-current="page">Service Areas</span>
                     </li>
                 </ol>
             </nav>
 
-            <!-- Índice de zona: solo título + links a los 8 servicios.
-                 Sin contenido propio (para no canibalizar las landings). -->
-            <section class="area-index" aria-labelledby="area-index-title">
+            <!-- Hub de cobertura geográfica.
+                 Responsabilidad: elegir REGIÓN. No lista los 10 servicios de cada
+                 zona (eso es el índice de zona) ni pelea keywords locales
+                 ("painters Ballina" es de la landing local). Solo distribuye. -->
+            <section class="service-areas" aria-labelledby="service-areas-title">
 
-                <!-- Cabecera: texto a la izq + (en Byron Bay) mapa de zonas a la der.
-                     El bloque del mapa queda vacío en las zonas sin mapa. -->
-                <div class="area-index__head">
+                <p class="landing-area__label">WHERE WE WORK</p>
 
-                    <div class="area-index__head-text">
-                        <p class="landing-area__label">AREAS OF SERVICE</p>
-                        <h1 id="area-index-title" class="area-index__title">Painting in {{ZONE}} and surrounds</h1>
+                <h1 id="service-areas-title" class="area-index__title">Painting services across the Northern Rivers and
+                    Tweed Coast</h1>
 
-                        <p class="area-index__intro">We work across {{ZONE}} and the nearby coastal and hinterland
-                            communities. Here are the areas we cover:</p>
+                <p class="area-index__intro">Perma Painting is based in Byron Bay and works across six main areas of the
+                    Northern Rivers and the Tweed Coast. Pick the one closest to you to see the painting services we
+                    offer there.</p>
 
-                        <!-- 1) Localidades de la zona (pills). Sin links por ahora:
-                             no tienen página propia. Si se les crea, pasar a <a>. -->
-                        <ul class="landing-area__pills" aria-label="Areas we serve around {{ZONE}}">
-{{AREA_PILLS}}
-                        </ul>
-                    </div>
+                <ul class="sa-grid">
+{{ZONE_CARDS}}
+                </ul>
 
-{{AREA_MAP}}
-                </div>
+            </section>
 
-                <!-- 2) Servicios de la zona (abajo, como complemento). -->
-                <div class="landing-links" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgb(210, 210, 210);">
-                    <h2 class="landing-links__title">Our painting services in {{ZONE}}</h2>
-                    <ul class="landing-links__grid">
-{{SERVICE_LINKS}}
-                    </ul>
-                </div>
+            <section class="landing-cta" aria-labelledby="service-areas-cta-title">
+                <h2 id="service-areas-cta-title" class="landing-cta__title">Not sure if we cover your street?</h2>
+                <p class="landing-cta__text">Tell us where you are and what you need painted. We'll let you know if
+                    you're in our patch and send through a free quote.</p>
 
-                <!-- 3) Otras zonas principales (mini-sección propia, al final). -->
-                <div class="area-index__other-zones" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgb(210, 210, 210);">
-                    <p class="area-index__zones-label">Explore other areas:</p>
-                    <div class="area-index__zones" aria-label="Other service areas">
-{{OTHER_ZONE_LINKS}}
-                    </div>
-                </div>
-
+                <a class="landing-cta__button btn" href="contact.html" aria-label="GET IN TOUCH">
+                    <span class="btn-slot-mask"><span class="btn-slot-track"><span
+                                class="btn-slot-row">GET IN TOUCH</span><span
+                                class="btn-slot-row">GET IN TOUCH</span></span></span>
+                    <img src="assets/iconos/icons8-flecha-diagonal-24.png" alt=""
+                        class="landing-cta__button-icon btn-icon-rotate">
+                </a>
             </section>
 
         </div>
@@ -146,7 +137,6 @@
 
 {{FOOTER}}
 
-{{AREA_MAP_SCRIPT}}
     <script src="js/main.js?v=20260824" defer></script>
 
 </body>

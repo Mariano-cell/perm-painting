@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Propaga el header nuevo (con dropdowns OUR SERVICES / AREAS OF SERVICE)
+Propaga el header nuevo (dropdown OUR SERVICES + link SERVICE AREAS)
 a las páginas que NO genera generate-landing-pages.py.
 
 Reemplaza el bloque <nav class="site-nav">...</nav> por el nav nuevo,
@@ -77,20 +77,7 @@ def build_nav(prefix: str) -> str:
 
                         <li class="site-nav__item"><a class="site-nav__link" href="{p}blog/">BLOG</a></li>
 
-                        <li class="site-nav__item site-nav__item--has-dropdown">
-                            <span class="site-nav__link-row">
-                                <a class="site-nav__link" href="{p}byron-bay.html">AREAS OF SERVICE</a>
-                                <button class="site-nav__caret" type="button" aria-label="Toggle areas menu" aria-expanded="false">▾</button>
-                            </span>
-                            <ul class="site-nav__dropdown">
-                                <li><a class="site-nav__dropdown-link" href="{p}byron-bay.html">Byron Bay</a></li>
-                                <li><a class="site-nav__dropdown-link" href="{p}ballina.html">Ballina</a></li>
-                                <li><a class="site-nav__dropdown-link" href="{p}mullumbimby.html">Mullumbimby</a></li>
-                                <li><a class="site-nav__dropdown-link" href="{p}kingscliff.html">Kingscliff</a></li>
-                                <li><a class="site-nav__dropdown-link" href="{p}tweed-heads.html">Tweed Heads</a></li>
-                                <li><a class="site-nav__dropdown-link" href="{p}lismore.html">Lismore</a></li>
-                            </ul>
-                        </li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="{p}service-areas.html">SERVICE AREAS</a></li>
 
                         <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
                                 href="{p}contact.html">CONTACT</a></li>

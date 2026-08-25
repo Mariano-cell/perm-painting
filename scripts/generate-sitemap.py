@@ -7,6 +7,7 @@ Incluye SOLO la estrategia nueva + páginas core:
 - 6 índices por zona (AREAS OF SERVICE)
 - el blog: /blog/ + un artículo por cada .html de la carpeta blog/
 - core: home, about-us, our-services, contact
+- el hub /service-areas
 
 OJO: las URLs del blog salen de leer la carpeta blog/, así que correr
 generate-blog-pages.py ANTES que este script.
@@ -59,6 +60,12 @@ def main() -> None:
     urls.append(url_entry(f"{DOMAIN}/about-us", "0.6"))
     urls.append(url_entry(f"{DOMAIN}/our-services", "0.7"))
     urls.append(url_entry(f"{DOMAIN}/contact.html", "0.7"))
+
+    # Hub de cobertura geográfica. Misma prioridad que /our-services: son los
+    # dos hubs del sitio. Deliberadamente POR DEBAJO de los índices de zona
+    # (0.8) y de las landings (0.9): el hub distribuye, no compite por
+    # keywords locales.
+    urls.append(url_entry(f"{DOMAIN}/service-areas", "0.7"))
 
     # Índices por zona (prioridad media-alta: son hubs)
     for z in ZONES:

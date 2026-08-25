@@ -377,10 +377,13 @@ AREA_META_DESCS = {
 # siguen con template-area-index.html.
 #
 # OJO: estas zonas NO están en ZONES a propósito. Meterlas ahí regeneraría
-# las 24 landings existentes con crosslinks nuevos (y habría que propagar el
-# header). Cuando se decida sumarlas al dropdown "AREAS OF SERVICE" hay que
-# correr propagate-header.py y revisar los :nth-child de fadeDropIn en
-# style.css (están tuneados para 4 items de nav).
+# las 30 landings existentes con crosslinks nuevos (y habría que propagar el
+# header).
+#
+# ago 2026: el dropdown "AREAS OF SERVICE" ya no existe — el nav tiene un link
+# simple a /service-areas. Sumar una zona nueva ya no toca el header: alcanza
+# con darla de alta acá y en SERVICE_AREA_ORDER (el hub). Los :nth-child de
+# fadeDropIn en style.css están tuneados para los 5 items de nivel superior.
 NEW_ZONES = ["Kingscliff", "Tweed Heads", "Lismore"]
 
 AREA_HERO_TEMPLATES = {
@@ -1302,6 +1305,7 @@ def main() -> None:
 
     generate_area_indexes()
     generate_new_area_indexes()
+    generate_service_areas_page()
 
 
 # ---------------------------------------------------------------------------
@@ -1407,7 +1411,8 @@ def generate_area_indexes() -> None:
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{DOMAIN}/"},
-                {"@type": "ListItem", "position": 2, "name": zone},
+                {"@type": "ListItem", "position": 2, "name": "Service Areas", "item": f"{DOMAIN}/service-areas"},
+                {"@type": "ListItem", "position": 3, "name": zone},
             ],
         }, indent=8, ensure_ascii=False)
 
@@ -1571,7 +1576,8 @@ def generate_new_area_indexes() -> None:
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{DOMAIN}/"},
-                {"@type": "ListItem", "position": 2, "name": zone},
+                {"@type": "ListItem", "position": 2, "name": "Service Areas", "item": f"{DOMAIN}/service-areas"},
+                {"@type": "ListItem", "position": 3, "name": zone},
             ],
         }, indent=8, ensure_ascii=False)
 
@@ -1638,6 +1644,95 @@ def generate_new_area_indexes() -> None:
         print(f"  ✓ {slug}.html (índice de zona — modelo {model})")
 
     print(f"{len(NEW_ZONES)} índice(s) de zona nuevos generados.")
+
+
+# ---------------------------------------------------------------------------
+# HUB DE COBERTURA — /service-areas  (ago 2026)
+#
+# Página general que organiza las 6 zonas. Su responsabilidad es elegir
+# REGIÓN, nada más:
+#
+#   /service-areas          -> elegir región
+#   /ballina                -> elegir servicio dentro de Ballina
+#   /exterior-painting-...  -> la landing comercial del servicio local
+#
+# NO lista los 10 servicios dentro de cada tarjeta (eso ya lo hace el índice
+# de zona) y NO pelea keywords locales tipo "painters Ballina": esas son de
+# la landing local. Mismo criterio anti-canibalización que llevó a noindexar
+# las viejas /contact/<slug> y a titular Lismore como "Painters Lismore".
+#
+# OJO: usa su propia lista ordenada, NO toca ZONES ni NEW_ZONES. Unificarlas
+# cambiaría los crosslinks de las 30 landings de las zonas originales.
+# ---------------------------------------------------------------------------
+
+SERVICE_AREA_ORDER = [
+    "Byron Bay", "Ballina", "Mullumbimby", "Kingscliff", "Tweed Heads", "Lismore",
+]
+
+# PROVISORIO: descripciones redactadas internamente (ago 2026) a partir de las
+# localidades que ya estaban en NEARBY / NEW_ZONE_DATA. Son geográficas a
+# propósito: sin cifras, sin promesas y sin afirmaciones que haya que validar.
+# Anotado en DEVOLUCION-RAMON.md para que Ramón mande las definitivas.
+SERVICE_AREA_BLURBS = {
+    "Byron Bay":   "Our home base — the town centre, the surrounding beaches and out into the hinterland.",
+    "Ballina":     "The Richmond River area, from the Ballina town centre out to the coast.",
+    "Mullumbimby": "The hinterland town and the coastal villages just north of Byron Bay.",
+    "Kingscliff":  "The Tweed Coast beaches and the farmland just behind them.",
+    "Tweed Heads": "The NSW\u2013QLD border area, from the coast back to the ridge.",
+    "Lismore":     "The inland hub of the Northern Rivers and the suburbs around it.",
+}
+
+
+def service_area_cards_html() -> str:
+    """Las 6 tarjetas del hub. La tarjeta entera es el link a la zona."""
+    rows = []
+    for zone in SERVICE_AREA_ORDER:
+        slug = slugify(zone)
+        name = html_lib.escape(zone)
+        blurb = html_lib.escape(SERVICE_AREA_BLURBS[zone])
+        nearby = " \u00b7 ".join(html_lib.escape(n) for n in nearby_of(zone))
+        rows.append(
+            f'                    <li>\n'
+            f'                        <a class="sa-card" href="{slug}.html">\n'
+            f'                            <h2 class="sa-card__name">{name}</h2>\n'
+            f'                            <p class="sa-card__desc">{blurb}</p>\n'
+            f'                            <p class="sa-card__nearby">{nearby}</p>\n'
+            f'                            <span class="sa-card__cta">Explore services in {name}'
+            f'<span class="sa-card__arrow" aria-hidden="true">\u2192</span></span>\n'
+            f'                        </a>\n'
+            f'                    </li>'
+        )
+    return "\n".join(rows)
+
+
+def generate_service_areas_page() -> None:
+    landing = TEMPLATE.read_text(encoding="utf-8")
+    header = _extract('<header class="site-header"', "</header>", landing)
+    footer = _extract('<footer class="site-footer"', "</footer>", landing)
+
+    template = (ROOT / "template-service-areas.html").read_text(encoding="utf-8")
+
+    breadcrumb = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": "Service Areas"},
+        ],
+    }, indent=8, ensure_ascii=False)
+
+    page = template
+    page = page.replace("{{HEADER}}", header)
+    page = page.replace("{{FOOTER}}", footer)
+    page = page.replace("{{ZONE_CARDS}}", service_area_cards_html())
+    page = page.replace("{{SCHEMA_BREADCRUMB}}", breadcrumb)
+    page = page.replace("{{DOMAIN}}", DOMAIN)
+
+    if "{{" in page:
+        raise SystemExit("ERROR: quedaron placeholders sin reemplazar en service-areas.html")
+
+    (ROOT / "service-areas.html").write_text(page, encoding="utf-8")
+    print("  \u2713 service-areas.html (hub de cobertura)")
 
 
 if __name__ == "__main__":

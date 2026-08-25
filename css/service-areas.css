@@ -1,0 +1,118 @@
+/* =========================================================
+   /service-areas — hub de cobertura geográfica
+   =========================================================
+   Solo la grilla de tarjetas de zona: es la única composición
+   que no existía. Todo lo demás (breadcrumb, label, título,
+   intro, CTA) se reusa de style.css y landing.css.
+   ========================================================= */
+
+.sa-grid {
+    display: grid;
+    /* Tope de 3 columnas: con 6 zonas queda 3x2 exacto. Con auto-fill
+       entraban 4 en desktop ancho y sobraba una fila de 2. */
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+}
+
+@media (min-width: 600px) {
+    .sa-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1000px) {
+    .sa-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* La tarjeta entera es el link: un solo destino, área de click grande
+   y un único elemento focuseable por zona. */
+.sa-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.6rem 1.5rem 1.4rem;
+
+    border: 1px solid rgb(186, 186, 186);
+    border-radius: 6px;
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.sa-card:hover,
+.sa-card:focus-visible {
+    background-color: rgba(116, 167, 176, 0.1);
+    border-color: var(--color-primary);
+}
+
+.sa-card__name {
+    font-family: "Inconsolata", monospace;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    margin: 0 0 0.75rem;
+    color: var(--color-primary);
+}
+
+.sa-card__desc {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+    color: #2a2a2a;
+}
+
+/* Localidades cercanas: texto plano, sin links (no tienen página propia). */
+.sa-card__nearby {
+    font-family: "Inconsolata", monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1.5rem;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+/* Empuja el CTA al pie de la tarjeta para que las 6 queden alineadas. */
+.sa-card__cta {
+    display: block;
+    margin-top: auto;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: var(--color-primary);
+}
+
+/* inline-block y no flex: si el nombre de la zona hace wrap, la flecha
+   acompaña a la última palabra en vez de centrarse en las dos líneas. */
+.sa-card__arrow {
+    display: inline-block;
+    margin-left: 0.5rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sa-card:hover .sa-card__arrow,
+.sa-card:focus-visible .sa-card__arrow {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .sa-grid {
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .sa-card {
+        padding: 1.4rem 1.25rem 1.2rem;
+    }
+
+    .sa-card__name {
+        font-size: 1.45rem;
+    }
+}

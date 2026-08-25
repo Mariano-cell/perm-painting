@@ -920,3 +920,136 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =====================================================
+   WHERE WE WORK
+   Sección puente entre OUR SERVICES y WHY PERMA: los 6
+   índices de zona + el link al hub /service-areas.
+   Mismo patrón de título (punto + h2 mono) que las otras
+   secciones de la home.
+===================================================== */
+
+.where-we-work__main-grid {
+    padding: 2.6rem 1.8rem 3.6rem;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgb(186, 186, 186);
+}
+
+.where-we-work__section-title {
+    display: inline-flex;
+}
+
+.where-we-work__section-title--img {
+    height: 0.8em;
+    width: auto;
+    align-self: center;
+    margin-right: 1rem;
+}
+
+.where-we-work__text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 46ch;
+    margin: 1.8rem 0 0;
+    color: #2a2a2a;
+}
+
+.where-we-work__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+
+    list-style: none;
+    margin: 2.4rem 0 0;
+    padding: 0;
+}
+
+.where-we-work__zone {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.35rem;
+
+    border: 1px solid rgb(186, 186, 186);
+    border-radius: 6px;
+
+    /* Mismo componente que .landing-links__link de landing.css: el texto va
+       dentro de un <span>, que hereda Montserrat de style.css. Se declara
+       igual acá para que la flecha y el fallback queden idénticos. */
+    font-family: "Inconsolata", monospace;
+    font-size: 1.05rem;
+    color: #1a1a1a;
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+}
+
+.where-we-work__zone:hover,
+.where-we-work__zone:focus-visible {
+    background-color: rgba(116, 167, 176, 0.1);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* Link secundario al hub */
+.where-we-work__all {
+    align-self: flex-start;
+    margin-top: 2rem;
+
+    font-family: "Inconsolata", monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    border-bottom: 1px solid transparent;
+
+    transition: border-color 0.25s ease;
+}
+
+.where-we-work__all:hover,
+.where-we-work__all:focus-visible {
+    border-bottom-color: var(--color-primary);
+}
+
+.where-we-work__arrow {
+    display: inline-block;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.where-we-work__zone:hover .where-we-work__arrow,
+.where-we-work__zone:focus-visible .where-we-work__arrow,
+.where-we-work__all:hover .where-we-work__arrow,
+.where-we-work__all:focus-visible .where-we-work__arrow {
+    transform: translateX(4px);
+}
+
+@media (max-width: 900px) {
+    .where-we-work__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .where-we-work__main-grid {
+        padding: 1rem 1rem 2.6rem;
+    }
+
+    .where-we-work__text {
+        font-size: 1rem;
+        margin-top: 1.4rem;
+    }
+
+    .where-we-work__grid {
+        grid-template-columns: 1fr;
+        margin-top: 1.8rem;
+    }
+
+    .where-we-work__zone {
+        font-size: 1rem;
+    }
+}

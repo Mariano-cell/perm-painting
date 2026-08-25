@@ -49,7 +49,7 @@
     </noscript>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css?v=8">
+    <link rel="stylesheet" href="css/home.css?v=9">
     <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="css/footer.css">
@@ -129,20 +129,7 @@
 
                         <li class="site-nav__item"><a class="site-nav__link" href="blog/">BLOG</a></li>
 
-                        <li class="site-nav__item site-nav__item--has-dropdown">
-                            <span class="site-nav__link-row">
-                                <a class="site-nav__link" href="byron-bay.html">AREAS OF SERVICE</a>
-                                <button class="site-nav__caret" type="button" aria-label="Toggle areas menu" aria-expanded="false">▾</button>
-                            </span>
-                            <ul class="site-nav__dropdown">
-                                <li><a class="site-nav__dropdown-link" href="byron-bay.html">Byron Bay</a></li>
-                                <li><a class="site-nav__dropdown-link" href="ballina.html">Ballina</a></li>
-                                <li><a class="site-nav__dropdown-link" href="mullumbimby.html">Mullumbimby</a></li>
-                                <li><a class="site-nav__dropdown-link" href="kingscliff.html">Kingscliff</a></li>
-                                <li><a class="site-nav__dropdown-link" href="tweed-heads.html">Tweed Heads</a></li>
-                                <li><a class="site-nav__dropdown-link" href="lismore.html">Lismore</a></li>
-                            </ul>
-                        </li>
+                        <li class="site-nav__item"><a class="site-nav__link" href="service-areas.html">SERVICE AREAS</a></li>
 
                         <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta"
                                 href="contact.html">CONTACT</a></li>
@@ -364,6 +351,45 @@
 
                 </ul>
 
+
+            </div>
+        </section>
+
+
+        <!-- WHERE WE WORK — puente entre "qué hacemos" y "por qué elegirnos".
+             Los 6 links van directo al índice de cada zona; el link secundario
+             va al hub /service-areas. Antes de esto la home no linkeaba
+             ninguna zona fuera del nav. -->
+        <section class="where-we-work" id="areas" aria-labelledby="where-we-work-title">
+
+            <div class="where-we-work__main-grid">
+
+                <h2 id="where-we-work-title" class="where-we-work__section-title reveal">
+                    <img src="assets/iconos/icons8-punto-y-final-ios-17-glyph/icons8-punto-y-final-60.webp" alt=""
+                        class="where-we-work__section-title--img" width="60" height="60">
+                    WHERE WE WORK
+                </h2>
+
+                <p class="where-we-work__text reveal" style="--reveal-delay: 0.1s">Based in Byron Bay, working across
+                    the Northern Rivers and the Tweed Coast.</p>
+
+                <ul class="where-we-work__grid reveal" style="--reveal-delay: 0.15s" aria-label="Service areas">
+                    <li><a class="where-we-work__zone" href="byron-bay.html"><span>Byron Bay</span><span
+                                class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a></li>
+                    <li><a class="where-we-work__zone" href="ballina.html"><span>Ballina</span><span
+                                class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a></li>
+                    <li><a class="where-we-work__zone" href="mullumbimby.html"><span>Mullumbimby</span><span
+                                class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a></li>
+                    <li><a class="where-we-work__zone" href="kingscliff.html"><span>Kingscliff</span><span
+                                class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a></li>
+                    <li><a class="where-we-work__zone" href="tweed-heads.html"><span>Tweed Heads</span><span
+                                class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a></li>
+                    <li><a class="where-we-work__zone" href="lismore.html"><span>Lismore</span><span
+                                class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a></li>
+                </ul>
+
+                <a class="where-we-work__all reveal" style="--reveal-delay: 0.2s" href="service-areas.html">VIEW ALL
+                    SERVICE AREAS <span class="where-we-work__arrow" aria-hidden="true">&#8594;</span></a>
 
             </div>
         </section>
