@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landing.css">
     <link rel="stylesheet" href="css/service-areas.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
     <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="css/footer.css">
@@ -97,20 +98,65 @@
                 </ol>
             </nav>
 
-            <!-- Hub de cobertura geográfica.
-                 Responsabilidad: elegir REGIÓN. No lista los 10 servicios de cada
-                 zona (eso es el índice de zona) ni pelea keywords locales
-                 ("painters Ballina" es de la landing local). Solo distribuye. -->
             <section class="service-areas" aria-labelledby="service-areas-title">
+                <div class="service-areas__hero">
+                    <div class="service-areas__copy">
+                        <p class="landing-area__label">WHERE WE WORK</p>
 
-                <p class="landing-area__label">WHERE WE WORK</p>
+                        <h1 id="service-areas-title" class="why-perma__text service-areas__title">Painting services across the Northern
+                            Rivers and Tweed Coast</h1>
 
-                <h1 id="service-areas-title" class="area-index__title">Painting services across the Northern Rivers and
-                    Tweed Coast</h1>
+                        <p class="area-index__intro">Perma Painting is based in Byron Bay and works across six main
+                            areas of the Northern Rivers and the Tweed Coast. Pick the one closest to you to see the
+                            painting services we offer there.</p>
+                    </div>
 
-                <p class="area-index__intro">Perma Painting is based in Byron Bay and works across six main areas of the
-                    Northern Rivers and the Tweed Coast. Pick the one closest to you to see the painting services we
-                    offer there.</p>
+                    <div class="service-areas__visual">
+                        <div class="service-atlas service-areas__atlas" data-service-atlas
+                            aria-label="Perma Painting service areas" aria-describedby="service-areas-map-caption">
+                            <div class="service-atlas__layout">
+                                <div class="atlas-stage">
+                                    <div class="atlas-map-card">
+                                        <div class="atlas-map" id="service-areas-map" data-atlas-map role="img"
+                                            aria-label="Interactive grey map of Australia and the Northern Rivers highlighting Perma Painting service localities"></div>
+
+                                        <div class="atlas-map-loader" data-map-loader>
+                                            <span></span>
+                                            <p>Loading the grey map of Australia…</p>
+                                        </div>
+
+                                        <aside class="atlas-directory" aria-label="Service locality directory"
+                                            aria-hidden="true" inert>
+                                            <div class="atlas-search">
+                                                <div class="atlas-search__field">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <circle cx="11" cy="11" r="6.5"></circle>
+                                                        <path d="m16 16 4.2 4.2"></path>
+                                                    </svg>
+                                                    <input id="atlas-search-input" data-atlas-search type="search"
+                                                        aria-label="Find a locality" placeholder="Find a locality"
+                                                        autocomplete="off" spellcheck="false">
+                                                </div>
+                                            </div>
+
+                                            <div class="atlas-directory__list" data-region-list></div>
+                                            <p class="atlas-directory__empty" data-empty-state hidden>No matching place
+                                                in this coverage list.</p>
+                                        </aside>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <noscript>
+                                <p class="service-atlas__noscript">This exploratory map needs JavaScript to render its
+                                    local data.</p>
+                            </noscript>
+                        </div>
+
+                        <p class="service-areas__atlas-caption" id="service-areas-map-caption">Map of all service areas
+                            covered by Perma Painting.</p>
+                    </div>
+                </div>
 
                 <ul class="sa-grid">
 {{ZONE_CARDS}}
@@ -137,6 +183,9 @@
 
 {{FOOTER}}
 
+    <script src="prototypes/service-areas-atlas/assets/service-areas-data.js" defer></script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+    <script src="prototypes/service-areas-atlas/service-areas-atlas.js" defer></script>
     <script src="js/main.js?v=20260824" defer></script>
 
 </body>

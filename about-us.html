@@ -53,6 +53,8 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about-us.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+    <link rel="stylesheet" href="css/service-areas.css">
     <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="css/footer.css">
@@ -396,11 +398,50 @@
                     </h2>
                     </div>
 
-                    <!-- Mapa de zona (mismo componente que las páginas de área) -->
                     <div class="locations__media">
-                        <div class="area-map" data-area-map>
-                            <div class="area-map__canvas" id="area-map-canvas"></div>
+                        <div class="service-atlas service-areas__atlas" data-service-atlas
+                            aria-label="Perma Painting service areas" aria-describedby="about-service-areas-map-caption">
+                            <div class="service-atlas__layout">
+                                <div class="atlas-stage">
+                                    <div class="atlas-map-card">
+                                        <div class="atlas-map" id="service-areas-map" data-atlas-map role="img"
+                                            aria-label="Interactive grey map of Australia and the Northern Rivers highlighting Perma Painting service localities"></div>
+
+                                        <div class="atlas-map-loader" data-map-loader>
+                                            <span></span>
+                                            <p>Loading the grey map of Australia…</p>
+                                        </div>
+
+                                        <aside class="atlas-directory" aria-label="Service locality directory"
+                                            aria-hidden="true" inert>
+                                            <div class="atlas-search">
+                                                <div class="atlas-search__field">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <circle cx="11" cy="11" r="6.5"></circle>
+                                                        <path d="m16 16 4.2 4.2"></path>
+                                                    </svg>
+                                                    <input id="atlas-search-input" data-atlas-search type="search"
+                                                        aria-label="Find a locality" placeholder="Find a locality"
+                                                        autocomplete="off" spellcheck="false">
+                                                </div>
+                                            </div>
+
+                                            <div class="atlas-directory__list" data-region-list></div>
+                                            <p class="atlas-directory__empty" data-empty-state hidden>No matching place
+                                                in this coverage list.</p>
+                                        </aside>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <noscript>
+                                <p class="service-atlas__noscript">This exploratory map needs JavaScript to render its
+                                    local data.</p>
+                            </noscript>
                         </div>
+
+                        <p class="service-areas__atlas-caption" id="about-service-areas-map-caption">Map of all service
+                            areas covered by Perma Painting.</p>
                     </div>
                     </div>
 
@@ -557,7 +598,9 @@
 
     </footer>
 
-    <script src="js/area-map.js" defer></script>
+    <script src="prototypes/service-areas-atlas/assets/service-areas-data.js" defer></script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+    <script src="prototypes/service-areas-atlas/service-areas-atlas.js" defer></script>
     <script src="js/main.js?v=20260824" defer></script>
     <script src="js/about-us-page.js" defer></script>
 </body>

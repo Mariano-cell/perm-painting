@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Service Areas Atlas — Perma Painting prototype</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%233c5b49%22/><text x=%2216%22 y=%2221%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2215%22 fill=%22white%22>P</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+    <link rel="stylesheet" href="service-areas-atlas.css">
+</head>
+<body>
+    <main class="service-atlas" data-service-atlas aria-label="Perma Painting service areas">
+        <div class="service-atlas__layout">
+            <div class="atlas-stage">
+                <div class="atlas-map-card">
+                    <div class="atlas-map" id="service-areas-map" data-atlas-map role="img" aria-label="Interactive grey map travelling from Australia to the Northern Rivers and highlighting Perma Painting service localities"></div>
+
+                    <div class="atlas-map-loader" data-map-loader>
+                        <span></span>
+                        <p>Loading the grey map of Australia…</p>
+                    </div>
+
+                    <aside class="atlas-directory" aria-label="Service locality directory" aria-hidden="true" inert>
+                        <div class="atlas-search">
+                            <div class="atlas-search__field">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+                                <input id="atlas-search-input" data-atlas-search type="search" aria-label="Find a locality" placeholder="Find a locality" autocomplete="off" spellcheck="false">
+                            </div>
+                        </div>
+
+                        <div class="atlas-directory__list" data-region-list></div>
+                        <p class="atlas-directory__empty" data-empty-state hidden>No matching place in this coverage list.</p>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+        <noscript>
+            <p class="service-atlas__noscript">This exploratory map needs JavaScript to render its local data.</p>
+        </noscript>
+    </main>
+
+    <script src="assets/service-areas-data.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="service-areas-atlas.js"></script>
+</body>
+</html>

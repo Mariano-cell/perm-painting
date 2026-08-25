@@ -135,13 +135,14 @@ Lismore como "Painters Lismore".
 
 **Archivos:**
 - `template-service-areas.html` — el molde. Head, header/footer por placeholder,
-  breadcrumb, label, H1, intro, grilla de tarjetas y CTA.
+  breadcrumb, hero con atlas, grilla de tarjetas y CTA.
 - `generate_service_areas_page()` en `scripts/generate-landing-pages.py` — la genera.
   Los datos están arriba de la función: `SERVICE_AREA_ORDER` (el orden de las 6 zonas)
   y `SERVICE_AREA_BLURBS` (la descripción de cada una).
-- `css/service-areas.css` — SOLO la grilla de tarjetas (`.sa-grid` / `.sa-card`), que es
-  la única composición que no existía. Breadcrumb, label, título, intro y CTA se reusan
-  de `style.css` y `landing.css`.
+- `css/service-areas.css` — estilos compartidos del atlas integrado y la grilla de
+  tarjetas (`.sa-grid` / `.sa-card`). También lo cargan la home y About Us.
+- `prototypes/service-areas-atlas/` — fuente compartida del componente: datos locales,
+  JS de MapLibre, prototipo aislado y script de generación de datos.
 
 **`service-areas.html` se genera, NO se edita a mano.**
 
@@ -149,10 +150,11 @@ Lismore como "Painters Lismore".
 Unificarlas cambiaría los crosslinks de las 30 landings de las zonas originales
 (`crosslinks_zones_html()` itera solo sobre `ZONES`).
 
-**Sin JS y sin mapa.** Las tarjetas son anchors HTML normales. El prototipo
-`prototypes/service-areas-atlas` (mapa de suburbios con datos de NSW Spatial Services)
-es un experimento aislado de Mariano y **no** forma parte de esta página; si algún día se
-integra, se evalúa aparte.
+**Atlas integrado.** El mapa usa MapLibre, hace el recorrido Australia → costa este →
+zona de cobertura y recién al terminar revela el buscador/listado. Hover y foco prenden
+la región; click expande sus localidades con transición. Las tarjetas debajo siguen
+siendo anchors HTML normales. La página necesita conexión para cargar MapLibre y el
+basemap de CARTO, pero los polígonos y el directorio viven en el repositorio.
 
 **Breadcrumb de los 6 índices de zona:** pasó a ser `Home → Service Areas → <Zona>`, en el
 HTML visible y en el schema `BreadcrumbList`. Se tocaron `template-area-index.html` y
@@ -161,10 +163,14 @@ HTML visible y en el schema `BreadcrumbList`. Se tocaron `template-area-index.ht
 que es deliberado (el servicio es la keyword).
 
 **Sección "Where We Work" en la home** (`index.html`, entre `our-services` y `why-perma`):
-6 links directos a los índices de zona + un link secundario al hub. Antes de esto la home
-no linkeaba ninguna zona fuera del nav. Los estilos están al final de `css/home.css`; se
-bumpeó el cache-buster a `home.css?v=9`. **`index.html` se edita a mano** (no lo genera
-ningún script), salvo el nav, que lo pisa `propagate-header.py`.
+texto a la izquierda y el mismo atlas a la derecha. Sus estilos de composición viven en
+`css/home.css`; el componente visual está en `css/service-areas.css`. **`index.html` se
+edita a mano** (no lo genera ningún script), salvo el nav, que lo pisa
+`propagate-header.py`.
+
+**About Us:** la sección de localidades conserva su selector y texto, pero el mapa viejo
+`data-area-map` fue reemplazado por el atlas compartido. `js/area-map.js` no se borra:
+todavía lo usan las páginas de área, por ejemplo `byron-bay.html`.
 
 **Copy PROVISORIO:** el H1, la meta description y las 6 descripciones de zona las
 redactamos internamente a partir de las localidades que ya estaban en `NEARBY` /
